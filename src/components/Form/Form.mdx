@@ -1,0 +1,85 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as FormStories from './Form.stories'
+
+<Meta of={FormStories} />
+
+# Form
+
+## Intro
+
+`Form` es el contenedor de formulario del sistema. Corresponde a **UI11-Form** de Figma (`node 57947:46433`, componente único sin variantes). Compone piezas ya construidas: header (título + descripción), un slot de `Input` (UI06), un `CheckboxList` opcional (UI08) y una fila de botones (UI02).
+
+## Demo
+
+<Canvas of={FormStories.WithChecklist} />
+
+## Anatomía
+
+Un `<form>` en columna (`gap: 24px`) con hasta cuatro bloques, todos opcionales salvo el slot de inputs:
+
+1. **Header** — título (`Title/01`) + descripción (`Body/03`)
+2. **Inputs** (`children`) — uno o varios `Input` (UI06), o filas `FormRow` para 2-3 inputs de igual ancho
+3. **Checklist** (`checklist`) — normalmente un `CheckboxList` (UI08) con uno o varios `CheckboxLabel` (UI09)
+4. **Button Row** — botón "Cancelar" (Terciary) opcional + botón "Aceptar" (Primary), reutilizando `Button` (UI02)
+
+## Comportamiento
+
+`Form` es puramente estructural: no valida ni gestiona el estado de sus campos — la aplicación controla cada `Input`/`CheckboxLabel` hijo y recibe `onCancel`/`onAccept` en los botones. Mismo criterio presentacional que el resto del sistema (Tabs, Listbox, CheckboxList).
+
+<Story of={FormStories.NoHeader} />
+<Story of={FormStories.NoDescription} />
+<Story of={FormStories.OnlyAcceptButton} />
+<Story of={FormStories.NoButtonRow} />
+
+## Variantes y tamaños
+
+Figma define dos fragmentos de layout para agrupar inputs en una fila de igual ancho — `z_fragment_row_2_input` y `z_fragment_row_3_input` (nodes 57953:9134 / 57953:9192) — traducidos como un único componente `FormRow`, ya que el layout no depende del número de hijos (2 o 3).
+
+<Story of={FormStories.TwoInputRow} />
+<Story of={FormStories.ThreeInputRow} />
+
+## Tokens
+
+Ningún token semántico nuevo — reutiliza globales ya existentes en `semantic.css`/`responsive.css`/`primitives.css` (verificado literalmente en `get_design_context`, no asumido):
+
+| Elemento | Token |
+|---|---|
+| Gap entre bloques (header/inputs/checklist/botones) | `--spacing-fx-6` (24px) |
+| Gap dentro de header, entre inputs, dentro de `FormRow` | `--spacing-fx-4` (16px) |
+| Gap entre botones | `--spacing-fx-2` (8px) |
+| Color de título y descripción | `--color-content-base` |
+| Tipografía del título | `--text-title-1` / `--text-title-1--line-height` |
+| Tipografía de la descripción | `--text-body-3` / `--text-body-3--line-height` |
+
+El frame de ejemplo en Figma tiene un ancho fijo de 502px (composición de escritorio) — se tradujo como `width: 100%` para que el componente sea fluido dentro de cualquier contenedor, en vez de hardcodear ese ancho.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `title` | Título del formulario | `'Title Form'` | text |
+| `description` | Texto de descripción | `'Description'` | text |
+| `showHeader` | Muestra/oculta el bloque de header completo | `true` | boolean |
+| `showDescription` | Muestra/oculta solo la descripción (con header visible) | `true` | boolean |
+| `children` | Contenido del slot de inputs (`Input`, `FormRow`, etc.) | — | — |
+| `checklist` | Contenido opcional del slot de checkboxes (`CheckboxList`) | — | — |
+| `showButtonRow` | Muestra/oculta la fila de botones completa | `true` | boolean |
+| `showCancelButton` | Muestra/oculta solo el botón "Cancelar" | `true` | boolean |
+| `cancelText` | Texto del botón "Cancelar" | `'CANCEL'` | text |
+| `acceptText` | Texto del botón "Aceptar" | `'ACCEPT'` | text |
+| `onCancel` | Handler del botón "Cancelar" | — | — |
+| `onAccept` | Handler del botón "Aceptar" | — | — |
+
+`FormRow` acepta únicamente `children` (2 o 3 `Input`) y `className`.
+
+## Accesibilidad
+
+- Usa un `<form>` nativo real — envío por teclado (Enter) y semántica de formulario correctas sin JavaScript adicional.
+- Cada `Input`/`CheckboxLabel` hijo ya es accesible por su cuenta (label nativo asociado); `Form` no añade lógica de foco adicional.
+- Los botones reutilizan `Button` (UI02), que ya gestiona `:focus-visible` con contraste suficiente en los 5 temas.
+
+## Componentes relacionados
+
+- **UI06 · Input** — piezas del slot de inputs.
+- **UI08 · Checkbox List** / **UI09 · Checkbox + Label** — piezas del slot de checklist.
+- **UI02 · Button** — botones de la fila inferior.

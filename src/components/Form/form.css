@@ -1,0 +1,76 @@
+/**
+ * UI11-Form — node 57947:46433 en Figma (componente único, sin variantes:
+ * header opcional + slot de inputs + UI08-Checkbox-List opcional + fila de
+ * botones opcional).
+ *
+ * Ningún token semántico nuevo — todo reutiliza globales ya existentes:
+ *   - Gaps: --spacing-fx-6/--spacing-fx-4/--spacing-fx-2 (primitives.css)
+ *   - Título/descripción: --color-content-base (Texts/Base, ya existente)
+ *   - Tipografía: --text-title-1 (Title/01) y --text-body-3 (Body/03),
+ *     ambas ya definidas en responsive.css como escala fluida.
+ *
+ * El frame de Figma tiene un ancho fijo de 502px (ejemplo de escritorio) —
+ * se traduce como `width: 100%` para que el componente sea fluido dentro de
+ * cualquier contenedor (form/módulo), no como un ancho fijo hardcodeado.
+ */
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-fx-6, 24px);
+  width: 100%;
+}
+
+.form__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-fx-4, 16px);
+  width: 100%;
+}
+
+.form__title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-title-1);
+  line-height: var(--text-title-1--line-height);
+  color: var(--color-content-base);
+}
+
+.form__description {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-3);
+  line-height: var(--text-body-3--line-height);
+  color: var(--color-content-base);
+}
+
+.form__inputs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-fx-4, 16px);
+  width: 100%;
+}
+
+.form__checklist {
+  width: 100%;
+}
+
+.form__button-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-fx-2, 8px);
+  width: 100%;
+}
+
+/* z_fragment_row_2_input / z_fragment_row_3_input — fila de 2 o 3 Input
+   con el mismo ancho, usada dentro del slot .form__inputs */
+.form-row {
+  display: flex;
+  gap: var(--spacing-fx-4, 16px);
+  width: 100%;
+}
+
+.form-row > * {
+  flex: 1 0 0;
+  min-width: 0;
+}
