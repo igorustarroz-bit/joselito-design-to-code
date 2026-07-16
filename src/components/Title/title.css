@@ -1,0 +1,58 @@
+/**
+ * Title — node 58196:4804 en Figma (componente único, sin variantes).
+ * Cabecera de sección: título a la izquierda + enlace "Ver todos" con
+ * chevron opcional a la derecha.
+ *
+ * Ningún token nuevo — reutiliza globales ya existentes, verificado
+ * literalmente en `get_design_context`:
+ *   - Título: --text-body-4 / --text-body-4--line-height, --color-content-base
+ *   - Enlace: --text-body-3 / --text-body-3--line-height, --color-content-neutral-1
+ * Sin gap entre el texto del enlace y el icono (verificado con `get_metadata`:
+ * el icono empieza exactamente donde termina el texto, 0px de separación).
+ */
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-fx-4, 16px);
+  width: 100%;
+}
+
+.title-row__title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-4);
+  line-height: var(--text-body-4--line-height);
+  color: var(--color-content-base);
+}
+
+.title-row__link {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.title-row__link-text {
+  font-family: var(--font-body);
+  font-size: var(--text-body-3);
+  line-height: var(--text-body-3--line-height);
+  color: var(--color-content-neutral-1);
+  white-space: nowrap;
+}
+
+.title-row__link-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-content-neutral-1);
+  flex-shrink: 0;
+}
+
+.title-row__link:focus-visible {
+  outline: 2px solid var(--color-icon-accent-1);
+  outline-offset: 2px;
+  border-radius: 2px;
+}

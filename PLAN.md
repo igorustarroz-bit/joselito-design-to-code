@@ -34,7 +34,7 @@ Orden: primero los que son base de otros (botones, tabs/listbox dependen de sus 
 | UI12 · Tag | completado |
 | UI13 · Accordion | completado |
 | UI14 · Placeholder Text | completado |
-| Title | pendiente |
+| Title | completado |
 | Card Product | pendiente |
 | Card Link | pendiente |
 | Card Carrusel | pendiente |
@@ -75,7 +75,7 @@ Contenedores 100% ancho de viewport.
 
 ## Siguiente paso
 
-Con UI14 · Placeholder Text completado, se cierra la sección "Componentes". Seguir con **Title**, después Card Product, Card Link, Card Carrusel, y por último los 27 módulos empezando por "Content / Text + Image" (referencia de calidad marcada en las instrucciones del proyecto).
+Con Title completado, seguir con **Card Product**, después Card Link, Card Carrusel, y por último los 27 módulos empezando por "Content / Text + Image" (referencia de calidad marcada en las instrucciones del proyecto).
 
 ## Notas de implementación
 
@@ -96,3 +96,4 @@ Con UI14 · Placeholder Text completado, se cierra la sección "Componentes". Se
 - **UI12 · Tag**: `src/components/Tag/` (`Tag.jsx`, node 49723:4763, 6 variantes: Size L/XS × Type Transaction/New/Aseptic). Etiqueta estática (`<span>`) sin estados de interacción — Figma no define Hover/Focus/Disabled para este componente. Ningún token semántico nuevo: cada `type` reutiliza colores globales ya existentes (Transaction: `--color-surface-accent-subbrand-sec` + `--color-content-base`; New: `--color-surface-accent-1` + `--color-content-inverted`; Aseptic: `--color-surface-neutral-1` + `--color-content-base`), verificado literalmente en `get_design_context` de cada variante. Tipografía `--text-label-2` (L) / `--text-label-1` (XS), radio `--radius-xxs`, todos ya existentes. Se detectó que la variante Type=New trae el texto "NUEVO" fijo en Figma (a diferencia del placeholder genérico "Label" de Transaction/Aseptic) — se respetó como valor por defecto de `text` para ese tipo, pero sigue siendo una prop sobrescribible. Documentación completa en `Tag.mdx`.
 - **UI13 · Accordion**: `src/components/Accordion/` — dos piezas: `Accordion` (contenedor "slot", node 57943:46123) y `AccordionItem` (traducción de `z_fragment_accordion`, node 57943:46054, 2 variantes: Open=Yes/No). Mismo criterio presentacional que Tabs/CheckboxList: ni `Accordion` ni `AccordionItem` gestionan qué panel está abierto, la app controla `open`/`onToggle` de cada item — permite tanto "solo un panel abierto" como varios simultáneos. La cabecera es un `<button>` nativo real con `aria-expanded`/`aria-controls`; el panel usa `role="region"` + `aria-labelledby`. Ningún token semántico nuevo: fondo `--color-surface-neutral-1`, texto `--color-content-base`, tipografía cabecera `--text-cta-xs`+`--text-cta-s--line-height` (mismo par que UI02-Button tamaño XS), tipografía contenido `--text-body-2`, radio `--radius-l` — todos ya existentes. Iconos Plus/Minus recreados a mano como SVG con `currentColor` (`icons.jsx`). Documentación completa en `Accordion.mdx`.
 - **UI14 · Placeholder Text**: `src/components/PlaceholderText/` (`PlaceholderText.jsx`, node 57961:792, componente único sin variantes). Párrafo de texto genérico (Body/02) pensado como contenido "de relleno" reutilizable dentro de módulos/plantillas; prop `as` permite cambiar el elemento HTML renderizado. Ningún token nuevo: reutiliza `--text-body-2`/`--text-body-2--line-height` y `--color-content-base`, ya usados en componentes anteriores (Accordion, CheckboxLabel). Es el componente más simple del sistema hasta ahora — un solo elemento sin estados ni composición. Documentación completa en `PlaceholderText.mdx`.
+- **Title**: `src/components/Title/` (`Title.jsx`, node 58196:4804, componente único sin variantes). Cabecera de sección: `<h2>` con el título a la izquierda + enlace "Ver todos" con icono chevron a la derecha (renderiza `<a href>` o `<button>` según se pase `href`, mismo criterio que Button/ActionLink). Ningún token nuevo: título usa `--text-body-4`/`--color-content-base`, enlace usa `--text-body-3`/`--color-content-neutral-1`, todos ya existentes. Se verificó con `get_metadata` que no hay separación entre el texto del enlace y el icono (el icono empieza exactamente donde termina el texto). Icono chevron-right recreado a mano como SVG con `currentColor` (`icons.jsx`). Documentación completa en `Title.mdx`.

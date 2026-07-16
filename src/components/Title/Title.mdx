@@ -1,0 +1,58 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as TitleStories from './Title.stories'
+
+<Meta of={TitleStories} />
+
+# Title
+
+## Intro
+
+`Title` traduce el componente **Title** de Figma (`node 58196:4804`, componente único sin variantes): una cabecera de sección con el título a la izquierda y un enlace "Ver todos" con chevron a la derecha. Se usa como cabecera de módulos de listado (p. ej. carruseles y grids de tarjetas).
+
+## Demo
+
+<Canvas of={TitleStories.Default} />
+
+## Anatomía
+
+Una fila (`justify-content: space-between`) con:
+
+1. Un `<h2>` con el título de la sección (Body/04)
+2. Un enlace opcional "Ver todos" (Body/03, color atenuado) + icono chevron a la derecha — sin separación entre texto e icono (verificado en Figma: el icono empieza exactamente donde termina el texto)
+
+## Comportamiento
+
+El enlace renderiza `<a href>` si se pasa `href`, o `<button>` si no — mismo criterio que `Button`/`ActionLink`. Si `showLink` es `false`, solo se muestra el título.
+
+<Story of={TitleStories.NoLink} />
+<Story of={TitleStories.CustomLinkText} />
+
+## Tokens
+
+Ningún token nuevo — reutiliza globales ya existentes en `responsive.css`/`semantic.css` (verificado literalmente en `get_design_context`):
+
+| Elemento | Token |
+|---|---|
+| Título | `--text-body-4` / `--text-body-4--line-height`, color `--color-content-base` |
+| Enlace | `--text-body-3` / `--text-body-3--line-height`, color `--color-content-neutral-1` |
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `title` | Texto del título | `'Title'` | text |
+| `linkText` | Texto del enlace | `'Ver todos'` | text |
+| `showLink` | Muestra/oculta el enlace completo | `true` | boolean |
+| `href` | Si se indica, el enlace es un `<a>`; si no, un `<button>` | — | text |
+| `onClick` | Handler del enlace | — | — |
+
+Acepta además cualquier prop nativa adicional del `<div>` contenedor (`id`, etc.).
+
+## Accesibilidad
+
+- El título usa `<h2>` — nivel semántico de sección, ajustable por CSS externo si el contexto necesita otro nivel de encabezado.
+- El enlace es un `<a>`/`<button>` nativo real: foco y activación por teclado funcionan sin JavaScript adicional; el anillo de `:focus-visible` tiene contraste suficiente en los 5 temas.
+
+## Componentes relacionados
+
+Ninguno directo — es un componente de cabecera reutilizado por módulos de listado (Cards/Gallery, Cards/Product carousel, etc., pendientes).
