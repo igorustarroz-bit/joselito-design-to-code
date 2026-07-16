@@ -1,0 +1,23 @@
+/**
+ * UI08-Checkbox-List — contenedor/slot que agrupa varias instancias de
+ * UI09-Checkbox-Label. Solo tiene dos variantes de layout en Figma
+ * (`Vertical=Yes`/`Vertical=No`), sin token semántico propio: el `gap`
+ * reutiliza directamente primitivas ya existentes (`Spacers-Fixed/fx-2` y
+ * `Spacers-Fixed/fx-4` de `primitives.css`), no se añadió nada nuevo.
+ */
+.checkbox-list {
+  display: flex;
+}
+
+.checkbox-list--vertical {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-fx-2, 8px);
+  width: 100%;
+}
+
+.checkbox-list--horizontal {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--spacing-fx-4, 16px);
+}

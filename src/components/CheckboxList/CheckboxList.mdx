@@ -1,0 +1,61 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as CheckboxListStories from './CheckboxList.stories'
+
+<Meta of={CheckboxListStories} />
+
+# Checkbox List
+
+## Intro
+
+`CheckboxList` es un contenedor "slot" que agrupa varias instancias de **UI09 · Checkbox + Label**. Corresponde a **UI08-Checkbox-List** de Figma (`node 57947:46573`, 2 variantes: Vertical=Yes/No). Es el último eslabón de la cadena de dependencia UI10 → UI09 → UI08.
+
+## Demo
+
+<Canvas of={CheckboxListStories.Vertical} />
+
+## Anatomía
+
+Un `<div role="group">` en flex que distribuye sus hijos (`CheckboxLabel`) en columna o en fila, según la variante. No añade ninguna caja, borde ni fondo propio — es puramente un contenedor de layout.
+
+## Comportamiento
+
+`CheckboxList` no gestiona selección ni estado: cada `CheckboxLabel` hijo recibe su propio `checked`/`onChange` desde la aplicación — mismo criterio presentacional que el resto del sistema (Tabs, Listbox, etc.).
+
+<Story of={CheckboxListStories.WithDisabled} />
+
+## Variantes y tamaños
+
+| Variante Figma | Prop | Layout |
+|---|---|---|
+| Vertical=Yes (por defecto) | `vertical={true}` | Columna, `gap: 8px`, ancho 100% |
+| Vertical=No | `vertical={false}` | Fila, `gap: 16px` |
+
+<Story of={CheckboxListStories.Horizontal} />
+
+## Tokens
+
+Ningún token semántico nuevo. El `gap` reutiliza directamente primitivas ya existentes de `primitives.css` (no hace falta pasar por `semantic.css`, ya que no es un color):
+
+| Variante | Token |
+|---|---|
+| Vertical | `--spacing-fx-2` (8px) |
+| Horizontal | `--spacing-fx-4` (16px) |
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `vertical` | Layout en columna (`true`) o en fila (`false`) | `true` | boolean |
+| `children` | Instancias de `CheckboxLabel` (u otro contenido) | — | — |
+
+Acepta además cualquier prop nativa adicional del `<div>` (`aria-label`, `id`, etc.).
+
+## Accesibilidad
+
+- Usa `role="group"` — se recomienda pasar `aria-label` (o `aria-labelledby`) describiendo el propósito del grupo, especialmente si las opciones son mutuamente relacionadas (p. ej. "Selecciona tus intereses").
+- Cada `CheckboxLabel` hijo ya es accesible por su cuenta (label nativo asociado); `CheckboxList` no necesita lógica adicional de foco o teclado.
+
+## Componentes relacionados
+
+- **UI09 · Checkbox + Label** — la pieza que este componente agrupa.
+- **UI10 · Checkboxes & Radios** — el control de selección base de toda la cadena.
