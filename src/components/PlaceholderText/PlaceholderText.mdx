@@ -1,0 +1,52 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as PlaceholderTextStories from './PlaceholderText.stories'
+
+<Meta of={PlaceholderTextStories} />
+
+# Placeholder Text
+
+## Intro
+
+`PlaceholderText` traduce **UI14-Placeholder-Text** de Figma (`node 57961:792`, componente único sin variantes): un párrafo de texto genérico (Body/02) usado como contenido "de relleno" reutilizable dentro de módulos y plantillas.
+
+## Demo
+
+<Canvas of={PlaceholderTextStories.Default} />
+
+## Anatomía
+
+Un único `<p>` (o el elemento indicado en `as`) con tipografía Body/02 y color de texto base — sin icono, sin caja, sin estados.
+
+<Story of={PlaceholderTextStories.CustomText} />
+
+## Comportamiento
+
+Es puramente presentacional: no tiene lógica ni estados. Sirve como bloque de texto genérico dentro de módulos más grandes (p. ej. una introducción o descripción corta) cuando no hace falta un componente de texto más específico (título, mensaje de campo, etc.).
+
+<Story of={PlaceholderTextStories.AsSpan} />
+
+## Tokens
+
+Ningún token nuevo — reutiliza globales ya existentes en `responsive.css`/`semantic.css`:
+
+| Elemento | Token |
+|---|---|
+| Tipografía | `--text-body-2` / `--text-body-2--line-height` |
+| Color de texto | `--color-content-base` |
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `text` | Contenido del texto | `'Text'` | text |
+| `as` | Elemento HTML a renderizar (`'p'`, `'span'`, etc.) | `'p'` | text |
+
+Acepta además cualquier prop nativa adicional del elemento renderizado (`id`, `className`, etc.).
+
+## Accesibilidad
+
+Al renderizar un elemento de texto nativo (`<p>` por defecto), no requiere atributos ARIA adicionales — el contenido es texto plano legible por cualquier tecnología de asistencia.
+
+## Componentes relacionados
+
+Ninguno directo — es un componente hoja de texto genérico, usado dentro de módulos de contenido (p. ej. "Content / Text only", "Content / Intro text", pendientes).

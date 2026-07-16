@@ -1,0 +1,16 @@
+/**
+ * UI14-Placeholder-Text — node 57961:792 en Figma (componente único, sin
+ * variantes). Es un párrafo de texto genérico (Body/02) usado como
+ * "relleno" de contenido dentro de otros módulos/plantillas.
+ *
+ * Ningún token nuevo: tipografía --text-body-2/--text-body-2--line-height
+ * y color --color-content-base, ambos ya existentes y reutilizados en
+ * varios componentes anteriores (Accordion, CheckboxLabel, etc.).
+ */
+.placeholder-text {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-2);
+  line-height: var(--text-body-2--line-height);
+  color: var(--color-content-base);
+}
