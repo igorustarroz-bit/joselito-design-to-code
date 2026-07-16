@@ -1,0 +1,48 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import { SurfaceSwatches, ContentSamples, IconSwatches } from './SemanticSwatches'
+
+<Meta title="Tokens/Semantic-Color" />
+
+# Semantic-Color
+
+## Intro
+
+Los tokens **Semantic-Color** son los roles de color con significado (superficie, texto, icono) que sí se usan directamente en componentes y módulos — a diferencia de los primitivos, que son solo la paleta base. Se generan desde la colección `Semantic-Color` de variables de Figma: 5 temas (modos), aplicados en código mediante el atributo `data-theme` en el contenedor raíz de un componente o módulo.
+
+Un hijo puede sobreescribir el tema heredado de su padre poniendo su propio `data-theme` (por ejemplo, un footer en `dark-black-neutral` con un bloque social hijo en `light-white`).
+
+Usa el selector **"Tema"** en la barra de herramientas de Storybook (arriba) para cambiar el tema activo y ver cómo cambian los ejemplos de esta página.
+
+Esta página documenta solo los roles **globales**: superficie (`Backgrounds` → `--color-surface-*`), texto (`Texts` → `--color-content-*`) e icono/trazo (`Strokes-Icons` → `--color-icon-*`). Los roles de color específicos de un componente en esta misma colección de Figma (`Button/*`, `Forms/*`) se documentarán al construir ese componente.
+
+## Demo
+
+<div
+  className="p-6 rounded flex flex-col gap-3"
+  style={{ background: 'var(--color-surface-base)' }}
+>
+  <p className="m-0 text-lg font-semibold" style={{ color: 'var(--color-content-base)' }}>
+    Tarjeta de ejemplo
+  </p>
+  <p className="m-0 text-sm" style={{ color: 'var(--color-content-neutral-1)' }}>
+    Este bloque usa <code>--color-surface-base</code> y <code>--color-content-*</code>. Cambia
+    el tema en la barra de herramientas de arriba para ver cómo se adapta sin tocar el HTML.
+  </p>
+  <a className="text-sm underline w-fit" style={{ color: 'var(--color-content-link)' }} href="#">
+    Enlace de ejemplo (--color-content-link)
+  </a>
+</div>
+
+## Tokens
+
+### Superficie (`surface`)
+
+<SurfaceSwatches />
+
+### Texto (`content`)
+
+<ContentSamples />
+
+### Icono / trazo (`icon`)
+
+<IconSwatches />

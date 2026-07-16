@@ -12,7 +12,7 @@ Orden: primitivas primero, luego semánticos/responsive.
 |---|---|
 | Primitives (color, espaciado, tipografía) | completado |
 | Responsive (breakpoints: XS-375, SM-480, M-768, LG-1024, XL-1440, XXL-1620, XXXL-1920) | completado |
-| Semantic-Color (temas: Light-White, Light-Grey, Dark-Red-Primary, Dark-Black-Neutral, Light-Yellow) | pendiente |
+| Semantic-Color (temas: Light-White, Light-Grey, Dark-Red-Primary, Dark-Black-Neutral, Light-Yellow) | completado |
 
 ## 2. Componentes
 
@@ -75,9 +75,10 @@ Contenedores 100% ancho de viewport.
 
 ## Siguiente paso
 
-Seguir con **Semantic-Color** (temas) antes de tocar ningún componente.
+Tokens completos. Empezar por los componentes base: **UI01 · Nav Button**, **UI02 · Button**, **UI03 · Button Icon** (los que son base de otros).
 
 ## Notas de implementación
 
 - **Primitives**: `src/styles/tokens/primitives.css` (`@theme` de Tailwind v4, importado desde `src/index.css`), catálogo de nombres en `src/tokens/primitives.js`, documentado en Storybook en `src/stories/tokens/Primitives.mdx`. Se detectó una inconsistencia en Figma (`Font-Weight/Title-Black` y `Title-Bold` con el mismo valor no válido como peso CSS) — pendiente de aclarar con diseño, documentada en el propio Storybook.
 - **Responsive**: `src/styles/tokens/responsive.css` — breakpoints redefinidos en `@theme` (`--breakpoint-xs/sm/m/lg/xl/xxl/xxxl`, sustituyendo la escala por defecto de Tailwind) + variables en `:root` sobrescritas mobile-first dentro de `@media (min-width: ...)` para grid de 12 columnas, escala tipográfica fluida, espaciado responsive y radios. Documentado en `src/stories/tokens/Responsive.mdx`. Alcance limitado a lo fundacional: los valores responsive específicos de Button/Forms/Input de esta misma colección Figma se traducirán al construir esos componentes. Los "Cols Size" en px de Figma no se tradujeron como tokens (se construye el grid con `grid-template-columns: repeat(12, 1fr)` + `gap`). Se detectó que `Corners/L` no varía de forma monótona entre breakpoints en el propio Figma (18px en XL, vuelve a 12px en XXL) — respetado tal cual.
+- **Semantic-Color**: `src/styles/tokens/semantic.css` — 5 temas vía `[data-theme="..."]` (`light-white` por defecto en `:root`, `light-grey`, `dark-red-primary`, `dark-black-neutral`, `light-yellow`). Roles traducidos: `Backgrounds` → `--color-surface-*`, `Texts` → `--color-content-*`, `Strokes-Icons` → `--color-icon-*`. Documentado en `src/stories/tokens/Semantic.mdx`, con selector global "Tema" añadido a la toolbar de Storybook (`.storybook/preview.jsx`, aplica `data-theme` a `<html>`) — reutilizable para todos los componentes futuros. Alcance limitado a roles globales: `Button/*` y `Forms/*` de esta misma colección se traducirán al construir esos componentes.
