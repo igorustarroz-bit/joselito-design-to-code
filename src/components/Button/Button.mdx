@@ -1,0 +1,102 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as ButtonStories from './Button.stories'
+
+<Meta of={ButtonStories} />
+
+# Button
+
+## Intro
+
+`Button` es el botón de acción principal del sistema: llamadas a la acción, envíos de formulario, navegación destacada. Corresponde al componente **UI02-Button** de Figma (`node 49038:9189`), que define tres tipos distintos (Primary, Secondary, Terciary) como variantes de un mismo componente para simplificar su uso.
+
+## Demo
+
+<Canvas of={ButtonStories.Default} />
+
+<Controls />
+
+## Anatomía
+
+Un `Button` es una fila horizontal centrada con, de izquierda a derecha:
+
+1. **Icono izquierdo** (opcional, ej. calendario) — 24×24 (L/M), 20×20 (S), 16×16 (XS)
+2. **Texto** — mayúsculas, tipografía CTA
+3. **Icono derecho** (opcional, ej. flecha) — mismo tamaño que el icono izquierdo
+
+Separación entre icono y texto de 8px (`--spacing-r-2`). La altura, el padding horizontal y el ancho mínimo son constantes en los 7 breakpoints de Figma (no cambian de forma responsive), igual que en `NavButton`.
+
+## Temas
+
+Cambia el selector **"Tema"** en la barra de herramientas de Storybook para ver `Button` en los 5 temas semánticos (Light-White, Light-Grey, Dark-Red-Primary, Dark-Black-Neutral, Light-Yellow) — fondo, borde, texto e icono se adaptan automáticamente vía los tokens `--color-btn-{primary|secondary|terciary}-*`.
+
+## Comportamiento
+
+- **Hover** y **Focus** son automáticos (`:hover`, `:focus-visible`) — no se controlan por prop.
+- **Selected** añade `aria-current="page"` y aplica los tokens de estado seleccionado. Al estar seleccionado, ya no reacciona a hover.
+- **Disabled** desactiva la interacción (`pointer-events: none`) y aplica los tokens de estado deshabilitado.
+- Si se pasa `href`, se renderiza como `<a>`; si no, como `<button type="button">`.
+
+## Variantes y tamaños
+
+Tres tipos — **Primary** (acción principal, fondo sólido), **Secondary** (acción alternativa) y **Terciary** (acción de bajo énfasis, con borde) — y cuatro tamaños: **L**, **M**, **S**, **XS**.
+
+<Story of={ButtonStories.Secondary} />
+<Story of={ButtonStories.Terciary} />
+<Story of={ButtonStories.WithIcons} />
+<Story of={ButtonStories.SizeM} />
+<Story of={ButtonStories.SizeS} />
+<Story of={ButtonStories.SizeXS} />
+<Story of={ButtonStories.Selected} />
+<Story of={ButtonStories.Disabled} />
+<Story of={ButtonStories.AsLink} />
+
+## Tokens
+
+### Color (por tipo y estado)
+
+| Estado | Fill | Stroke | Text | Icon |
+|---|---|---|---|---|
+| Default | `--color-btn-{tipo}-default-fill` | `--color-btn-{tipo}-default-stroke` | `--color-btn-{tipo}-default-text` | `--color-btn-{tipo}-default-icon` |
+| Hover | `--color-btn-{tipo}-hover-fill` | `--color-btn-{tipo}-hover-stroke` | `--color-btn-{tipo}-hover-text` | `--color-btn-{tipo}-hover-icon` |
+| Focus | `--color-btn-{tipo}-focused-fill` | `--color-btn-{tipo}-focused-stroke` | `--color-btn-{tipo}-focused-text` | `--color-btn-{tipo}-focused-icon` |
+| Selected | `--color-btn-{tipo}-selected-fill` | `--color-btn-{tipo}-selected-stroke` | `--color-btn-{tipo}-selected-text` | `--color-btn-{tipo}-selected-icon` |
+| Disabled | `--color-btn-{tipo}-disabled-fill` | `--color-btn-{tipo}-disabled-stroke` | `--color-btn-{tipo}-disabled-text` | `--color-btn-{tipo}-disabled-icon` |
+
+`{tipo}` es `primary`, `secondary` o `terciary`.
+
+### Tamaño y tipografía
+
+| Tamaño | Altura | Padding | Ancho mín. | Icono | Font-size | Line-height |
+|---|---|---|---|---|---|---|
+| L | 64px | 32px | 168px | 24px | `--text-cta-s` | `--text-cta-l--line-height` |
+| M | 56px | 24px | 110px | 20px | `--text-cta-s` | `--text-cta-l--line-height` |
+| S | 48px | 20px | 96px | 20px | `--text-cta-xs` | `--text-cta-m--line-height` |
+| XS | 40px | 16px | 56px | 16px | `--text-cta-xs` | `--text-cta-s--line-height` |
+
+Otros: `--font-cta` (familia), `--tracking-cta` (letter-spacing), `--spacing-r-2` (gap icono-texto).
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `text` | Texto del botón | `"Button"` | text |
+| `type` | Tipo de énfasis: `primary`, `secondary`, `terciary` | `"primary"` | select |
+| `size` | Tamaño: `l`, `m`, `s`, `xs` | `"l"` | select |
+| `showIconLeft` | Muestra el icono izquierdo (calendario) | `false` | boolean |
+| `showIconRight` | Muestra el icono derecho (flecha) | `false` | boolean |
+| `selected` | Marca el botón como activo (`aria-current="page"`) | `false` | boolean |
+| `disabled` | Desactiva la interacción | `false` | boolean |
+| `href` | Si se indica, renderiza un `<a>` en vez de `<button>` | — | text |
+
+## Accesibilidad
+
+- El estado `selected` se comunica con `aria-current="page"`, detectable por lectores de pantalla y navegación por teclado.
+- El estado `disabled` usa el atributo nativo `disabled` en `<button>`, o `aria-disabled` + `pointer-events: none` cuando se renderiza como `<a>` (los enlaces no soportan `disabled` nativo).
+- El foco visible (`:focus-visible`) usa un token de color con contraste suficiente en los 5 temas.
+- Los iconos son puramente decorativos (`aria-hidden="true"`); el texto visible ya describe la acción.
+
+## Componentes relacionados
+
+- **UI01 · Nav Button** — botón de navegación terciario, mismo patrón de estados/temas.
+- **UI03 · Button Icon** — botón de solo icono (pendiente).
+- **UI04 · Button Action Link** — enlace de acción (pendiente).

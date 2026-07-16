@@ -1,0 +1,193 @@
+/**
+ * UI02-Button — layout fijo por tamaño (constante en los 7 breakpoints de
+ * Figma) + color por tipo/estado vía variables locales resueltas desde los
+ * tokens semánticos de src/styles/tokens/semantic.css (--color-btn-*).
+ *
+ * Patrón: cada [data-type] fija --btn-fill/--btn-stroke/--btn-text/--btn-icon
+ * a los tokens "Default"; cada pseudo-clase/atributo de estado los
+ * sobreescribe con los tokens del estado correspondiente. La base del
+ * componente solo lee esas 4 variables locales, evitando repetir reglas de
+ * color por cada combinación tipo x estado.
+ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-r-2);
+  border: 1px solid transparent;
+  background: var(--btn-fill);
+  border-color: var(--btn-stroke);
+  color: var(--btn-text);
+  font-family: var(--font-cta);
+  letter-spacing: var(--tracking-cta);
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn__icon {
+  flex-shrink: 0;
+  color: var(--btn-icon);
+}
+
+.btn__label {
+  white-space: nowrap;
+}
+
+/* Tamaños — valores constantes en los 7 breakpoints de Figma */
+.btn--l {
+  height: 64px;
+  padding-inline: 32px;
+  min-width: 168px;
+  font-size: var(--text-cta-s);
+  line-height: var(--text-cta-l--line-height);
+}
+.btn--l .btn__icon {
+  width: 24px;
+  height: 24px;
+}
+
+.btn--m {
+  height: 56px;
+  padding-inline: 24px;
+  min-width: 110px;
+  font-size: var(--text-cta-s);
+  line-height: var(--text-cta-l--line-height);
+}
+.btn--m .btn__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.btn--s {
+  height: 48px;
+  padding-inline: 20px;
+  min-width: 96px;
+  font-size: var(--text-cta-xs);
+  line-height: var(--text-cta-m--line-height);
+}
+.btn--s .btn__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.btn--xs {
+  height: 40px;
+  padding-inline: 16px;
+  min-width: 56px;
+  font-size: var(--text-cta-xs);
+  line-height: var(--text-cta-s--line-height);
+}
+.btn--xs .btn__icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Primary */
+.btn[data-type='primary'] {
+  --btn-fill: var(--color-btn-primary-default-fill);
+  --btn-stroke: var(--color-btn-primary-default-stroke);
+  --btn-text: var(--color-btn-primary-default-text);
+  --btn-icon: var(--color-btn-primary-default-icon);
+}
+.btn[data-type='primary']:hover:not(:disabled):not([aria-disabled='true']):not([aria-current]) {
+  --btn-fill: var(--color-btn-primary-hover-fill);
+  --btn-stroke: var(--color-btn-primary-hover-stroke);
+  --btn-text: var(--color-btn-primary-hover-text);
+  --btn-icon: var(--color-btn-primary-hover-icon);
+}
+.btn[data-type='primary']:focus-visible {
+  --btn-fill: var(--color-btn-primary-focused-fill);
+  --btn-stroke: var(--color-btn-primary-focused-stroke);
+  --btn-text: var(--color-btn-primary-focused-text);
+  --btn-icon: var(--color-btn-primary-focused-icon);
+}
+.btn[data-type='primary'][aria-current] {
+  --btn-fill: var(--color-btn-primary-selected-fill);
+  --btn-stroke: var(--color-btn-primary-selected-stroke);
+  --btn-text: var(--color-btn-primary-selected-text);
+  --btn-icon: var(--color-btn-primary-selected-icon);
+}
+.btn[data-type='primary']:disabled,
+.btn[data-type='primary'][aria-disabled='true'] {
+  --btn-fill: var(--color-btn-primary-disabled-fill);
+  --btn-stroke: var(--color-btn-primary-disabled-stroke);
+  --btn-text: var(--color-btn-primary-disabled-text);
+  --btn-icon: var(--color-btn-primary-disabled-icon);
+}
+
+/* Secondary */
+.btn[data-type='secondary'] {
+  --btn-fill: var(--color-btn-secondary-default-fill);
+  --btn-stroke: var(--color-btn-secondary-default-stroke);
+  --btn-text: var(--color-btn-secondary-default-text);
+  --btn-icon: var(--color-btn-secondary-default-icon);
+}
+.btn[data-type='secondary']:hover:not(:disabled):not([aria-disabled='true']):not([aria-current]) {
+  --btn-fill: var(--color-btn-secondary-hover-fill);
+  --btn-stroke: var(--color-btn-secondary-hover-stroke);
+  --btn-text: var(--color-btn-secondary-hover-text);
+  --btn-icon: var(--color-btn-secondary-hover-icon);
+}
+.btn[data-type='secondary']:focus-visible {
+  --btn-fill: var(--color-btn-secondary-focused-fill);
+  --btn-stroke: var(--color-btn-secondary-focused-stroke);
+  --btn-text: var(--color-btn-secondary-focused-text);
+  --btn-icon: var(--color-btn-secondary-focused-icon);
+}
+.btn[data-type='secondary'][aria-current] {
+  --btn-fill: var(--color-btn-secondary-selected-fill);
+  --btn-stroke: var(--color-btn-secondary-selected-stroke);
+  --btn-text: var(--color-btn-secondary-selected-text);
+  --btn-icon: var(--color-btn-secondary-selected-icon);
+}
+.btn[data-type='secondary']:disabled,
+.btn[data-type='secondary'][aria-disabled='true'] {
+  --btn-fill: var(--color-btn-secondary-disabled-fill);
+  --btn-stroke: var(--color-btn-secondary-disabled-stroke);
+  --btn-text: var(--color-btn-secondary-disabled-text);
+  --btn-icon: var(--color-btn-secondary-disabled-icon);
+}
+
+/* Terciary */
+.btn[data-type='terciary'] {
+  --btn-fill: var(--color-btn-terciary-default-fill);
+  --btn-stroke: var(--color-btn-terciary-default-stroke);
+  --btn-text: var(--color-btn-terciary-default-text);
+  --btn-icon: var(--color-btn-terciary-default-icon);
+}
+.btn[data-type='terciary']:hover:not(:disabled):not([aria-disabled='true']):not([aria-current]) {
+  --btn-fill: var(--color-btn-terciary-hover-fill);
+  --btn-stroke: var(--color-btn-terciary-hover-stroke);
+  --btn-text: var(--color-btn-terciary-hover-text);
+  --btn-icon: var(--color-btn-terciary-hover-icon);
+}
+.btn[data-type='terciary']:focus-visible {
+  --btn-fill: var(--color-btn-terciary-focused-fill);
+  --btn-stroke: var(--color-btn-terciary-focused-stroke);
+  --btn-text: var(--color-btn-terciary-focused-text);
+  --btn-icon: var(--color-btn-terciary-focused-icon);
+}
+.btn[data-type='terciary'][aria-current] {
+  --btn-fill: var(--color-btn-terciary-selected-fill);
+  --btn-stroke: var(--color-btn-terciary-selected-stroke);
+  --btn-text: var(--color-btn-terciary-selected-text);
+  --btn-icon: var(--color-btn-terciary-selected-icon);
+}
+.btn[data-type='terciary']:disabled,
+.btn[data-type='terciary'][aria-disabled='true'] {
+  --btn-fill: var(--color-btn-terciary-disabled-fill);
+  --btn-stroke: var(--color-btn-terciary-disabled-stroke);
+  --btn-text: var(--color-btn-terciary-disabled-text);
+  --btn-icon: var(--color-btn-terciary-disabled-icon);
+}
+
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  cursor: not-allowed;
+  pointer-events: none;
+}

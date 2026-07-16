@@ -21,7 +21,7 @@ Orden: primero los que son base de otros (botones, tabs/listbox dependen de sus 
 | Componente | Estado |
 |---|---|
 | UI01 · Nav Button | completado |
-| UI02 · Button | pendiente |
+| UI02 · Button | completado |
 | UI03 · Button Icon | pendiente |
 | UI04 · Button Action Link | pendiente |
 | UI05 · Tabs (incl. z_fragment_tab_primary / secondary) | pendiente |
@@ -75,7 +75,7 @@ Contenedores 100% ancho de viewport.
 
 ## Siguiente paso
 
-Seguir con **UI02 · Button** y **UI03 · Button Icon**.
+Seguir con **UI03 · Button Icon**.
 
 ## Notas de implementación
 
@@ -83,3 +83,4 @@ Seguir con **UI02 · Button** y **UI03 · Button Icon**.
 - **Responsive**: `src/styles/tokens/responsive.css` — breakpoints redefinidos en `@theme` (`--breakpoint-xs/sm/m/lg/xl/xxl/xxxl`, sustituyendo la escala por defecto de Tailwind) + variables en `:root` sobrescritas mobile-first dentro de `@media (min-width: ...)` para grid de 12 columnas, escala tipográfica fluida, espaciado responsive y radios. Documentado en `src/stories/tokens/Responsive.mdx`. Alcance limitado a lo fundacional: los valores responsive específicos de Button/Forms/Input de esta misma colección Figma se traducirán al construir esos componentes. Los "Cols Size" en px de Figma no se tradujeron como tokens (se construye el grid con `grid-template-columns: repeat(12, 1fr)` + `gap`). Se detectó que `Corners/L` no varía de forma monótona entre breakpoints en el propio Figma (18px en XL, vuelve a 12px en XXL) — respetado tal cual.
 - **Semantic-Color**: `src/styles/tokens/semantic.css` — 5 temas vía `[data-theme="..."]` (`light-white` por defecto en `:root`, `light-grey`, `dark-red-primary`, `dark-black-neutral`, `light-yellow`). Roles traducidos: `Backgrounds` → `--color-surface-*`, `Texts` → `--color-content-*`, `Strokes-Icons` → `--color-icon-*`. Documentado en `src/stories/tokens/Semantic.mdx`, con selector global "Tema" añadido a la toolbar de Storybook (`.storybook/preview.jsx`, aplica `data-theme` a `<html>`) — reutilizable para todos los componentes futuros. Alcance limitado a roles globales: `Button/*` y `Forms/*` de esta misma colección se traducirán al construir esos componentes.
 - **UI01 · Nav Button**: `src/components/NavButton/`. Se añadieron los tokens `Button/Nav/*` (fill/stroke/text/icon × 5 estados × 5 temas) a `semantic.css` (`--color-nav-*`) y el layout fijo (`--nav-button-height/padding-x/min-width`, constante en los 7 breakpoints de Figma) en `nav-button.css` del propio componente. Hover/Focus son pseudo-clases CSS; Selected/Disabled son props (`selected` → `aria-current="page"`, `disabled`). Iconos (`IconGlobe`, `IconChevronDown`) recreados a mano como SVG con `currentColor` en vez de usar los assets rasterizados exportados por Figma (efímeros, expiran en 7 días). Documentación completa en `NavButton.mdx`.
+- **UI02 · Button**: `src/components/Button/`. Componente único con prop `type` (`primary`/`secondary`/`terciary`) en vez de tres componentes separados, ya que Figma los modela como variantes de un mismo master (`UI02-Button`, node 49038:9189) y la propia descripción del componente en Figma confirma que es una simplificación intencional. Se añadieron los tokens `Button/{Primary,Secondary,Terciary}/*` (fill/stroke/text/icon × 5 estados × 5 temas, 300 variables) a `semantic.css` (`--color-btn-{tipo}-{estado}-*`). Patrón CSS nuevo respecto a Nav Button: cada `[data-type]` fija 4 variables locales (`--btn-fill/stroke/text/icon`) a los tokens "Default", y cada pseudo-clase/atributo de estado las sobreescribe — evita repetir la regla de color en cada combinación tipo×estado. Layout por tamaño (L/M/S/XS: altura, padding, ancho mínimo) constante en los 7 breakpoints de Figma (igual que Nav Button), hardcodeado en `button.css` porque las variables `Layout/Button/*` de Figma no varían entre modos. Tipografía: L/M usan `--text-cta-s` + `--text-cta-l--line-height` (estilo Figma "CTA/03", mezcla intencional de escalas SZ/LH); S usa `--text-cta-xs` + `--text-cta-m--line-height` ("CTA/02"); XS usa `--text-cta-xs` + `--text-cta-s--line-height` ("CTA/01") — verificado leyendo cada tamaño en Figma, no asumido. Iconos (`IconCalendarBlank`, `IconArrowRight`) recreados a mano como SVG con `currentColor`, escalados por tamaño vía CSS (24/20/20/16px). Documentación completa en `Button.mdx`.

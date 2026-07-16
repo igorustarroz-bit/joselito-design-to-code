@@ -108,6 +108,72 @@
   --color-nav-disabled-stroke: rgb(0 0 0 / 0);
   --color-nav-disabled-text: rgb(0 0 0 / 0.2);
   --color-nav-disabled-icon: rgb(0 0 0 / 0.2);
+
+  /* Button/Primary (UI02-Button) */
+  --color-btn-primary-default-fill: #000000;
+  --color-btn-primary-default-stroke: rgb(0 0 0 / 0);
+  --color-btn-primary-default-text: #ffffff;
+  --color-btn-primary-default-icon: #ffffff;
+  --color-btn-primary-hover-fill: #481815;
+  --color-btn-primary-hover-stroke: #000000;
+  --color-btn-primary-hover-text: #ffffff;
+  --color-btn-primary-hover-icon: #ffffff;
+  --color-btn-primary-focused-fill: #e23f36;
+  --color-btn-primary-focused-stroke: #481815;
+  --color-btn-primary-focused-text: #ffffff;
+  --color-btn-primary-focused-icon: #ffffff;
+  --color-btn-primary-selected-fill: #481815;
+  --color-btn-primary-selected-stroke: #e23f36;
+  --color-btn-primary-selected-text: #ffffff;
+  --color-btn-primary-selected-icon: #ffffff;
+  --color-btn-primary-disabled-fill: rgb(0 0 0 / 0.06);
+  --color-btn-primary-disabled-stroke: rgb(0 0 0 / 0);
+  --color-btn-primary-disabled-text: rgb(0 0 0 / 0.2);
+  --color-btn-primary-disabled-icon: rgb(0 0 0 / 0.2);
+
+  /* Button/Secondary (UI02-Button) */
+  --color-btn-secondary-default-fill: #f7f7f7;
+  --color-btn-secondary-default-stroke: #f7f7f7;
+  --color-btn-secondary-default-text: #000000;
+  --color-btn-secondary-default-icon: #000000;
+  --color-btn-secondary-hover-fill: #e23f36;
+  --color-btn-secondary-hover-stroke: rgb(0 0 0 / 0);
+  --color-btn-secondary-hover-text: #ffffff;
+  --color-btn-secondary-hover-icon: #ffffff;
+  --color-btn-secondary-focused-fill: #f7f7f7;
+  --color-btn-secondary-focused-stroke: #e23f36;
+  --color-btn-secondary-focused-text: #000000;
+  --color-btn-secondary-focused-icon: #000000;
+  --color-btn-secondary-selected-fill: #e23f36;
+  --color-btn-secondary-selected-stroke: rgb(255 255 255 / 0);
+  --color-btn-secondary-selected-text: #ffffff;
+  --color-btn-secondary-selected-icon: #ffffff;
+  --color-btn-secondary-disabled-fill: rgb(0 0 0 / 0.06);
+  --color-btn-secondary-disabled-stroke: rgb(0 0 0 / 0);
+  --color-btn-secondary-disabled-text: rgb(0 0 0 / 0.2);
+  --color-btn-secondary-disabled-icon: rgb(0 0 0 / 0.2);
+
+  /* Button/Terciary (UI02-Button) */
+  --color-btn-terciary-default-fill: #ffffff;
+  --color-btn-terciary-default-stroke: rgb(0 0 0 / 0.2);
+  --color-btn-terciary-default-text: #000000;
+  --color-btn-terciary-default-icon: #e23f36;
+  --color-btn-terciary-hover-fill: #ffffff;
+  --color-btn-terciary-hover-stroke: #e23f36;
+  --color-btn-terciary-hover-text: #000000;
+  --color-btn-terciary-hover-icon: #000000;
+  --color-btn-terciary-focused-fill: #f7f7f7;
+  --color-btn-terciary-focused-stroke: #e23f36;
+  --color-btn-terciary-focused-text: #260200;
+  --color-btn-terciary-focused-icon: #260200;
+  --color-btn-terciary-selected-fill: #e23f36;
+  --color-btn-terciary-selected-stroke: rgb(255 255 255 / 0);
+  --color-btn-terciary-selected-text: #ffffff;
+  --color-btn-terciary-selected-icon: #ffffff;
+  --color-btn-terciary-disabled-fill: rgb(0 0 0 / 0.06);
+  --color-btn-terciary-disabled-stroke: rgb(0 0 0 / 0);
+  --color-btn-terciary-disabled-text: rgb(0 0 0 / 0.2);
+  --color-btn-terciary-disabled-icon: rgb(0 0 0 / 0.2);
 }
 
 [data-theme="light-grey"] {
@@ -205,6 +271,72 @@
   --color-nav-disabled-stroke: rgb(0 0 0 / 0);
   --color-nav-disabled-text: rgb(0 0 0 / 0.2);
   --color-nav-disabled-icon: rgb(0 0 0 / 0.2);
+
+  /* Button/Primary (UI02-Button) */
+  --color-btn-primary-default-fill: #000000;
+  --color-btn-primary-default-stroke: rgb(0 0 0 / 0);
+  --color-btn-primary-default-text: #ffffff;
+  --color-btn-primary-default-icon: #ffffff;
+  --color-btn-primary-hover-fill: #481815;
+  --color-btn-primary-hover-stroke: #000000;
+  --color-btn-primary-hover-text: #ffffff;
+  --color-btn-primary-hover-icon: #ffffff;
+  --color-btn-primary-focused-fill: #e23f36;
+  --color-btn-primary-focused-stroke: #481815;
+  --color-btn-primary-focused-text: #ffffff;
+  --color-btn-primary-focused-icon: #ffffff;
+  --color-btn-primary-selected-fill: #481815;
+  --color-btn-primary-selected-stroke: #e23f36;
+  --color-btn-primary-selected-text: #ffffff;
+  --color-btn-primary-selected-icon: #ffffff;
+  --color-btn-primary-disabled-fill: rgb(0 0 0 / 0.06);
+  --color-btn-primary-disabled-stroke: rgb(0 0 0 / 0);
+  --color-btn-primary-disabled-text: rgb(0 0 0 / 0.2);
+  --color-btn-primary-disabled-icon: rgb(0 0 0 / 0.2);
+
+  /* Button/Secondary (UI02-Button) */
+  --color-btn-secondary-default-fill: #ffffff;
+  --color-btn-secondary-default-stroke: #ffffff;
+  --color-btn-secondary-default-text: #000000;
+  --color-btn-secondary-default-icon: #000000;
+  --color-btn-secondary-hover-fill: #e23f36;
+  --color-btn-secondary-hover-stroke: rgb(0 0 0 / 0);
+  --color-btn-secondary-hover-text: #ffffff;
+  --color-btn-secondary-hover-icon: #ffffff;
+  --color-btn-secondary-focused-fill: #ffffff;
+  --color-btn-secondary-focused-stroke: #e23f36;
+  --color-btn-secondary-focused-text: #000000;
+  --color-btn-secondary-focused-icon: #000000;
+  --color-btn-secondary-selected-fill: #e23f36;
+  --color-btn-secondary-selected-stroke: rgb(255 255 255 / 0);
+  --color-btn-secondary-selected-text: #ffffff;
+  --color-btn-secondary-selected-icon: #ffffff;
+  --color-btn-secondary-disabled-fill: rgb(0 0 0 / 0.06);
+  --color-btn-secondary-disabled-stroke: rgb(0 0 0 / 0);
+  --color-btn-secondary-disabled-text: rgb(0 0 0 / 0.2);
+  --color-btn-secondary-disabled-icon: rgb(0 0 0 / 0.2);
+
+  /* Button/Terciary (UI02-Button) */
+  --color-btn-terciary-default-fill: #f7f7f7;
+  --color-btn-terciary-default-stroke: rgb(0 0 0 / 0.2);
+  --color-btn-terciary-default-text: #000000;
+  --color-btn-terciary-default-icon: #e23f36;
+  --color-btn-terciary-hover-fill: #f7f7f7;
+  --color-btn-terciary-hover-stroke: #e23f36;
+  --color-btn-terciary-hover-text: #000000;
+  --color-btn-terciary-hover-icon: #000000;
+  --color-btn-terciary-focused-fill: #e5e5e5;
+  --color-btn-terciary-focused-stroke: #e23f36;
+  --color-btn-terciary-focused-text: #260200;
+  --color-btn-terciary-focused-icon: #260200;
+  --color-btn-terciary-selected-fill: #e23f36;
+  --color-btn-terciary-selected-stroke: rgb(255 255 255 / 0);
+  --color-btn-terciary-selected-text: #ffffff;
+  --color-btn-terciary-selected-icon: #ffffff;
+  --color-btn-terciary-disabled-fill: rgb(0 0 0 / 0.1);
+  --color-btn-terciary-disabled-stroke: rgb(0 0 0 / 0);
+  --color-btn-terciary-disabled-text: rgb(0 0 0 / 0.2);
+  --color-btn-terciary-disabled-icon: rgb(0 0 0 / 0.2);
 }
 
 [data-theme="dark-red-primary"] {
@@ -302,6 +434,72 @@
   --color-nav-disabled-stroke: rgb(255 255 255 / 0);
   --color-nav-disabled-text: rgb(0 0 0 / 0.3);
   --color-nav-disabled-icon: rgb(0 0 0 / 0.3);
+
+  /* Button/Primary (UI02-Button) */
+  --color-btn-primary-default-fill: #ffffff;
+  --color-btn-primary-default-stroke: #e23f36;
+  --color-btn-primary-default-text: #14161a;
+  --color-btn-primary-default-icon: #000000;
+  --color-btn-primary-hover-fill: #481815;
+  --color-btn-primary-hover-stroke: rgb(255 255 255 / 0);
+  --color-btn-primary-hover-text: #ffcfcc;
+  --color-btn-primary-hover-icon: #ffcfcc;
+  --color-btn-primary-focused-fill: #ffffff;
+  --color-btn-primary-focused-stroke: #ffffff;
+  --color-btn-primary-focused-text: #000000;
+  --color-btn-primary-focused-icon: #000000;
+  --color-btn-primary-selected-fill: #481815;
+  --color-btn-primary-selected-stroke: #ffffff;
+  --color-btn-primary-selected-text: #ffffff;
+  --color-btn-primary-selected-icon: #ffffff;
+  --color-btn-primary-disabled-fill: rgb(0 0 0 / 0.06);
+  --color-btn-primary-disabled-stroke: rgb(255 255 255 / 0);
+  --color-btn-primary-disabled-text: rgb(0 0 0 / 0.3);
+  --color-btn-primary-disabled-icon: rgb(0 0 0 / 0.3);
+
+  /* Button/Secondary (UI02-Button) */
+  --color-btn-secondary-default-fill: #cc0a00;
+  --color-btn-secondary-default-stroke: rgb(255 255 255 / 0);
+  --color-btn-secondary-default-text: #ffffff;
+  --color-btn-secondary-default-icon: #ffffff;
+  --color-btn-secondary-hover-fill: #ffffff;
+  --color-btn-secondary-hover-stroke: rgb(255 255 255 / 0);
+  --color-btn-secondary-hover-text: #14161a;
+  --color-btn-secondary-hover-icon: #000000;
+  --color-btn-secondary-focused-fill: #ffffff;
+  --color-btn-secondary-focused-stroke: #260200;
+  --color-btn-secondary-focused-text: #14161a;
+  --color-btn-secondary-focused-icon: #000000;
+  --color-btn-secondary-selected-fill: #481815;
+  --color-btn-secondary-selected-stroke: rgb(255 255 255 / 0);
+  --color-btn-secondary-selected-text: #ffffff;
+  --color-btn-secondary-selected-icon: #ffffff;
+  --color-btn-secondary-disabled-fill: rgb(0 0 0 / 0.06);
+  --color-btn-secondary-disabled-stroke: rgb(255 255 255 / 0);
+  --color-btn-secondary-disabled-text: rgb(0 0 0 / 0.3);
+  --color-btn-secondary-disabled-icon: rgb(0 0 0 / 0.3);
+
+  /* Button/Terciary (UI02-Button) */
+  --color-btn-terciary-default-fill: #e23f36;
+  --color-btn-terciary-default-stroke: #ffcfcc;
+  --color-btn-terciary-default-text: #ffffff;
+  --color-btn-terciary-default-icon: #ffffff;
+  --color-btn-terciary-hover-fill: #ffffff;
+  --color-btn-terciary-hover-stroke: rgb(255 255 255 / 0);
+  --color-btn-terciary-hover-text: #14161a;
+  --color-btn-terciary-hover-icon: #000000;
+  --color-btn-terciary-focused-fill: #ffffff;
+  --color-btn-terciary-focused-stroke: #260200;
+  --color-btn-terciary-focused-text: #000000;
+  --color-btn-terciary-focused-icon: #ffffff;
+  --color-btn-terciary-selected-fill: #ffffff;
+  --color-btn-terciary-selected-stroke: rgb(255 255 255 / 0);
+  --color-btn-terciary-selected-text: #260200;
+  --color-btn-terciary-selected-icon: #260200;
+  --color-btn-terciary-disabled-fill: rgb(0 0 0 / 0.06);
+  --color-btn-terciary-disabled-stroke: rgb(255 255 255 / 0);
+  --color-btn-terciary-disabled-text: rgb(0 0 0 / 0.3);
+  --color-btn-terciary-disabled-icon: rgb(0 0 0 / 0.3);
 }
 
 [data-theme="dark-black-neutral"] {
@@ -399,6 +597,72 @@
   --color-nav-disabled-stroke: rgb(255 255 255 / 0);
   --color-nav-disabled-text: rgb(255 255 255 / 0.1);
   --color-nav-disabled-icon: rgb(255 255 255 / 0.1);
+
+  /* Button/Primary (UI02-Button) */
+  --color-btn-primary-default-fill: #ffffff;
+  --color-btn-primary-default-stroke: #481815;
+  --color-btn-primary-default-text: #000000;
+  --color-btn-primary-default-icon: #000000;
+  --color-btn-primary-hover-fill: #e23f36;
+  --color-btn-primary-hover-stroke: rgb(255 255 255 / 0);
+  --color-btn-primary-hover-text: #ffffff;
+  --color-btn-primary-hover-icon: #ffffff;
+  --color-btn-primary-focused-fill: #e23f36;
+  --color-btn-primary-focused-stroke: #ffffff;
+  --color-btn-primary-focused-text: #ffffff;
+  --color-btn-primary-focused-icon: #ffffff;
+  --color-btn-primary-selected-fill: #ffffff;
+  --color-btn-primary-selected-stroke: #ffffff;
+  --color-btn-primary-selected-text: #000000;
+  --color-btn-primary-selected-icon: #000000;
+  --color-btn-primary-disabled-fill: rgb(255 255 255 / 0.06);
+  --color-btn-primary-disabled-stroke: rgb(255 255 255 / 0);
+  --color-btn-primary-disabled-text: rgb(255 255 255 / 0.1);
+  --color-btn-primary-disabled-icon: rgb(255 255 255 / 0.1);
+
+  /* Button/Secondary (UI02-Button) */
+  --color-btn-secondary-default-fill: #252931;
+  --color-btn-secondary-default-stroke: rgb(255 255 255 / 0);
+  --color-btn-secondary-default-text: #ffffff;
+  --color-btn-secondary-default-icon: #ffffff;
+  --color-btn-secondary-hover-fill: #e23f36;
+  --color-btn-secondary-hover-stroke: rgb(255 255 255 / 0);
+  --color-btn-secondary-hover-text: #ffcfcc;
+  --color-btn-secondary-hover-icon: #ffffff;
+  --color-btn-secondary-focused-fill: rgb(255 255 255 / 0.02);
+  --color-btn-secondary-focused-stroke: #e23f36;
+  --color-btn-secondary-focused-text: #ffffff;
+  --color-btn-secondary-focused-icon: #ffffff;
+  --color-btn-secondary-selected-fill: #252931;
+  --color-btn-secondary-selected-stroke: rgb(255 255 255 / 0);
+  --color-btn-secondary-selected-text: #ffffff;
+  --color-btn-secondary-selected-icon: #ffffff;
+  --color-btn-secondary-disabled-fill: rgb(255 255 255 / 0.06);
+  --color-btn-secondary-disabled-stroke: rgb(255 255 255 / 0);
+  --color-btn-secondary-disabled-text: rgb(255 255 255 / 0.1);
+  --color-btn-secondary-disabled-icon: rgb(255 255 255 / 0.1);
+
+  /* Button/Terciary (UI02-Button) */
+  --color-btn-terciary-default-fill: #14161a;
+  --color-btn-terciary-default-stroke: rgb(255 255 255 / 0.3);
+  --color-btn-terciary-default-text: #ffffff;
+  --color-btn-terciary-default-icon: #ffffff;
+  --color-btn-terciary-hover-fill: #14161a;
+  --color-btn-terciary-hover-stroke: #ffffff;
+  --color-btn-terciary-hover-text: #ffffff;
+  --color-btn-terciary-hover-icon: #ffffff;
+  --color-btn-terciary-focused-fill: rgb(255 255 255 / 0.2);
+  --color-btn-terciary-focused-stroke: #ffffff;
+  --color-btn-terciary-focused-text: #ffffff;
+  --color-btn-terciary-focused-icon: #ffffff;
+  --color-btn-terciary-selected-fill: #ffffff;
+  --color-btn-terciary-selected-stroke: rgb(255 255 255 / 0);
+  --color-btn-terciary-selected-text: #000000;
+  --color-btn-terciary-selected-icon: #000000;
+  --color-btn-terciary-disabled-fill: rgb(255 255 255 / 0.06);
+  --color-btn-terciary-disabled-stroke: rgb(255 255 255 / 0);
+  --color-btn-terciary-disabled-text: rgb(255 255 255 / 0.1);
+  --color-btn-terciary-disabled-icon: rgb(255 255 255 / 0.1);
 }
 
 [data-theme="light-yellow"] {
@@ -496,4 +760,70 @@
   --color-nav-disabled-stroke: rgb(0 0 0 / 0);
   --color-nav-disabled-text: rgb(0 0 0 / 0.2);
   --color-nav-disabled-icon: rgb(0 0 0 / 0.2);
+
+  /* Button/Primary (UI02-Button) */
+  --color-btn-primary-default-fill: #000000;
+  --color-btn-primary-default-stroke: rgb(0 0 0 / 0);
+  --color-btn-primary-default-text: #ffffff;
+  --color-btn-primary-default-icon: #ffffff;
+  --color-btn-primary-hover-fill: #481815;
+  --color-btn-primary-hover-stroke: #000000;
+  --color-btn-primary-hover-text: #ffffff;
+  --color-btn-primary-hover-icon: #ffffff;
+  --color-btn-primary-focused-fill: #e23f36;
+  --color-btn-primary-focused-stroke: #481815;
+  --color-btn-primary-focused-text: #ffffff;
+  --color-btn-primary-focused-icon: #ffffff;
+  --color-btn-primary-selected-fill: #481815;
+  --color-btn-primary-selected-stroke: #e23f36;
+  --color-btn-primary-selected-text: #ffffff;
+  --color-btn-primary-selected-icon: #ffffff;
+  --color-btn-primary-disabled-fill: rgb(0 0 0 / 0.06);
+  --color-btn-primary-disabled-stroke: rgb(0 0 0 / 0);
+  --color-btn-primary-disabled-text: rgb(0 0 0 / 0.2);
+  --color-btn-primary-disabled-icon: rgb(0 0 0 / 0.2);
+
+  /* Button/Secondary (UI02-Button) */
+  --color-btn-secondary-default-fill: #ffffff;
+  --color-btn-secondary-default-stroke: #ffffff;
+  --color-btn-secondary-default-text: #000000;
+  --color-btn-secondary-default-icon: #000000;
+  --color-btn-secondary-hover-fill: #e23f36;
+  --color-btn-secondary-hover-stroke: rgb(0 0 0 / 0);
+  --color-btn-secondary-hover-text: #ffffff;
+  --color-btn-secondary-hover-icon: #ffffff;
+  --color-btn-secondary-focused-fill: #ffffff;
+  --color-btn-secondary-focused-stroke: #e23f36;
+  --color-btn-secondary-focused-text: #000000;
+  --color-btn-secondary-focused-icon: #000000;
+  --color-btn-secondary-selected-fill: #e23f36;
+  --color-btn-secondary-selected-stroke: rgb(255 255 255 / 0);
+  --color-btn-secondary-selected-text: #ffffff;
+  --color-btn-secondary-selected-icon: #ffffff;
+  --color-btn-secondary-disabled-fill: rgb(0 0 0 / 0.06);
+  --color-btn-secondary-disabled-stroke: rgb(0 0 0 / 0);
+  --color-btn-secondary-disabled-text: rgb(0 0 0 / 0.2);
+  --color-btn-secondary-disabled-icon: rgb(0 0 0 / 0.2);
+
+  /* Button/Terciary (UI02-Button) */
+  --color-btn-terciary-default-fill: #dcded4;
+  --color-btn-terciary-default-stroke: rgb(0 0 0 / 0.2);
+  --color-btn-terciary-default-text: #000000;
+  --color-btn-terciary-default-icon: #e23f36;
+  --color-btn-terciary-hover-fill: #dcded4;
+  --color-btn-terciary-hover-stroke: #e23f36;
+  --color-btn-terciary-hover-text: #000000;
+  --color-btn-terciary-hover-icon: #000000;
+  --color-btn-terciary-focused-fill: #e5e5e5;
+  --color-btn-terciary-focused-stroke: #e23f36;
+  --color-btn-terciary-focused-text: #260200;
+  --color-btn-terciary-focused-icon: #260200;
+  --color-btn-terciary-selected-fill: #e23f36;
+  --color-btn-terciary-selected-stroke: rgb(255 255 255 / 0);
+  --color-btn-terciary-selected-text: #ffffff;
+  --color-btn-terciary-selected-icon: #ffffff;
+  --color-btn-terciary-disabled-fill: rgb(0 0 0 / 0.1);
+  --color-btn-terciary-disabled-stroke: rgb(0 0 0 / 0);
+  --color-btn-terciary-disabled-text: rgb(0 0 0 / 0.2);
+  --color-btn-terciary-disabled-icon: rgb(0 0 0 / 0.2);
 }
