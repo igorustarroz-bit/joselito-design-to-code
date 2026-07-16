@@ -1,0 +1,54 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import { BreakpointsTable, TypographyResponsiveSample, SpacingResponsiveScale, RadiusSamples, GridSamples } from './ResponsiveSwatches'
+
+<Meta title="Tokens/Responsive" />
+
+# Responsive
+
+## Intro
+
+Los tokens **Responsive** son los valores que cambian según el ancho de viewport: 7 breakpoints (modos en Figma), un grid de 12 columnas, la escala tipográfica fluida, espaciados y radios de esquina. Se generan desde la colección `Responsive` de variables de Figma.
+
+Se implementan como variables CSS definidas en `:root` y sobrescritas mobile-first dentro de `@media (min-width: ...)` — así cualquier componente que use `var(--text-title-3)`, `var(--spacing-r-8)`, etc. es responsive automáticamente, sin tener que escribir clases distintas por breakpoint.
+
+Esta página documenta solo los tokens **fundacionales**. Los valores responsive específicos de un componente (tamaños de `Button`, `Forms` o la tipografía de `Input`) se documentan en la página de ese componente cuando se construya, no aquí.
+
+## Demo
+
+<div className="p-4 rounded border border-neutral-90" style={{ margin: '0 var(--grid-margin-default)' }}>
+  <p style={{ fontSize: 'var(--text-title-3)', lineHeight: 'var(--text-title-3--line-height)', margin: 0 }}>
+    Título de ejemplo (title-3)
+  </p>
+  <p
+    className="text-neutral-40"
+    style={{ fontSize: 'var(--text-body-3)', lineHeight: 'var(--text-body-3--line-height)', marginTop: 'var(--spacing-r-4)' }}
+  >
+    Cambia el tamaño de la ventana para ver cómo este bloque adapta el título, el texto y el margen lateral (<code>--grid-margin-default</code>) en cada breakpoint.
+  </p>
+</div>
+
+## Tokens
+
+### Breakpoints
+
+<BreakpointsTable />
+
+### Grid (12 columnas)
+
+<GridSamples />
+
+Construcción recomendada del grid: `display: grid; grid-template-columns: repeat(var(--grid-columns), 1fr); gap: var(--grid-gutter);` con el contenedor acotado por `margin-inline: var(--grid-margin-default)` (o `-header` / `-modal` según el contexto).
+
+### Tipografía (escala fluida)
+
+<TypographyResponsiveSample />
+
+### Espaciado fluido
+
+<SpacingResponsiveScale />
+
+### Radios de esquina
+
+<RadiusSamples />
+
+> Algunos radios (`l`, `xl`) varían de forma no monótona entre breakpoints en el propio Figma (por ejemplo `l` sube a 18px en XL y vuelve a 12px en XXL). Se ha respetado el dato tal cual está en el archivo de diseño.

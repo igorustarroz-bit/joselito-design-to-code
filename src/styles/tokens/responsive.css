@@ -1,0 +1,257 @@
+/**
+ * Responsive — tokens generados desde Figma (colección "Responsive", 7 modos = breakpoints).
+ * Fuente: Figma fileKey xtL6cbqN94yw7pAlr8k1NK — VariableCollectionId:1:89
+ *
+ * Alcance: aquí solo se traducen los valores FUNDACIONALES (breakpoints, grid de 12
+ * columnas, espaciados fluidos, radios de esquina y la escala tipográfica). Las variables
+ * de esta misma colección específicas de un componente (Button/*, Forms/*, Input-M/S
+ * tipografía) se leerán y traducirán al construir ese componente (UI02-Button, UI06-Input,
+ * UI11-Form), no aquí, para no adelantar trabajo que depende del propio componente.
+ *
+ * Los "Cols Size" (ancho en px de 1 a 12 columnas) de Figma son valores calculados de
+ * referencia para el diseño con frames fijos — no se traducen como tokens de código:
+ * en CSS el grid de 12 columnas se construye con `grid-template-columns: repeat(12, 1fr)`
+ * y `gap: var(--grid-gutter)`, que ya reproduce el mismo resultado de forma fluida.
+ */
+
+/* Breakpoints — sustituye por completo la escala por defecto de Tailwind */
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-xs: 375px;
+  --breakpoint-sm: 480px;
+  --breakpoint-m: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1440px;
+  --breakpoint-xxl: 1620px;
+  --breakpoint-xxxl: 1920px;
+}
+
+/* BASE (XS - 375, mobile-first) */
+:root {
+  --grid-gutter: 12px;
+  --grid-margin-default: 16px;
+  --grid-margin-full: 0px;
+  --grid-margin-header: 16px;
+  --grid-margin-modal: 16px;
+  --grid-columns: 12;
+  --radius-l: 12px;
+  --radius-m: 8px;
+  --radius-none: 0px;
+  --radius-rounded: 10000px;
+  --radius-s: 6px;
+  --radius-xl: 24px;
+  --radius-xs: 4px;
+  --radius-xxs: 2px;
+  --spacing-r-0: 0px;
+  --spacing-r-1: 4px;
+  --spacing-r-10: 40px;
+  --spacing-r-11: 40px;
+  --spacing-r-12: 40px;
+  --spacing-r-13: 40px;
+  --spacing-r-14: 40px;
+  --spacing-r-15: 48px;
+  --spacing-r-16: 56px;
+  --spacing-r-17: 56px;
+  --spacing-r-18: 64px;
+  --spacing-r-2: 8px;
+  --spacing-r-3: 12px;
+  --spacing-r-4: 16px;
+  --spacing-r-5: 20px;
+  --spacing-r-6: 20px;
+  --spacing-r-7: 20px;
+  --spacing-r-8: 24px;
+  --spacing-r-9: 32px;
+  --text-body-1: 12px;
+  --text-body-1--line-height: 18px;
+  --text-body-2: 14px;
+  --text-body-2--line-height: 22px;
+  --text-body-3: 16px;
+  --text-body-3--line-height: 24px;
+  --text-body-4: 18px;
+  --text-body-4--line-height: 26px;
+  --text-body-5: 20px;
+  --text-body-5--line-height: 28px;
+  --text-body-6: 20px;
+  --text-body-6--line-height: 28px;
+  --text-cta-l: 18px;
+  --text-cta-l--line-height: 18px;
+  --text-cta-m: 16px;
+  --text-cta-m--line-height: 22px;
+  --text-cta-s: 14px;
+  --text-cta-s--line-height: 14px;
+  --text-cta-xl: 20px;
+  --text-cta-xl--line-height: 26px;
+  --text-cta-xs: 12px;
+  --text-cta-xs--line-height: 12px;
+  --text-label-1: 10px;
+  --text-label-1--line-height: 14px;
+  --text-label-2: 12px;
+  --text-label-2--line-height: 16px;
+  --text-title-1: 20px;
+  --text-title-1--line-height: 24px;
+  --text-title-2: 28px;
+  --text-title-2--line-height: 36px;
+  --text-title-3: 32px;
+  --text-title-3--line-height: 32px;
+  --text-title-4: 34px;
+  --text-title-4--line-height: 34px;
+  --text-title-5: 40px;
+  --text-title-5--line-height: 40px;
+  --text-title-6: 45px;
+  --text-title-6--line-height: 44px;
+  --text-title-7: 40px;
+  --text-title-7--line-height: 52px;
+}
+
+@media (min-width: 480px) {
+  :root {
+    --text-title-4--line-height: 40px;
+    --text-title-5--line-height: 50px;
+    --text-title-6: 44px;
+    --text-title-7: 64px;
+    --text-title-7--line-height: 72px;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --grid-gutter: 16px;
+    --grid-margin-default: 32px;
+    --grid-margin-header: 32px;
+    --grid-margin-modal: 32px;
+    --radius-xl: 16px;
+    --spacing-r-10: 44px;
+    --spacing-r-11: 52px;
+    --spacing-r-12: 64px;
+    --spacing-r-13: 72px;
+    --spacing-r-14: 80px;
+    --spacing-r-15: 92px;
+    --spacing-r-16: 112px;
+    --spacing-r-17: 132px;
+    --spacing-r-18: 156px;
+    --spacing-r-6: 24px;
+    --spacing-r-7: 32px;
+    --spacing-r-8: 36px;
+    --spacing-r-9: 40px;
+    --text-body-6: 22px;
+    --text-body-6--line-height: 32px;
+    --text-title-1: 22px;
+    --text-title-3: 34px;
+    --text-title-3--line-height: 36px;
+    --text-title-4: 40px;
+    --text-title-4--line-height: 46px;
+    --text-title-5: 50px;
+    --text-title-5--line-height: 56px;
+    --text-title-6: 58px;
+    --text-title-6--line-height: 68px;
+    --text-title-7: 74px;
+    --text-title-7--line-height: 84px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --grid-margin-modal: 40px;
+    --text-title-4--line-height: 48px;
+  }
+}
+
+@media (min-width: 1440px) {
+  :root {
+    --grid-gutter: 24px;
+    --grid-margin-modal: 32px;
+    --radius-l: 18px;
+    --radius-xl: 36px;
+    --spacing-r-10: 56px;
+    --spacing-r-11: 64px;
+    --spacing-r-12: 72px;
+    --spacing-r-13: 80px;
+    --spacing-r-14: 92px;
+    --spacing-r-15: 104px;
+    --spacing-r-16: 132px;
+    --spacing-r-17: 156px;
+    --spacing-r-18: 184px;
+    --spacing-r-8: 40px;
+    --spacing-r-9: 48px;
+    --text-body-4: 20px;
+    --text-body-4--line-height: 28px;
+    --text-body-5: 22px;
+    --text-body-5--line-height: 32px;
+    --text-body-6: 26px;
+    --text-body-6--line-height: 38px;
+    --text-cta-m--line-height: 16px;
+    --text-title-1: 24px;
+    --text-title-1--line-height: 28px;
+    --text-title-2: 32px;
+    --text-title-2--line-height: 48px;
+    --text-title-3: 42px;
+    --text-title-3--line-height: 40px;
+    --text-title-4: 48px;
+    --text-title-5: 60px;
+    --text-title-5--line-height: 60px;
+    --text-title-6: 72px;
+    --text-title-6--line-height: 72px;
+    --text-title-7: 104px;
+    --text-title-7--line-height: 132px;
+  }
+}
+
+@media (min-width: 1620px) {
+  :root {
+    --grid-margin-default: 64px;
+    --radius-l: 12px;
+    --spacing-r-6: 20px;
+    --text-body-4: 22px;
+    --text-body-4--line-height: 30px;
+    --text-body-5: 24px;
+    --text-body-6: 28px;
+    --text-body-6--line-height: 40px;
+    --text-cta-m--line-height: 21px;
+    --text-cta-xl: 32px;
+    --text-cta-xl--line-height: 32px;
+    --text-title-2: 36px;
+    --text-title-3--line-height: 44px;
+    --text-title-4: 60px;
+    --text-title-4--line-height: 64px;
+    --text-title-5: 70px;
+    --text-title-5--line-height: 80px;
+    --text-title-6: 78px;
+    --text-title-6--line-height: 94px;
+    --text-title-7: 94px;
+    --text-title-7--line-height: 110px;
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --grid-gutter: 32px;
+    --grid-margin-default: 84px;
+    --grid-margin-header: 56px;
+    --grid-margin-modal: 56px;
+    --radius-xl: 40px;
+    --text-body-2: 16px;
+    --text-body-2--line-height: 26px;
+    --text-body-3: 18px;
+    --text-body-3--line-height: 28px;
+    --text-body-4: 24px;
+    --text-body-4--line-height: 32px;
+    --text-body-5: 28px;
+    --text-body-5--line-height: 38px;
+    --text-body-6: 32px;
+    --text-body-6--line-height: 48px;
+    --text-cta-m--line-height: 16px;
+    --text-title-1: 28px;
+    --text-title-1--line-height: 32px;
+    --text-title-2: 42px;
+    --text-title-2--line-height: 56px;
+    --text-title-3: 44px;
+    --text-title-4: 72px;
+    --text-title-4--line-height: 76px;
+    --text-title-5: 84px;
+    --text-title-5--line-height: 96px;
+    --text-title-6: 92px;
+    --text-title-6--line-height: 108px;
+    --text-title-7: 108px;
+    --text-title-7--line-height: 124px;
+  }
+}
