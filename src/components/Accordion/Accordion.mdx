@@ -1,0 +1,67 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as AccordionStories from './Accordion.stories'
+
+<Meta of={AccordionStories} />
+
+# Accordion
+
+## Intro
+
+`Accordion` + `AccordionItem` traducen **UI13-Accordion** de Figma: un contenedor "slot" (`node 57943:46123`) que agrupa varias instancias de `z_fragment_accordion` (`node 57943:46054`, 2 variantes: Open=Yes/No).
+
+## Demo
+
+<Canvas of={AccordionStories.Default} />
+
+## Anatomía
+
+Cada `AccordionItem` es una caja con fondo (`Backgrounds/Neutral-1`) y esquinas redondeadas que contiene:
+
+1. Una cabecera — `<button>` nativo con el texto en mayúsculas (CTA/01) + un icono Plus/Minus
+2. Un panel de contenido (Body/02), visible solo cuando `open` es `true`
+
+`Accordion` es un simple contenedor de layout (`gap: 8px`) sin lógica propia.
+
+## Comportamiento
+
+Igual criterio presentacional que `Tabs` y `CheckboxList`: ni `Accordion` ni `AccordionItem` gestionan qué panel está abierto — la app controla cada `AccordionItem` con su propia prop `open` y el handler `onToggle`. Esto permite tanto un acordeón "solo un panel abierto a la vez" (ver Demo) como varios paneles abiertos simultáneamente, según decida quien lo use.
+
+<Story of={AccordionStories.ItemClosed} />
+<Story of={AccordionStories.ItemOpen} />
+
+## Tokens
+
+Ningún token semántico nuevo — reutiliza globales ya existentes en `semantic.css`/`responsive.css`/`primitives.css` (verificado literalmente en `get_design_context`, no asumido):
+
+| Elemento | Token |
+|---|---|
+| Fondo del item | `--color-surface-neutral-1` |
+| Texto (cabecera y contenido) | `--color-content-base` |
+| Tipografía cabecera | `--text-cta-xs` + `--text-cta-s--line-height` + `--tracking-cta` |
+| Tipografía contenido | `--text-body-2` / `--text-body-2--line-height` |
+| Radio de esquina | `--radius-l` |
+| Gaps | `--spacing-fx-2` (8px) / `--spacing-fx-4` (16px) |
+
+## Propiedades
+
+**`AccordionItem`**
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `text` | Texto de la cabecera | `'item'` | text |
+| `open` | Panel abierto (controlado) | `false` | boolean |
+| `onToggle` | Handler del click en la cabecera | — | — |
+| `children` | Contenido del panel | — | — |
+| `id` | Prefijo de id para cabecera/contenido (autogenerado con `useId()` si se omite) | — | text |
+
+**`Accordion`**: solo `children` y cualquier prop nativa adicional del `<div>` (`aria-label`, etc.).
+
+## Accesibilidad
+
+- La cabecera es un `<button>` nativo real: foco y activación por teclado (Espacio/Enter) funcionan sin JavaScript adicional.
+- `aria-expanded` en la cabecera y `aria-controls`/`id` enlazan cabecera y panel; el panel usa `role="region"` + `aria-labelledby` apuntando a la cabecera.
+- El anillo de foco (`:focus-visible`) de la cabecera tiene contraste suficiente en los 5 temas.
+
+## Componentes relacionados
+
+Ninguno directo — es un componente de layout autocontenido, aunque comparte el criterio "contenedor + item controlado" con **UI05 · Tabs** y **UI08 · Checkbox List**.
