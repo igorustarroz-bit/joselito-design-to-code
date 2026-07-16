@@ -1,0 +1,104 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as InputStories from './Input.stories'
+
+<Meta of={InputStories} />
+
+# Input
+
+## Intro
+
+`Input` es un campo de formulario con "floating label": el label ocupa el centro del campo cuando está vacío y flota arriba, pequeño, en cuanto el usuario escribe o el campo tiene foco. Corresponde al componente **UI06-Input** de Figma (`node 49118:2300`, 28 variantes: Tipo Default/Dropdown × Tamaño Big/Small × 7 estados).
+
+## Demo
+
+<Canvas of={InputStories.Default} />
+
+<Controls />
+
+## Anatomía
+
+Una caja con borde redondeado que contiene, de izquierda a derecha:
+
+1. **Campo de texto** — vacío muestra solo el label centrado a tamaño completo; con contenido o foco, el label flota arriba pequeño y el valor aparece debajo
+2. **Icono** (opcional, a la derecha) — 20×20px
+
+Debajo de la caja, un **mensaje de ayuda/error/validación** (opcional).
+
+El efecto "floating label" se resuelve enteramente con CSS (`:placeholder-shown`), sin JavaScript ni estado interno — mismo criterio "presentacional" que el resto de componentes del sistema.
+
+## Temas
+
+Cambia el selector **"Tema"** en la barra de herramientas de Storybook para ver `Input` en los 5 temas semánticos — vía los tokens `--color-field-*`.
+
+## Comportamiento
+
+- **Hover** y **Focus** son automáticos (`:hover`, `:focus-within`).
+- El label flota automáticamente cuando el `<input>` tiene contenido (`:not(:placeholder-shown)`) o está enfocado.
+- **`validationState`** (`"default"` | `"error"` | `"validated"`) aplica los colores de Error/Validated. Decisión de diseño: en Figma, Error/Validated y Hover/Focus son estados excluyentes del mismo enum (no hay variante "Error + Hover"). Aquí se decidió que el color de error/validado **prevalece sobre el hover** (para no perder la señal de error al pasar el ratón), pero **el borde de foco sí se aplica** sobre error/validado (para que se vea qué campo está activo).
+- **Disabled** desactiva la interacción y aplica los tokens de estado deshabilitado — reutiliza los tokens globales `Texts/Disabled` y `Strokes-Icons/Neutral-3` (no tokens específicos de Forms), igual que en el propio archivo Figma.
+- `type="dropdown"` renderiza un `<button>` de solo lectura en vez de un `<input>` — pensado para abrir un listbox externo (ver **UI07 · Listbox**, próximo componente del plan). Como un `<button>` no tiene `:placeholder-shown`, el estado "flotante" se controla pasando la prop `value`.
+
+## Variantes y tamaños
+
+Dos tamaños — **Big** (72px de alto) y **Small** (56px) — y dos tipos: **Default** (campo de texto editable) y **Dropdown** (abre un selector externo).
+
+<Story of={InputStories.WithValue} />
+<Story of={InputStories.Small} />
+<Story of={InputStories.Error} />
+<Story of={InputStories.Validated} />
+<Story of={InputStories.Disabled} />
+<Story of={InputStories.NoIcon} />
+<Story of={InputStories.Dropdown} />
+
+## Tokens
+
+### Color (por estado)
+
+| Estado | Fill | Stroke | Text | Label | Icon | Message |
+|---|---|---|---|---|---|---|
+| Default | `--color-field-default-fill` | `--color-field-default-stroke` | `--color-field-default-text` | `--color-field-default-label` | `--color-field-default-icon` | `--color-field-default-message` |
+| Hover | `--color-field-hover-fill` | `--color-field-hover-stroke` | `--color-field-hover-text` | `--color-field-hover-label` | `--color-field-hover-icon` | `--color-field-hover-message` |
+| Focus | `--color-field-focused-fill` | `--color-field-focused-stroke` | `--color-field-focused-text` | `--color-field-focused-label` | `--color-field-focused-icon` | `--color-field-focused-message` |
+| Filled | `--color-field-filled-fill` | `--color-field-filled-stroke` | `--color-field-filled-text` | `--color-field-filled-label` | `--color-field-filled-icon` | `--color-field-filled-message` |
+| Validated | `--color-field-validated-fill` | `--color-field-validated-stroke` | `--color-field-validated-text` | `--color-field-validated-label` | `--color-field-validated-icon` | `--color-field-validated-message` |
+| Error | `--color-field-error-fill` | `--color-field-error-stroke` | `--color-field-error-text` | `--color-field-error-label` | `--color-field-error-icon` | `--color-field-error-message` |
+| Disabled | `--color-field-disabled-fill` | `--color-field-disabled-stroke` | `--color-field-disabled-text` | `--color-field-disabled-label` | `--color-field-disabled-icon` | `--color-field-disabled-message` |
+
+Nota de traducción importante (verificada literalmente en el código generado por Figma, no asumida): el borde de los estados **Default** y **Filled** no usa un token de Forms sino el global `Strokes-Icons/Neutral-2`; el borde de **Disabled** usa `Strokes-Icons/Neutral-3`; el texto/label/mensaje de **Disabled** usa el global `Texts/Disabled`; el fondo de **Hover** usa `Backgrounds/White`; y el texto/mensaje de **Hover** usan `Texts/Base`/`Texts/Neutral-1`. Los tokens `Forms/Default/Stroke`, `Forms/Hover/Fill`, `Forms/Disabled/Stroke` y `Forms/Disabled/Text` existen en Figma pero no están conectados a este componente — no se usaron.
+
+### Tamaño y tipografía
+
+| Tamaño | Altura caja | Padding horizontal | Texto | Label (flotante) | Mensaje |
+|---|---|---|---|---|---|
+| Big | 72px | 20px | 18px / 24px | 10px / 12px | 14px / 14px |
+| Small | 56px | 16px | 14px / 14px | 10px / 12px | 12px / 12px |
+
+Valores constantes en los 7 breakpoints de Figma. Dos desvíos de un único breakpoint se ignoraron (documentados como inconsistencias menores de Figma, no se tradujeron): `Layout/Forms/M/Message-Distance` es 4px en XXXL-1920 en vez de 6px, y `Typography/Input-M/Label-In/LH` es 14px en XL-1440 en vez de 12px.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `label` | Texto del label flotante | `"Label"` | text |
+| `type` | `default` (input de texto) o `dropdown` (botón de solo lectura) | `"default"` | select |
+| `size` | `big` o `small` | `"big"` | select |
+| `value` / `defaultValue` | Valor del campo (controlado/no controlado) | — | — |
+| `placeholder` | Placeholder nativo (opcional) | `" "` | — |
+| `message` | Texto de ayuda/error/validación bajo el campo | — | text |
+| `showMessage` | Muestra el mensaje | `true` | boolean |
+| `icon` | Icono a la derecha (por defecto un calendario de ejemplo) | — | — |
+| `showIcon` | Muestra el icono | `true` | boolean |
+| `validationState` | `default`, `error`, `validated` | `"default"` | select |
+| `disabled` | Desactiva la interacción | `false` | boolean |
+
+## Accesibilidad
+
+- El `<label>` está enlazado al control mediante `htmlFor`/`id` (con `useId()` si no se pasa un `id` propio).
+- El estado `disabled` usa el atributo nativo `disabled`.
+- El mensaje de error/validación es solo visual — para anunciarlo a lectores de pantalla, quien integre el componente debe enlazarlo con `aria-describedby` apuntando al `id` del mensaje (pendiente de añadir cuando se integre en **UI11 · Form**).
+- `type="dropdown"` usa un `<button>` real (no un `<div>` con `onClick`), por lo que hereda foco y activación por teclado de forma nativa; quien lo integre debe añadir `aria-haspopup="listbox"` y `aria-expanded` al construir el listbox real (UI07).
+
+## Componentes relacionados
+
+- **UI07 · Listbox** — panel desplegable que se combina con `type="dropdown"` (pendiente).
+- **UI11 · Form** — agrupación de varios `Input` con validación (pendiente).

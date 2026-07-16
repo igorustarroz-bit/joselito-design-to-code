@@ -1,0 +1,226 @@
+/**
+ * UI06-Input — "floating label" resuelto con CSS puro (`:placeholder-shown`),
+ * sin JS. Ver comentario en Input.jsx para el porqué de `placeholder=" "`.
+ *
+ * Tamaño y tipografía por tamaño (Big/Small) como variables locales en
+ * `.input-field--big` / `.input-field--small` — dimensiones constantes en
+ * los 7 breakpoints de Figma (mismo criterio que Button); un pequeño desvío
+ * de un solo breakpoint en `message-distance` (Small, 4px en vez de 6px en
+ * XXXL-1920) y en `label-in line-height` (Big, 14px en vez de 12px en
+ * XL-1440) se ignora y se usa el valor mayoritario, documentado en
+ * Input.mdx como inconsistencia menor de Figma.
+ *
+ * Color por estado: variables locales `--field-*` fijadas en `.input-field`
+ * según `data-validation` + pseudo-clases de estado, igual que el resto de
+ * componentes. Nota de diseño: Error/Validated prevalecen sobre Hover (no se
+ * aplican los tokens de Hover cuando data-validation es error/validated),
+ * pero si sobre Focus (para que el usuario vea qué campo tiene el foco).
+ */
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.input-field__box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-s);
+  background: var(--field-fill);
+  border: 1px solid var(--field-stroke);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.input-field__control-wrap {
+  position: relative;
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+.input-field__control {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  appearance: none;
+  text-align: left;
+  cursor: text;
+  font-family: var(--font-forms);
+  letter-spacing: var(--tracking-forms);
+  color: var(--field-text);
+  font-size: var(--field-text-size);
+  line-height: var(--field-text-line-height);
+}
+
+.input-field__control--button {
+  cursor: pointer;
+}
+
+.input-field__control::placeholder {
+  color: transparent;
+}
+
+.input-field__label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  /* Vacío/centrado: usa el color de "Text" (mismo rol que Forms/Default/Text
+     en Figma); al flotar cambia a "Label" (Forms/{estado}/Label-In). */
+  color: var(--field-text);
+  font-family: var(--font-forms);
+  letter-spacing: var(--tracking-forms);
+  font-size: var(--field-text-size);
+  line-height: var(--field-text-line-height);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+  transition: top 0.15s ease, transform 0.15s ease, font-size 0.15s ease;
+}
+
+.input-field__control:focus ~ .input-field__label,
+.input-field__control:not(:placeholder-shown) ~ .input-field__label,
+.input-field__control[data-has-value] ~ .input-field__label {
+  top: 0;
+  transform: translateY(0);
+  font-size: var(--field-label-size);
+  line-height: var(--field-label-line-height);
+  color: var(--field-label);
+}
+
+.input-field__control:focus,
+.input-field__control:not(:placeholder-shown),
+.input-field__control[data-has-value] {
+  padding-top: calc(var(--field-label-size) + var(--field-label-gap));
+}
+
+.input-field__icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--field-icon);
+}
+
+.input-field__message {
+  margin: 0;
+  width: 100%;
+  font-family: var(--font-forms);
+  letter-spacing: var(--tracking-forms);
+  font-size: var(--field-message-size);
+  line-height: var(--field-message-line-height);
+  color: var(--field-message);
+}
+
+/* Tamaños */
+.input-field--big {
+  gap: 8px;
+  --field-text-size: 18px;
+  --field-text-line-height: 24px;
+  --field-label-size: 10px;
+  --field-label-line-height: 12px;
+  --field-label-gap: 4px;
+  --field-message-size: 14px;
+  --field-message-line-height: 14px;
+}
+.input-field--big .input-field__box {
+  height: 72px;
+  padding-inline: 20px;
+}
+
+.input-field--small {
+  gap: 6px;
+  --field-text-size: 14px;
+  --field-text-line-height: 14px;
+  --field-label-size: 10px;
+  --field-label-line-height: 12px;
+  --field-label-gap: 4px;
+  --field-message-size: 12px;
+  --field-message-line-height: 12px;
+}
+.input-field--small .input-field__box {
+  height: 56px;
+  padding-inline: 16px;
+}
+
+/* Color por estado (data-validation + pseudo-clases) */
+.input-field {
+  --field-fill: var(--color-field-default-fill);
+  --field-stroke: var(--color-field-default-stroke);
+  --field-text: var(--color-field-default-text);
+  --field-label: var(--color-field-default-label);
+  --field-icon: var(--color-field-default-icon);
+  --field-message: var(--color-field-default-message);
+}
+
+.input-field:hover:not([data-disabled]):not([data-validation='error']):not([data-validation='validated']) {
+  --field-fill: var(--color-field-hover-fill);
+  --field-stroke: var(--color-field-hover-stroke);
+  --field-text: var(--color-field-hover-text);
+  --field-label: var(--color-field-hover-label);
+  --field-icon: var(--color-field-hover-icon);
+  --field-message: var(--color-field-hover-message);
+}
+
+.input-field:focus-within:not([data-disabled]) {
+  --field-fill: var(--color-field-focused-fill);
+  --field-stroke: var(--color-field-focused-stroke);
+  --field-text: var(--color-field-focused-text);
+  --field-label: var(--color-field-focused-label);
+  --field-icon: var(--color-field-focused-icon);
+  --field-message: var(--color-field-focused-message);
+}
+
+.input-field:not(:focus-within):not([data-disabled]):has(.input-field__control:not(:placeholder-shown)),
+.input-field:not(:focus-within):not([data-disabled]):has(.input-field__control[data-has-value]) {
+  --field-fill: var(--color-field-filled-fill);
+  --field-stroke: var(--color-field-filled-stroke);
+  --field-text: var(--color-field-filled-text);
+  --field-label: var(--color-field-filled-label);
+  --field-icon: var(--color-field-filled-icon);
+  --field-message: var(--color-field-filled-message);
+}
+
+.input-field[data-validation='validated']:not([data-disabled]) {
+  --field-fill: var(--color-field-validated-fill);
+  --field-stroke: var(--color-field-validated-stroke);
+  --field-text: var(--color-field-validated-text);
+  --field-label: var(--color-field-validated-label);
+  --field-icon: var(--color-field-validated-icon);
+  --field-message: var(--color-field-validated-message);
+}
+
+.input-field[data-validation='error']:not([data-disabled]) {
+  --field-fill: var(--color-field-error-fill);
+  --field-stroke: var(--color-field-error-stroke);
+  --field-text: var(--color-field-error-text);
+  --field-label: var(--color-field-error-label);
+  --field-icon: var(--color-field-error-icon);
+  --field-message: var(--color-field-error-message);
+}
+
+.input-field[data-validation='validated']:focus-within:not([data-disabled]),
+.input-field[data-validation='error']:focus-within:not([data-disabled]) {
+  --field-stroke: var(--color-field-focused-stroke);
+}
+
+.input-field[data-disabled] {
+  --field-fill: var(--color-field-disabled-fill);
+  --field-stroke: var(--color-field-disabled-stroke);
+  --field-text: var(--color-field-disabled-text);
+  --field-label: var(--color-field-disabled-label);
+  --field-icon: var(--color-field-disabled-icon);
+  --field-message: var(--color-field-disabled-message);
+}
+.input-field[data-disabled] .input-field__control,
+.input-field[data-disabled] .input-field__control--button {
+  cursor: not-allowed;
+  pointer-events: none;
+}

@@ -239,6 +239,56 @@
   --color-tab-secondary-disabled-stroke: rgb(0 0 0 / 0);
   --color-tab-secondary-disabled-text: rgb(0 0 0 / 0.2);
   --color-tab-secondary-disabled-icon: rgb(0 0 0 / 0.2);
+
+  /* Forms/Input (UI06-Input) — nota: el borde de Default/Filled y de Disabled
+     usa los tokens globales Strokes-Icons/Neutral-2 y Neutral-3 (no
+     Forms/Default/Stroke ni Forms/Disabled/Stroke); el texto/mensaje de
+     Disabled usa Texts/Disabled (no Forms/Disabled/Text); el fill de Hover
+     usa Backgrounds/White; el texto/mensaje de Hover usa Texts/Base y
+     Texts/Neutral-1. Verificado literalmente en el código generado por
+     Figma para cada estado, no asumido. */
+  --color-field-default-fill: #ffffff;
+  --color-field-default-stroke: #cccccc;
+  --color-field-default-text: #666666;
+  --color-field-default-label: #666666;
+  --color-field-default-icon: #666666;
+  --color-field-default-message: #666666;
+  --color-field-hover-fill: #ffffff;
+  --color-field-hover-stroke: #e23f36;
+  --color-field-hover-text: #000000;
+  --color-field-hover-label: #000000;
+  --color-field-hover-icon: #000000;
+  --color-field-hover-message: #666666;
+  --color-field-focused-fill: #ffffff;
+  --color-field-focused-stroke: #e23f36;
+  --color-field-focused-text: #000000;
+  --color-field-focused-label: #666666;
+  --color-field-focused-icon: #000000;
+  --color-field-focused-message: #666666;
+  --color-field-filled-fill: #ffffff;
+  --color-field-filled-stroke: #cccccc;
+  --color-field-filled-text: #000000;
+  --color-field-filled-label: #808080;
+  --color-field-filled-icon: #000000;
+  --color-field-filled-message: #666666;
+  --color-field-validated-fill: rgb(255 255 255 / 0);
+  --color-field-validated-stroke: #6dc849;
+  --color-field-validated-text: #000000;
+  --color-field-validated-label: #666666;
+  --color-field-validated-icon: #000000;
+  --color-field-validated-message: #237210;
+  --color-field-error-fill: #ffffff;
+  --color-field-error-stroke: #d63838;
+  --color-field-error-text: #000000;
+  --color-field-error-label: #666666;
+  --color-field-error-icon: #000000;
+  --color-field-error-message: #850606;
+  --color-field-disabled-fill: rgb(0 0 0 / 0);
+  --color-field-disabled-stroke: #e5e5e5;
+  --color-field-disabled-text: #cccccc;
+  --color-field-disabled-label: #cccccc;
+  --color-field-disabled-icon: #cccccc;
+  --color-field-disabled-message: #cccccc;
 }
 
 [data-theme="light-grey"] {
@@ -467,6 +517,50 @@
   --color-tab-secondary-disabled-stroke: rgb(0 0 0 / 0);
   --color-tab-secondary-disabled-text: rgb(0 0 0 / 0.2);
   --color-tab-secondary-disabled-icon: rgb(0 0 0 / 0.2);
+
+  /* Forms/Input (UI06-Input) */
+  --color-field-default-fill: #f7f7f7;
+  --color-field-default-stroke: #b3b3b3;
+  --color-field-default-text: #666666;
+  --color-field-default-label: #666666;
+  --color-field-default-icon: #434956;
+  --color-field-default-message: #666666;
+  --color-field-hover-fill: #ffffff;
+  --color-field-hover-stroke: #e23f36;
+  --color-field-hover-text: #000000;
+  --color-field-hover-label: #000000;
+  --color-field-hover-icon: #000000;
+  --color-field-hover-message: #666666;
+  --color-field-focused-fill: #ffffff;
+  --color-field-focused-stroke: #e23f36;
+  --color-field-focused-text: #000000;
+  --color-field-focused-label: #666666;
+  --color-field-focused-icon: #000000;
+  --color-field-focused-message: #666666;
+  --color-field-filled-fill: #f7f7f7;
+  --color-field-filled-stroke: #b3b3b3;
+  --color-field-filled-text: #000000;
+  --color-field-filled-label: #666666;
+  --color-field-filled-icon: #000000;
+  --color-field-filled-message: #666666;
+  --color-field-validated-fill: #ffffff;
+  --color-field-validated-stroke: #6dc849;
+  --color-field-validated-text: #000000;
+  --color-field-validated-label: #666666;
+  --color-field-validated-icon: #000000;
+  --color-field-validated-message: #237210;
+  --color-field-error-fill: #f7f7f7;
+  --color-field-error-stroke: #d63838;
+  --color-field-error-text: #000000;
+  --color-field-error-label: #666666;
+  --color-field-error-icon: #000000;
+  --color-field-error-message: #850606;
+  --color-field-disabled-fill: rgb(0 0 0 / 0);
+  --color-field-disabled-stroke: #cccccc;
+  --color-field-disabled-text: #b3b3b3;
+  --color-field-disabled-label: #b3b3b3;
+  --color-field-disabled-icon: #b3b3b3;
+  --color-field-disabled-message: #b3b3b3;
 }
 
 [data-theme="dark-red-primary"] {
@@ -695,6 +789,50 @@
   --color-tab-secondary-disabled-stroke: rgb(255 255 255 / 0);
   --color-tab-secondary-disabled-text: rgb(0 0 0 / 0.3);
   --color-tab-secondary-disabled-icon: rgb(0 0 0 / 0.3);
+
+  /* Forms/Input (UI06-Input) */
+  --color-field-default-fill: #e23f36;
+  --color-field-default-stroke: #ff9e99;
+  --color-field-default-text: #ffffff;
+  --color-field-default-label: #ffffff;
+  --color-field-default-icon: #ffffff;
+  --color-field-default-message: rgb(255 255 255 / 0.8);
+  --color-field-hover-fill: #000000;
+  --color-field-hover-stroke: #ffffff;
+  --color-field-hover-text: #ffffff;
+  --color-field-hover-label: #ffffff;
+  --color-field-hover-icon: #ffffff;
+  --color-field-hover-message: #ffcfcc;
+  --color-field-focused-fill: rgb(255 255 255 / 0.06);
+  --color-field-focused-stroke: #ffffff;
+  --color-field-focused-text: #ffffff;
+  --color-field-focused-label: #ffcfcc;
+  --color-field-focused-icon: #ffffff;
+  --color-field-focused-message: #cccccc;
+  --color-field-filled-fill: rgb(255 255 255 / 0.06);
+  --color-field-filled-stroke: #ff9e99;
+  --color-field-filled-text: #ffffff;
+  --color-field-filled-label: #ffcfcc;
+  --color-field-filled-icon: #ffffff;
+  --color-field-filled-message: #ffcfcc;
+  --color-field-validated-fill: rgb(255 255 255 / 0);
+  --color-field-validated-stroke: #6dc849;
+  --color-field-validated-text: #ffffff;
+  --color-field-validated-label: #999999;
+  --color-field-validated-icon: #ffffff;
+  --color-field-validated-message: #a2dbb3;
+  --color-field-error-fill: rgb(255 255 255 / 0.06);
+  --color-field-error-stroke: #d9b8b9;
+  --color-field-error-text: #ffffff;
+  --color-field-error-label: #999999;
+  --color-field-error-icon: #ffffff;
+  --color-field-error-message: #d9b8b9;
+  --color-field-disabled-fill: rgb(255 255 255 / 0.02);
+  --color-field-disabled-stroke: #ff6e66;
+  --color-field-disabled-text: #ff9e99;
+  --color-field-disabled-label: #ff9e99;
+  --color-field-disabled-icon: #ff9e99;
+  --color-field-disabled-message: #ff9e99;
 }
 
 [data-theme="dark-black-neutral"] {
@@ -923,6 +1061,50 @@
   --color-tab-secondary-disabled-stroke: rgb(255 255 255 / 0);
   --color-tab-secondary-disabled-text: rgb(255 255 255 / 0.1);
   --color-tab-secondary-disabled-icon: rgb(255 255 255 / 0.1);
+
+  /* Forms/Input (UI06-Input) */
+  --color-field-default-fill: rgb(255 255 255 / 0);
+  --color-field-default-stroke: rgb(255 255 255 / 0.4);
+  --color-field-default-text: #ffffff;
+  --color-field-default-label: #ffffff;
+  --color-field-default-icon: #ffffff;
+  --color-field-default-message: rgb(255 255 255 / 0.8);
+  --color-field-hover-fill: #000000;
+  --color-field-hover-stroke: #ffffff;
+  --color-field-hover-text: #ffffff;
+  --color-field-hover-label: #ffffff;
+  --color-field-hover-icon: #ffffff;
+  --color-field-hover-message: #e5e5e5;
+  --color-field-focused-fill: rgb(255 255 255 / 0.04);
+  --color-field-focused-stroke: #ffffff;
+  --color-field-focused-text: #ffffff;
+  --color-field-focused-label: #e5e5e5;
+  --color-field-focused-icon: #ffffff;
+  --color-field-focused-message: #cccccc;
+  --color-field-filled-fill: #14161a;
+  --color-field-filled-stroke: rgb(255 255 255 / 0.4);
+  --color-field-filled-text: #ffffff;
+  --color-field-filled-label: #e5e5e5;
+  --color-field-filled-icon: #ffffff;
+  --color-field-filled-message: #e5e5e5;
+  --color-field-validated-fill: rgb(255 255 255 / 0);
+  --color-field-validated-stroke: #6dc849;
+  --color-field-validated-text: #ffffff;
+  --color-field-validated-label: #999999;
+  --color-field-validated-icon: #6dc849;
+  --color-field-validated-message: #6dc849;
+  --color-field-error-fill: #14161a;
+  --color-field-error-stroke: #d63838;
+  --color-field-error-text: #ffffff;
+  --color-field-error-label: #999999;
+  --color-field-error-icon: #d63838;
+  --color-field-error-message: #d63838;
+  --color-field-disabled-fill: rgb(255 255 255 / 0.06);
+  --color-field-disabled-stroke: rgb(255 255 255 / 0.2);
+  --color-field-disabled-text: #999999;
+  --color-field-disabled-label: #999999;
+  --color-field-disabled-icon: #999999;
+  --color-field-disabled-message: #999999;
 }
 
 [data-theme="light-yellow"] {
@@ -1151,4 +1333,48 @@
   --color-tab-secondary-disabled-stroke: rgb(0 0 0 / 0);
   --color-tab-secondary-disabled-text: rgb(0 0 0 / 0.2);
   --color-tab-secondary-disabled-icon: rgb(0 0 0 / 0.2);
+
+  /* Forms/Input (UI06-Input) */
+  --color-field-default-fill: #dcded4;
+  --color-field-default-stroke: #b3b3b3;
+  --color-field-default-text: #666666;
+  --color-field-default-label: #666666;
+  --color-field-default-icon: #434956;
+  --color-field-default-message: #666666;
+  --color-field-hover-fill: #ffffff;
+  --color-field-hover-stroke: #e23f36;
+  --color-field-hover-text: #000000;
+  --color-field-hover-label: #000000;
+  --color-field-hover-icon: #000000;
+  --color-field-hover-message: #666666;
+  --color-field-focused-fill: #ffffff;
+  --color-field-focused-stroke: #e23f36;
+  --color-field-focused-text: #000000;
+  --color-field-focused-label: #666666;
+  --color-field-focused-icon: #000000;
+  --color-field-focused-message: #666666;
+  --color-field-filled-fill: #dcded4;
+  --color-field-filled-stroke: #b3b3b3;
+  --color-field-filled-text: #000000;
+  --color-field-filled-label: #666666;
+  --color-field-filled-icon: #000000;
+  --color-field-filled-message: #666666;
+  --color-field-validated-fill: #ffffff;
+  --color-field-validated-stroke: #6dc849;
+  --color-field-validated-text: #000000;
+  --color-field-validated-label: #666666;
+  --color-field-validated-icon: #000000;
+  --color-field-validated-message: #237210;
+  --color-field-error-fill: #dcded4;
+  --color-field-error-stroke: #d63838;
+  --color-field-error-text: #000000;
+  --color-field-error-label: #666666;
+  --color-field-error-icon: #000000;
+  --color-field-error-message: #850606;
+  --color-field-disabled-fill: rgb(0 0 0 / 0);
+  --color-field-disabled-stroke: #cccccc;
+  --color-field-disabled-text: #b3b3b3;
+  --color-field-disabled-label: #b3b3b3;
+  --color-field-disabled-icon: #b3b3b3;
+  --color-field-disabled-message: #b3b3b3;
 }
