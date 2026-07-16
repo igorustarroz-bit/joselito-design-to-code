@@ -1,0 +1,90 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as ButtonIconStories from './ButtonIcon.stories'
+
+<Meta of={ButtonIconStories} />
+
+# Button Icon
+
+## Intro
+
+`ButtonIcon` es un botón cuadrado de solo icono: acciones compactas sin espacio para texto (carrusel, cerrar, favoritos). Corresponde al componente **UI03-Button-Icon** de Figma (`node 49038:9364`), que comparte los mismos tres tipos que `Button` (Primary/Secondary/Terciary) como variantes de un mismo master.
+
+## Demo
+
+<Canvas of={ButtonIconStories.Default} />
+
+<Controls />
+
+## Anatomía
+
+Un `ButtonIcon` es un cuadrado con un único icono centrado. No lleva texto, por lo que **requiere `aria-label`** para tener un nombre accesible.
+
+Tamaño, padding y radio de esquina son constantes en los 7 breakpoints de Figma para las dimensiones del botón (igual que `Button`); el radio de esquina sí usa los tokens responsive de `Corners` (`--radius-m`, `--radius-xs`, `--radius-l`), que varían por breakpoint.
+
+## Temas
+
+Cambia el selector **"Tema"** en la barra de herramientas de Storybook para ver `ButtonIcon` en los 5 temas semánticos — reutiliza exactamente los mismos tokens `--color-btn-{primary|secondary|terciary}-*` que `Button`.
+
+## Comportamiento
+
+- **Hover** y **Focus** son automáticos (`:hover`, `:focus-visible`) — no se controlan por prop.
+- **Selected** añade `aria-current="page"` y aplica los tokens de estado seleccionado. Al estar seleccionado, ya no reacciona a hover.
+- **Disabled** desactiva la interacción (`pointer-events: none`) y aplica los tokens de estado deshabilitado.
+- Si se pasa `href`, se renderiza como `<a>`; si no, como `<button type="button">`.
+- El icono se pasa mediante la prop `icon` (cualquier elemento SVG con `currentColor`); si no se indica, se usa una flecha de ejemplo.
+
+## Variantes y tamaños
+
+Tres tipos — **Primary**, **Secondary** y **Terciary** — y cinco tamaños: **XL** (solo definido para Primary en el archivo Figma), **L**, **M**, **S**, **XS**.
+
+<Story of={ButtonIconStories.Secondary} />
+<Story of={ButtonIconStories.Terciary} />
+<Story of={ButtonIconStories.SizeXL} />
+<Story of={ButtonIconStories.SizeM} />
+<Story of={ButtonIconStories.SizeS} />
+<Story of={ButtonIconStories.SizeXS} />
+<Story of={ButtonIconStories.Selected} />
+<Story of={ButtonIconStories.Disabled} />
+<Story of={ButtonIconStories.AsLink} />
+
+## Tokens
+
+### Color (por tipo y estado)
+
+Mismos tokens que `Button` (`--color-btn-{tipo}-{estado}-fill/stroke/icon`; no usa `-text` al no tener texto).
+
+### Tamaño
+
+| Tamaño | Caja (ancho×alto) | Radio | Icono (Primary) | Icono (Secondary/Terciary) |
+|---|---|---|---|---|
+| XL | 104×104px | `--radius-l` | 32px | — (no definido en Figma) |
+| L | 64×64px | `--radius-m` | 20px | 24px |
+| M | 56×56px | `--radius-m` | 20px | 24px |
+| S | 48×48px | `--radius-m` | 20px | 20px |
+| XS | 40×40px | `--radius-xs` | 16px | 16px |
+
+Nota: Secondary/Terciary usan un icono más grande que Primary en L y M (24px vs 20px), pero igualan a Primary en S y XS — verificado directamente en Figma para los tres tipos, no es una inconsistencia de traducción.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `icon` | Elemento SVG a mostrar (usa `currentColor`) | flecha de ejemplo | — |
+| `type` | Tipo de énfasis: `primary`, `secondary`, `terciary` | `"primary"` | select |
+| `size` | Tamaño: `xl`, `l`, `m`, `s`, `xs` | `"l"` | select |
+| `selected` | Marca el botón como activo (`aria-current="page"`) | `false` | boolean |
+| `disabled` | Desactiva la interacción | `false` | boolean |
+| `href` | Si se indica, renderiza un `<a>` en vez de `<button>` | — | text |
+| `aria-label` | Nombre accesible (obligatorio, no hay texto visible) | — | text |
+
+## Accesibilidad
+
+- **`aria-label` es obligatorio**: al no haber texto visible, un lector de pantalla no tiene forma de anunciar la acción sin él.
+- El estado `selected` se comunica con `aria-current="page"`.
+- El estado `disabled` usa el atributo nativo `disabled` en `<button>`, o `aria-disabled` + `pointer-events: none` cuando se renderiza como `<a>`.
+- El foco visible (`:focus-visible`) usa un token de color con contraste suficiente en los 5 temas.
+
+## Componentes relacionados
+
+- **UI02 · Button** — mismo sistema de tipos/tokens, con texto.
+- **UI01 · Nav Button** — botón de navegación terciario, mismo patrón de estados/temas.

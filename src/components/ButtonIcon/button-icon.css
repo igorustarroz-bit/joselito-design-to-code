@@ -1,0 +1,183 @@
+/**
+ * UI03-Button-Icon — botón cuadrado. Reutiliza exactamente los mismos tokens
+ * de color que UI02-Button (--color-btn-{primary|secondary|terciary}-*),
+ * confirmado en Figma: ambos componentes referencian las mismas variables
+ * Button/{Tipo}/{Estado}/{Fill,Stroke,Text,Icon}. El patrón de "variables
+ * locales por estado" es idéntico al de button.css.
+ *
+ * Tamaño del icono interior: Primary usa 20px en L/M/S y 16px en XS (32px en
+ * XL); Secondary/Terciary usan 24px en L/M pero igualan a Primary (20px) en S
+ * y (16px) en XS — verificado en Figma, no es un error de traducción.
+ */
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  background: var(--btn-fill);
+  border-color: var(--btn-stroke);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-icon__icon-wrap {
+  display: inline-flex;
+  overflow: hidden;
+}
+
+.btn-icon__icon {
+  width: 100%;
+  height: 100%;
+  color: var(--btn-icon);
+}
+
+/* Tamaños — cuadrado, radio desde los tokens Responsive de Corners */
+.btn-icon--xs {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-xs);
+}
+.btn-icon--xs .btn-icon__icon-wrap {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-icon--s {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-m);
+}
+.btn-icon--s .btn-icon__icon-wrap {
+  width: 20px;
+  height: 20px;
+}
+
+.btn-icon--m {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-m);
+}
+.btn-icon--m .btn-icon__icon-wrap {
+  width: 20px;
+  height: 20px;
+}
+
+.btn-icon--l {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-m);
+}
+.btn-icon--l .btn-icon__icon-wrap {
+  width: 20px;
+  height: 20px;
+}
+
+.btn-icon--xl {
+  width: 104px;
+  height: 104px;
+  border-radius: var(--radius-l);
+}
+.btn-icon--xl .btn-icon__icon-wrap {
+  width: 32px;
+  height: 32px;
+}
+
+/* Secondary/Terciary: icono más grande en L y M (24px en vez de 20px) */
+.btn-icon--m[data-type='secondary'] .btn-icon__icon-wrap,
+.btn-icon--m[data-type='terciary'] .btn-icon__icon-wrap,
+.btn-icon--l[data-type='secondary'] .btn-icon__icon-wrap,
+.btn-icon--l[data-type='terciary'] .btn-icon__icon-wrap {
+  width: 24px;
+  height: 24px;
+}
+
+/* Primary */
+.btn-icon[data-type='primary'] {
+  --btn-fill: var(--color-btn-primary-default-fill);
+  --btn-stroke: var(--color-btn-primary-default-stroke);
+  --btn-icon: var(--color-btn-primary-default-icon);
+}
+.btn-icon[data-type='primary']:hover:not(:disabled):not([aria-disabled='true']):not([aria-current]) {
+  --btn-fill: var(--color-btn-primary-hover-fill);
+  --btn-stroke: var(--color-btn-primary-hover-stroke);
+  --btn-icon: var(--color-btn-primary-hover-icon);
+}
+.btn-icon[data-type='primary']:focus-visible {
+  --btn-fill: var(--color-btn-primary-focused-fill);
+  --btn-stroke: var(--color-btn-primary-focused-stroke);
+  --btn-icon: var(--color-btn-primary-focused-icon);
+}
+.btn-icon[data-type='primary'][aria-current] {
+  --btn-fill: var(--color-btn-primary-selected-fill);
+  --btn-stroke: var(--color-btn-primary-selected-stroke);
+  --btn-icon: var(--color-btn-primary-selected-icon);
+}
+.btn-icon[data-type='primary']:disabled,
+.btn-icon[data-type='primary'][aria-disabled='true'] {
+  --btn-fill: var(--color-btn-primary-disabled-fill);
+  --btn-stroke: var(--color-btn-primary-disabled-stroke);
+  --btn-icon: var(--color-btn-primary-disabled-icon);
+}
+
+/* Secondary */
+.btn-icon[data-type='secondary'] {
+  --btn-fill: var(--color-btn-secondary-default-fill);
+  --btn-stroke: var(--color-btn-secondary-default-stroke);
+  --btn-icon: var(--color-btn-secondary-default-icon);
+}
+.btn-icon[data-type='secondary']:hover:not(:disabled):not([aria-disabled='true']):not([aria-current]) {
+  --btn-fill: var(--color-btn-secondary-hover-fill);
+  --btn-stroke: var(--color-btn-secondary-hover-stroke);
+  --btn-icon: var(--color-btn-secondary-hover-icon);
+}
+.btn-icon[data-type='secondary']:focus-visible {
+  --btn-fill: var(--color-btn-secondary-focused-fill);
+  --btn-stroke: var(--color-btn-secondary-focused-stroke);
+  --btn-icon: var(--color-btn-secondary-focused-icon);
+}
+.btn-icon[data-type='secondary'][aria-current] {
+  --btn-fill: var(--color-btn-secondary-selected-fill);
+  --btn-stroke: var(--color-btn-secondary-selected-stroke);
+  --btn-icon: var(--color-btn-secondary-selected-icon);
+}
+.btn-icon[data-type='secondary']:disabled,
+.btn-icon[data-type='secondary'][aria-disabled='true'] {
+  --btn-fill: var(--color-btn-secondary-disabled-fill);
+  --btn-stroke: var(--color-btn-secondary-disabled-stroke);
+  --btn-icon: var(--color-btn-secondary-disabled-icon);
+}
+
+/* Terciary */
+.btn-icon[data-type='terciary'] {
+  --btn-fill: var(--color-btn-terciary-default-fill);
+  --btn-stroke: var(--color-btn-terciary-default-stroke);
+  --btn-icon: var(--color-btn-terciary-default-icon);
+}
+.btn-icon[data-type='terciary']:hover:not(:disabled):not([aria-disabled='true']):not([aria-current]) {
+  --btn-fill: var(--color-btn-terciary-hover-fill);
+  --btn-stroke: var(--color-btn-terciary-hover-stroke);
+  --btn-icon: var(--color-btn-terciary-hover-icon);
+}
+.btn-icon[data-type='terciary']:focus-visible {
+  --btn-fill: var(--color-btn-terciary-focused-fill);
+  --btn-stroke: var(--color-btn-terciary-focused-stroke);
+  --btn-icon: var(--color-btn-terciary-focused-icon);
+}
+.btn-icon[data-type='terciary'][aria-current] {
+  --btn-fill: var(--color-btn-terciary-selected-fill);
+  --btn-stroke: var(--color-btn-terciary-selected-stroke);
+  --btn-icon: var(--color-btn-terciary-selected-icon);
+}
+.btn-icon[data-type='terciary']:disabled,
+.btn-icon[data-type='terciary'][aria-disabled='true'] {
+  --btn-fill: var(--color-btn-terciary-disabled-fill);
+  --btn-stroke: var(--color-btn-terciary-disabled-stroke);
+  --btn-icon: var(--color-btn-terciary-disabled-icon);
+}
+
+.btn-icon:disabled,
+.btn-icon[aria-disabled='true'] {
+  cursor: not-allowed;
+  pointer-events: none;
+}
