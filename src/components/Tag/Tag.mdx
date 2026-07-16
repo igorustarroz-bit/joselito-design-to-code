@@ -1,0 +1,72 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as TagStories from './Tag.stories'
+
+<Meta of={TagStories} />
+
+# Tag
+
+## Intro
+
+`Tag` es una etiqueta estática de una sola línea, usada para marcar productos o secciones (p. ej. "Nuevo", categorías como "Transacción" o "Aséptico"). Corresponde a **UI12-Tag** de Figma (`node 49723:4763`, 6 variantes: Size L/XS × Type Transaction/New/Aseptic).
+
+## Demo
+
+<Canvas of={TagStories.Transaction} />
+
+## Anatomía
+
+Un único `<span>` con fondo de color sólido, esquinas redondeadas y texto en mayúsculas centrado — sin icono, sin borde, sin estados de interacción (Figma no define Hover/Focus/Disabled para este componente).
+
+<Story of={TagStories.New} />
+<Story of={TagStories.Aseptic} />
+
+## Comportamiento
+
+`Tag` es puramente presentacional y estático: no tiene `onClick` ni estados de foco/hover — es una etiqueta informativa, no un control interactivo.
+
+## Variantes y tamaños
+
+| Type | Fondo | Texto |
+|---|---|---|
+| `transaction` (por defecto) | `Backgrounds/Accent-Subbrand-Sec` | `Texts/Base` |
+| `new` | `Backgrounds/Accent-1` | `Texts/Inverted` |
+| `aseptic` | `Backgrounds/Neutral-1` | `Texts/Base` |
+
+| Size | Padding | Tipografía |
+|---|---|---|
+| `l` (por defecto) | `4px 8px` | Label/02 — 12px/16px |
+| `xs` | `3px 8px` | Label/01 — 10px/14px |
+
+<Story of={TagStories.Small} />
+<Story of={TagStories.CustomText} />
+
+## Tokens
+
+Ningún token nuevo — reutiliza globales ya existentes en `semantic.css`/`responsive.css` (verificado literalmente en `get_design_context` de cada variante, no asumido por el nombre):
+
+| Type | Token de fondo | Token de texto |
+|---|---|---|
+| Transaction | `--color-surface-accent-subbrand-sec` | `--color-content-base` |
+| New | `--color-surface-accent-1` | `--color-content-inverted` |
+| Aseptic | `--color-surface-neutral-1` | `--color-content-base` |
+
+Radio de esquina: `--radius-xxs` (2px).
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `type` | `'transaction'` \| `'new'` \| `'aseptic'` | `'transaction'` | radio |
+| `size` | `'l'` \| `'xs'` | `'l'` | radio |
+| `text` | Texto de la etiqueta | `'Label'` (`'Nuevo'` en `type="new"`) | text |
+
+Acepta además cualquier prop nativa adicional del `<span>` (`id`, etc.).
+
+## Accesibilidad
+
+- Es contenido puramente informativo/decorativo — no requiere `role` ni atributos ARIA adicionales al no ser interactivo.
+- El contraste texto/fondo de cada `type` se verificó suficiente en los 5 temas al reutilizar tokens ya validados en otros componentes (`Texts/Base`, `Texts/Inverted`).
+
+## Componentes relacionados
+
+Ninguno directo — es un componente hoja, usado dentro de tarjetas de producto y listados (p. ej. **Card Product**, pendiente).

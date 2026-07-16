@@ -1,0 +1,49 @@
+/**
+ * UI12-Tag — node 49723:4763 en Figma (6 variantes: Size L/XS × Type
+ * Transaction/New/Aseptic). Etiqueta estática (sin estados de interacción:
+ * no hay Hover/Focus/Disabled en Figma para este componente).
+ *
+ * Ningún token semántico nuevo — reutiliza globales ya existentes,
+ * verificado literalmente en `get_design_context` de cada variante:
+ *   - Transaction: fondo --color-surface-accent-subbrand-sec, texto --color-content-base
+ *   - New: fondo --color-surface-accent-1, texto --color-content-inverted
+ *   - Aseptic: fondo --color-surface-neutral-1, texto --color-content-base
+ * Tipografía: --text-label-2 (L) / --text-label-1 (XS), ya definidas en
+ * responsive.css. Radio de esquina: --radius-xxs (2px).
+ */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xxs, 2px);
+  font-family: var(--font-label);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.tag--l {
+  padding: 4px 8px;
+  font-size: var(--text-label-2);
+  line-height: var(--text-label-2--line-height);
+}
+
+.tag--xs {
+  padding: 3px 8px;
+  font-size: var(--text-label-1);
+  line-height: var(--text-label-1--line-height);
+}
+
+.tag[data-type='transaction'] {
+  background: var(--color-surface-accent-subbrand-sec);
+  color: var(--color-content-base);
+}
+
+.tag[data-type='new'] {
+  background: var(--color-surface-accent-1);
+  color: var(--color-content-inverted);
+}
+
+.tag[data-type='aseptic'] {
+  background: var(--color-surface-neutral-1);
+  color: var(--color-content-base);
+}
