@@ -86,6 +86,28 @@
   --color-icon-warning-1: #7a5706;
   --color-icon-warning-2: #f7ba40;
   --color-icon-warning-3: #f9d999;
+
+  /* Button/Nav (UI01-Nav-Button) */
+  --color-nav-default-fill: #ffffff;
+  --color-nav-default-stroke: rgb(0 0 0 / 0);
+  --color-nav-default-text: #000000;
+  --color-nav-default-icon: #000000;
+  --color-nav-hover-fill: #ffffff;
+  --color-nav-hover-stroke: #e5e5e5;
+  --color-nav-hover-text: #000000;
+  --color-nav-hover-icon: #000000;
+  --color-nav-focused-fill: #f7f7f7;
+  --color-nav-focused-stroke: #e5e5e5;
+  --color-nav-focused-text: #260200;
+  --color-nav-focused-icon: #260200;
+  --color-nav-selected-fill: #ffffff;
+  --color-nav-selected-stroke: rgb(0 0 0 / 0);
+  --color-nav-selected-text: #000000;
+  --color-nav-selected-icon: #000000;
+  --color-nav-disabled-fill: rgb(0 0 0 / 0);
+  --color-nav-disabled-stroke: rgb(0 0 0 / 0);
+  --color-nav-disabled-text: rgb(0 0 0 / 0.2);
+  --color-nav-disabled-icon: rgb(0 0 0 / 0.2);
 }
 
 [data-theme="light-grey"] {
@@ -161,6 +183,28 @@
   --color-icon-warning-1: #7a5706;
   --color-icon-warning-2: #f7ba40;
   --color-icon-warning-3: #f9d999;
+
+  /* Button/Nav (UI01-Nav-Button) */
+  --color-nav-default-fill: #ffffff;
+  --color-nav-default-stroke: rgb(0 0 0 / 0.2);
+  --color-nav-default-text: #000000;
+  --color-nav-default-icon: #000000;
+  --color-nav-hover-fill: #ffffff;
+  --color-nav-hover-stroke: #e23f36;
+  --color-nav-hover-text: #000000;
+  --color-nav-hover-icon: #000000;
+  --color-nav-focused-fill: #e5e5e5;
+  --color-nav-focused-stroke: #e23f36;
+  --color-nav-focused-text: #260200;
+  --color-nav-focused-icon: #260200;
+  --color-nav-selected-fill: #e23f36;
+  --color-nav-selected-stroke: rgb(255 255 255 / 0);
+  --color-nav-selected-text: #ffffff;
+  --color-nav-selected-icon: #ffffff;
+  --color-nav-disabled-fill: rgb(0 0 0 / 0.1);
+  --color-nav-disabled-stroke: rgb(0 0 0 / 0);
+  --color-nav-disabled-text: rgb(0 0 0 / 0.2);
+  --color-nav-disabled-icon: rgb(0 0 0 / 0.2);
 }
 
 [data-theme="dark-red-primary"] {
@@ -236,6 +280,28 @@
   --color-icon-warning-1: #f9d999;
   --color-icon-warning-2: #f7ba40;
   --color-icon-warning-3: #7a5706;
+
+  /* Button/Nav (UI01-Nav-Button) */
+  --color-nav-default-fill: #ffffff;
+  --color-nav-default-stroke: #ffcfcc;
+  --color-nav-default-text: #ffffff;
+  --color-nav-default-icon: #ffffff;
+  --color-nav-hover-fill: #ffffff;
+  --color-nav-hover-stroke: rgb(255 255 255 / 0);
+  --color-nav-hover-text: #000000;
+  --color-nav-hover-icon: #000000;
+  --color-nav-focused-fill: #ffffff;
+  --color-nav-focused-stroke: #260200;
+  --color-nav-focused-text: #000000;
+  --color-nav-focused-icon: #ffffff;
+  --color-nav-selected-fill: #ffffff;
+  --color-nav-selected-stroke: rgb(255 255 255 / 0);
+  --color-nav-selected-text: #260200;
+  --color-nav-selected-icon: #260200;
+  --color-nav-disabled-fill: rgb(0 0 0 / 0.06);
+  --color-nav-disabled-stroke: rgb(255 255 255 / 0);
+  --color-nav-disabled-text: rgb(0 0 0 / 0.3);
+  --color-nav-disabled-icon: rgb(0 0 0 / 0.3);
 }
 
 [data-theme="dark-black-neutral"] {
@@ -311,6 +377,28 @@
   --color-icon-warning-1: #f9d999;
   --color-icon-warning-2: #f7ba40;
   --color-icon-warning-3: #7a5706;
+
+  /* Button/Nav (UI01-Nav-Button) */
+  --color-nav-default-fill: #ffffff;
+  --color-nav-default-stroke: rgb(255 255 255 / 0.3);
+  --color-nav-default-text: #ffffff;
+  --color-nav-default-icon: #ffffff;
+  --color-nav-hover-fill: #ffffff;
+  --color-nav-hover-stroke: #ffffff;
+  --color-nav-hover-text: #ffffff;
+  --color-nav-hover-icon: #ffffff;
+  --color-nav-focused-fill: #e5e5e5;
+  --color-nav-focused-stroke: #ffffff;
+  --color-nav-focused-text: #ffffff;
+  --color-nav-focused-icon: #ffffff;
+  --color-nav-selected-fill: #ffffff;
+  --color-nav-selected-stroke: rgb(255 255 255 / 0);
+  --color-nav-selected-text: #000000;
+  --color-nav-selected-icon: #000000;
+  --color-nav-disabled-fill: rgb(255 255 255 / 0.06);
+  --color-nav-disabled-stroke: rgb(255 255 255 / 0);
+  --color-nav-disabled-text: rgb(255 255 255 / 0.1);
+  --color-nav-disabled-icon: rgb(255 255 255 / 0.1);
 }
 
 [data-theme="light-yellow"] {
@@ -386,4 +474,26 @@
   --color-icon-warning-1: #7a5706;
   --color-icon-warning-2: #f7ba40;
   --color-icon-warning-3: #f9d999;
+
+  /* Button/Nav (UI01-Nav-Button) */
+  --color-nav-default-fill: #ffffff;
+  --color-nav-default-stroke: rgb(0 0 0 / 0.2);
+  --color-nav-default-text: #000000;
+  --color-nav-default-icon: #000000;
+  --color-nav-hover-fill: #ffffff;
+  --color-nav-hover-stroke: #e23f36;
+  --color-nav-hover-text: #000000;
+  --color-nav-hover-icon: #000000;
+  --color-nav-focused-fill: #e5e5e5;
+  --color-nav-focused-stroke: #e23f36;
+  --color-nav-focused-text: #260200;
+  --color-nav-focused-icon: #260200;
+  --color-nav-selected-fill: #e23f36;
+  --color-nav-selected-stroke: rgb(255 255 255 / 0);
+  --color-nav-selected-text: #ffffff;
+  --color-nav-selected-icon: #ffffff;
+  --color-nav-disabled-fill: rgb(0 0 0 / 0.1);
+  --color-nav-disabled-stroke: rgb(0 0 0 / 0);
+  --color-nav-disabled-text: rgb(0 0 0 / 0.2);
+  --color-nav-disabled-icon: rgb(0 0 0 / 0.2);
 }

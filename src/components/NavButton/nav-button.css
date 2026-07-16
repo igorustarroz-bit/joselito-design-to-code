@@ -1,0 +1,83 @@
+/**
+ * UI01-Nav-Button — layout fijo (constante en los 7 breakpoints de Figma) +
+ * estados vía pseudo-clases, consumiendo los tokens semánticos de
+ * src/styles/tokens/semantic.css (--color-nav-*).
+ */
+
+.nav-button {
+  --nav-button-height: 40px;
+  --nav-button-padding-x: 16px;
+  --nav-button-min-width: 56px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-r-2);
+  height: var(--nav-button-height);
+  min-width: var(--nav-button-min-width);
+  padding-inline: var(--nav-button-padding-x);
+  background: var(--color-nav-default-fill);
+  border: 1px solid var(--color-nav-default-stroke);
+  color: var(--color-nav-default-text);
+  font-family: var(--font-cta);
+  font-size: var(--text-cta-xs);
+  line-height: var(--text-cta-xs--line-height);
+  letter-spacing: var(--tracking-cta);
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-button__icon {
+  color: var(--color-nav-default-icon);
+  flex-shrink: 0;
+}
+
+.nav-button__label {
+  white-space: nowrap;
+}
+
+.nav-button:hover:not(:disabled):not([aria-current]) {
+  background: var(--color-nav-hover-fill);
+  border-color: var(--color-nav-hover-stroke);
+  color: var(--color-nav-hover-text);
+}
+.nav-button:hover:not(:disabled):not([aria-current]) .nav-button__icon {
+  color: var(--color-nav-hover-icon);
+}
+
+.nav-button:focus-visible {
+  background: var(--color-nav-focused-fill);
+  border-color: var(--color-nav-focused-stroke);
+  color: var(--color-nav-focused-text);
+  outline: none;
+}
+.nav-button:focus-visible .nav-button__icon {
+  color: var(--color-nav-focused-icon);
+}
+
+.nav-button[aria-current] {
+  background: var(--color-nav-selected-fill);
+  border-color: var(--color-nav-selected-stroke);
+  color: var(--color-nav-selected-text);
+}
+.nav-button[aria-current] .nav-button__icon {
+  color: var(--color-nav-selected-icon);
+}
+.nav-button[aria-current] .nav-button__label {
+  border-bottom: 1px solid currentColor;
+}
+
+.nav-button:disabled,
+.nav-button[aria-disabled="true"] {
+  background: var(--color-nav-disabled-fill);
+  border-color: var(--color-nav-disabled-stroke);
+  color: var(--color-nav-disabled-text);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.nav-button:disabled .nav-button__icon,
+.nav-button[aria-disabled="true"] .nav-button__icon {
+  color: var(--color-nav-disabled-icon);
+}

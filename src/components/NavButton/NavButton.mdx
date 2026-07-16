@@ -1,0 +1,82 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as NavButtonStories from './NavButton.stories'
+
+<Meta of={NavButtonStories} />
+
+# Nav Button
+
+## Intro
+
+`NavButton` es un botón de navegación terciario: item de menú, selector de idioma, enlace de navegación secundaria. Corresponde al componente **UI01-Nav-Button** de Figma (`node 57943:37204`).
+
+## Demo
+
+<Canvas of={NavButtonStories.Default} />
+
+<Controls />
+
+## Anatomía
+
+Un `NavButton` es una fila horizontal con, de izquierda a derecha:
+
+1. **Icono izquierdo** (opcional, ej. globo para idioma) — 16×16px
+2. **Texto** — mayúsculas, tipografía CTA-XS
+3. **Icono derecho** (opcional, ej. flecha desplegable) — 16×16px, visible por defecto
+
+Altura fija 40px, padding horizontal 16px, ancho mínimo 56px, separación entre icono y texto de 8px (`--spacing-r-2`). Estos valores son constantes en los 7 breakpoints de Figma (no cambian de forma responsive).
+
+## Temas
+
+Cambia el selector **"Tema"** en la barra de herramientas de Storybook para ver `NavButton` en los 5 temas semánticos (Light-White, Light-Grey, Dark-Red-Primary, Dark-Black-Neutral, Light-Yellow) — el color de fondo, borde, texto e icono se adaptan automáticamente vía los tokens `--color-nav-*`.
+
+## Comportamiento
+
+- **Hover** y **Focus** son automáticos (`:hover`, `:focus-visible`) — no se controlan por prop.
+- **Selected** indica el item de navegación activo: añade `aria-current="page"` y subraya el texto con el color del tema. Al estar seleccionado, ya no reacciona a hover.
+- **Disabled** desactiva la interacción (`pointer-events: none`) y aplica los tokens de estado deshabilitado.
+- Si se pasa `href`, se renderiza como `<a>`; si no, como `<button type="button">`.
+
+## Variantes y tamaños
+
+Por ahora Figma solo define el tipo **Terciary** (variantOptions: `["Terciary"]`) — no hay tamaños ni tipos adicionales (Primary/Secondary) para este componente.
+
+<Story of={NavButtonStories.WithLeftIcon} />
+<Story of={NavButtonStories.Selected} />
+<Story of={NavButtonStories.Disabled} />
+<Story of={NavButtonStories.AsLink} />
+
+## Tokens
+
+| Estado | Fill | Stroke | Text | Icon |
+|---|---|---|---|---|
+| Default | `--color-nav-default-fill` | `--color-nav-default-stroke` | `--color-nav-default-text` | `--color-nav-default-icon` |
+| Hover | `--color-nav-hover-fill` | `--color-nav-hover-stroke` | `--color-nav-hover-text` | `--color-nav-hover-icon` |
+| Focus | `--color-nav-focused-fill` | `--color-nav-focused-stroke` | `--color-nav-focused-text` | `--color-nav-focused-icon` |
+| Selected | `--color-nav-selected-fill` | `--color-nav-selected-stroke` | `--color-nav-selected-text` | `--color-nav-selected-icon` |
+| Disabled | `--color-nav-disabled-fill` | `--color-nav-disabled-stroke` | `--color-nav-disabled-text` | `--color-nav-disabled-icon` |
+
+Tipografía: `--font-cta`, `--text-cta-xs` / `--text-cta-xs--line-height`, `--tracking-cta`. Espaciado: `--spacing-r-2` (gap). Layout fijo: `--nav-button-height` (40px), `--nav-button-padding-x` (16px), `--nav-button-min-width` (56px).
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `text` | Texto del botón | `"Nav"` | text |
+| `showIconLeft` | Muestra el icono izquierdo (globo) | `false` | boolean |
+| `showIconRight` | Muestra el icono derecho (flecha) | `true` | boolean |
+| `selected` | Marca el item como activo (`aria-current="page"`) | `false` | boolean |
+| `disabled` | Desactiva la interacción | `false` | boolean |
+| `href` | Si se indica, renderiza un `<a>` en vez de `<button>` | — | text |
+
+## Accesibilidad
+
+- El estado `selected` se comunica con `aria-current="page"`, detectable por lectores de pantalla y navegación por teclado.
+- El estado `disabled` usa el atributo nativo `disabled` en `<button>`, o `aria-disabled` + `pointer-events: none` cuando se renderiza como `<a>` (los enlaces no soportan `disabled` nativo).
+- El foco visible (`:focus-visible`) usa un token de color con contraste suficiente en los 5 temas.
+- Los iconos son puramente decorativos (`aria-hidden="true"`); el texto visible ya describe la acción.
+
+## Componentes relacionados
+
+- **UI02 · Button** — botón de acción principal/secundario (pendiente).
+- **UI03 · Button Icon** — botón de solo icono (pendiente).
+- **Navigation / Secondary menu**, **Navigation / Breadcrumb** — módulos que usan `NavButton` como building block (pendientes).
