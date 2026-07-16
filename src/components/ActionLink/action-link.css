@@ -1,0 +1,103 @@
+/**
+ * UI04-Button-Action-Link — enlace de acción subrayado. El "fondo"/"borde" de
+ * Figma (--button/link-primary/*\/fill,stroke) se traduce como el color del
+ * subrayado (border-bottom); no hay caja de fondo real. Mismo patrón de
+ * variables locales por estado que button.css/button-icon.css.
+ */
+
+.action-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-r-2);
+  border: none;
+  border-bottom: 1px solid var(--btn-stroke);
+  background: transparent;
+  color: var(--btn-text);
+  font-family: var(--font-cta);
+  letter-spacing: var(--tracking-cta);
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s ease, border-color 0.15s ease;
+
+  --btn-fill: var(--color-btn-link-primary-default-fill);
+  --btn-stroke: var(--color-btn-link-primary-default-stroke);
+  --btn-text: var(--color-btn-link-primary-default-text);
+  --btn-icon: var(--color-btn-link-primary-default-icon);
+}
+
+.action-link__icon {
+  flex-shrink: 0;
+  color: var(--btn-icon);
+}
+
+.action-link__label {
+  white-space: nowrap;
+}
+
+/* Tamaños — valores constantes en los 7 breakpoints de Figma */
+.action-link--l {
+  padding-bottom: 8px;
+  gap: var(--spacing-r-2);
+  font-size: var(--text-cta-s);
+  line-height: var(--text-cta-l--line-height);
+}
+.action-link--l .action-link__icon {
+  width: 24px;
+  height: 24px;
+}
+
+.action-link--m {
+  gap: var(--spacing-r-2);
+  font-size: var(--text-cta-xs);
+  line-height: var(--text-cta-m--line-height);
+}
+.action-link--m .action-link__icon {
+  width: 16px;
+  height: 16px;
+}
+
+.action-link--s {
+  gap: var(--spacing-r-1);
+  font-size: var(--text-cta-xs);
+  line-height: var(--text-cta-s--line-height);
+}
+.action-link--s .action-link__icon {
+  width: 16px;
+  height: 16px;
+}
+
+.action-link:hover:not(:disabled):not([aria-disabled='true']):not([aria-current]) {
+  --btn-fill: var(--color-btn-link-primary-hover-fill);
+  --btn-stroke: var(--color-btn-link-primary-hover-stroke);
+  --btn-text: var(--color-btn-link-primary-hover-text);
+  --btn-icon: var(--color-btn-link-primary-hover-icon);
+}
+
+.action-link:focus-visible {
+  --btn-fill: var(--color-btn-link-primary-focused-fill);
+  --btn-stroke: var(--color-btn-link-primary-focused-stroke);
+  --btn-text: var(--color-btn-link-primary-focused-text);
+  --btn-icon: var(--color-btn-link-primary-focused-icon);
+  outline: none;
+}
+
+.action-link[aria-current] {
+  --btn-fill: var(--color-btn-link-primary-selected-fill);
+  --btn-stroke: var(--color-btn-link-primary-selected-stroke);
+  --btn-text: var(--color-btn-link-primary-selected-text);
+  --btn-icon: var(--color-btn-link-primary-selected-icon);
+}
+
+.action-link:disabled,
+.action-link[aria-disabled='true'] {
+  --btn-fill: var(--color-btn-link-primary-disabled-fill);
+  --btn-stroke: var(--color-btn-link-primary-disabled-stroke);
+  --btn-text: var(--color-btn-link-primary-disabled-text);
+  --btn-icon: var(--color-btn-link-primary-disabled-icon);
+  cursor: not-allowed;
+  pointer-events: none;
+}

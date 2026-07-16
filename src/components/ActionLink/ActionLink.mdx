@@ -1,0 +1,92 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as ActionLinkStories from './ActionLink.stories'
+
+<Meta of={ActionLinkStories} />
+
+# Action Link
+
+## Intro
+
+`ActionLink` es un enlace de acción subrayado, sin fondo: "ver más", "leer artículo", enlaces dentro de tarjetas o listados. Corresponde al componente **UI04-Button-Action-Link** de Figma (`node 49038:9486`).
+
+## Demo
+
+<Canvas of={ActionLinkStories.Default} />
+
+<Controls />
+
+## Anatomía
+
+Una fila horizontal centrada con, de izquierda a derecha:
+
+1. **Icono izquierdo** (opcional) — 24px (L), 16px (M/S)
+2. **Texto** — mayúsculas, tipografía CTA, subrayado (`border-bottom`)
+3. **Icono derecho** (opcional) — mismo tamaño que el icono izquierdo
+
+A diferencia de `Button`/`ButtonIcon`, no hay caja de fondo: el color de "fondo/borde" de Figma se traduce como el color del subrayado.
+
+## Temas
+
+Cambia el selector **"Tema"** en la barra de herramientas de Storybook para ver `ActionLink` en los 5 temas semánticos — vía los tokens `--color-btn-link-primary-*`.
+
+## Comportamiento
+
+- **Hover** y **Focus** son automáticos (`:hover`, `:focus-visible`) — no se controlan por prop.
+- **Selected** añade `aria-current="page"`. Figma no define una variante "Selected" para este componente, pero el token existe en Semantic-Color y se aplica por consistencia con el resto de botones del sistema.
+- **Disabled** desactiva la interacción (`pointer-events: none`) y aplica los tokens de estado deshabilitado.
+- Si se pasa `href`, se renderiza como `<a>`; si no, como `<button type="button">`.
+
+## Variantes y tamaños
+
+Un único tipo visual ("Link Primary") en tres tamaños: **L**, **M**, **S**.
+
+<Story of={ActionLinkStories.WithIcons} />
+<Story of={ActionLinkStories.SizeM} />
+<Story of={ActionLinkStories.SizeS} />
+<Story of={ActionLinkStories.Selected} />
+<Story of={ActionLinkStories.Disabled} />
+<Story of={ActionLinkStories.AsLink} />
+
+## Tokens
+
+### Color (por estado)
+
+| Estado | Subrayado | Texto | Icono |
+|---|---|---|---|
+| Default | `--color-btn-link-primary-default-stroke` | `--color-btn-link-primary-default-text` | `--color-btn-link-primary-default-icon` |
+| Hover | `--color-btn-link-primary-hover-stroke` | `--color-btn-link-primary-hover-text` | `--color-btn-link-primary-hover-icon` |
+| Focus | `--color-btn-link-primary-focused-stroke` | `--color-btn-link-primary-focused-text` | `--color-btn-link-primary-focused-icon` |
+| Selected | `--color-btn-link-primary-selected-stroke` | `--color-btn-link-primary-selected-text` | `--color-btn-link-primary-selected-icon` |
+| Disabled | `--color-btn-link-primary-disabled-stroke` | `--color-btn-link-primary-disabled-text` | `--color-btn-link-primary-disabled-icon` |
+
+### Tamaño y tipografía
+
+| Tamaño | Gap | Padding-bottom | Icono | Font-size | Line-height |
+|---|---|---|---|---|---|
+| L | `--spacing-r-2` (8px) | 8px | 24px | `--text-cta-s` | `--text-cta-l--line-height` |
+| M | `--spacing-r-2` (8px) | — | 16px | `--text-cta-xs` | `--text-cta-m--line-height` |
+| S | `--spacing-r-1` (4px) | — | 16px | `--text-cta-xs` | `--text-cta-s--line-height` |
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `text` | Texto del enlace | `"Button"` | text |
+| `size` | Tamaño: `l`, `m`, `s` | `"l"` | select |
+| `showIconLeft` | Muestra el icono izquierdo | `false` | boolean |
+| `showIconRight` | Muestra el icono derecho | `false` | boolean |
+| `selected` | Marca el enlace como activo (`aria-current="page"`) | `false` | boolean |
+| `disabled` | Desactiva la interacción | `false` | boolean |
+| `href` | Si se indica, renderiza un `<a>` en vez de `<button>` | — | text |
+
+## Accesibilidad
+
+- El estado `selected` se comunica con `aria-current="page"`.
+- El estado `disabled` usa el atributo nativo `disabled` en `<button>`, o `aria-disabled` + `pointer-events: none` cuando se renderiza como `<a>`.
+- El foco visible (`:focus-visible`) usa un token de color con contraste suficiente en los 5 temas.
+- Los iconos son puramente decorativos; el texto visible ya describe la acción.
+
+## Componentes relacionados
+
+- **UI02 · Button** — acción con fondo sólido, para llamadas a la acción de mayor énfasis.
+- **UI03 · Button Icon** — acción de solo icono.
