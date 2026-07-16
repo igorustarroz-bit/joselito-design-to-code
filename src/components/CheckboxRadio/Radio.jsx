@@ -5,8 +5,10 @@ import './checkbox-radio.css'
  * Envuelve un `<input type="radio">` nativo estilizado con
  * `appearance: none`. Ver Checkbox.jsx para la nota sobre "Theme".
  */
-export function Radio({ checked, disabled = false, className, ...rest }) {
-  const classes = ['checkbox-radio', 'checkbox-radio--radio', className].filter(Boolean).join(' ')
+export function Radio({ checked, disabled = false, size = 'medium', className, ...rest }) {
+  const classes = ['checkbox-radio', 'checkbox-radio--radio', size === 'small' && 'checkbox-radio--small', className]
+    .filter(Boolean)
+    .join(' ')
   return (
     <input
       type="radio"

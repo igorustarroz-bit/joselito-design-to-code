@@ -11,8 +11,10 @@ import './checkbox-radio.css'
  * solos vía `data-theme`, así que esa variante de Figma es redundante con
  * el sistema de temas de este proyecto.
  */
-export function Checkbox({ checked, disabled = false, className, ...rest }) {
-  const classes = ['checkbox-radio', 'checkbox-radio--checkbox', className].filter(Boolean).join(' ')
+export function Checkbox({ checked, disabled = false, size = 'medium', className, ...rest }) {
+  const classes = ['checkbox-radio', 'checkbox-radio--checkbox', size === 'small' && 'checkbox-radio--small', className]
+    .filter(Boolean)
+    .join(' ')
   return (
     <input
       type="checkbox"

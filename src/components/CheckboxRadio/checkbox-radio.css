@@ -34,6 +34,19 @@
   border-radius: 50%;
 }
 
+/* Size=Small (usada por UI09-Checkbox-Label) — 16×16, mismo margen de 2px */
+.checkbox-radio--small {
+  width: 16px;
+  height: 16px;
+}
+
+.checkbox-radio--small.checkbox-radio--checkbox::after {
+  left: 5.5px;
+  top: 2.5px;
+  width: 3px;
+  height: 6px;
+}
+
 .checkbox-radio::before {
   content: '';
   position: absolute;

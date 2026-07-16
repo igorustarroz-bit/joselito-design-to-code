@@ -1,0 +1,83 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as CheckboxLabelStories from './CheckboxLabel.stories'
+
+<Meta of={CheckboxLabelStories} />
+
+# Checkbox + Label
+
+## Intro
+
+`CheckboxLabel` combina **UI10-Checkboxes-Radios** (Type=Checkboxes) con un texto de etiqueta. Corresponde a **UI09-Checkbox-Label** de Figma (`node 43246:12097`, 12 variantes: Size Medium/Small × Estado). Es la pieza de la que depende **UI08 · Checkbox List**.
+
+## Demo
+
+<Canvas of={CheckboxLabelStories.Default} />
+
+## Anatomía
+
+Un `<label>` nativo (no un `<div>`) en flex horizontal, `gap: 8px`, que envuelve:
+
+1. Un `Checkbox` (ver **UI10 · Checkboxes & Radios**), 20px (Medium) o 16px (Small)
+2. Un `<span>` con el texto de la etiqueta
+
+Al usar un `<label for="...">` real asociado al `id` del `<input>`, clicar el texto también marca/desmarca el control — sin JavaScript adicional.
+
+## Comportamiento
+
+- **Hover**: es el `:hover` nativo del `Checkbox` interior (heredado de UI10); el color del texto no cambia.
+- **Selected**: el `Checkbox` pasa a `checked`; el color del texto no cambia respecto a Default.
+- **Disabled** (marcado o no): el texto pasa de `Texts/Neutral-1` a `Texts/Neutral-2` (más tenue) y el cursor cambia a `not-allowed`.
+- La variante Figma "Estado=Undefined" (`node 43246:12108`) es visualmente idéntica a "Selected" — se trata como un duplicado/placeholder de Figma, no como un estado real, y no tiene equivalente como prop.
+
+<Story of={CheckboxLabelStories.Selected} />
+<Story of={CheckboxLabelStories.Disabled} />
+<Story of={CheckboxLabelStories.DisabledSelected} />
+
+## Tamaños
+
+| Size | Checkbox | Tipografía |
+|---|---|---|
+| Medium (por defecto) | 20×20px | Body/03 — 16px/24px |
+| Small | 16×16px | Body/02 — 14px/22px |
+
+<Story of={CheckboxLabelStories.Small} />
+<Story of={CheckboxLabelStories.SmallSelected} />
+
+## Temas
+
+Cambia el selector **"Tema"** en la barra de herramientas de Storybook — todos los colores usan tokens globales ya existentes (`Content/Neutral-1`, `Content/Neutral-2` para el texto, más los del `Checkbox` interior), así que se adaptan automáticamente a los 5 temas.
+
+## Tokens
+
+Ningún token nuevo — reutiliza globales ya existentes en `semantic.css` (verificado leyendo las variables realmente enlazadas en cada nodo de Figma, no asumido por el nombre):
+
+| Estado del texto | Token |
+|---|---|
+| Default / Hover / Selected | `--color-content-neutral-1` |
+| Disabled / Disabled + Selected | `--color-content-neutral-2` |
+
+El `Checkbox` interior reutiliza sus propios tokens ya documentados en **UI10 · Checkboxes & Radios**. Para `size="small"` se añadió un modificador `.checkbox-radio--small` (16×16px, mismo margen de 2px) en `checkbox-radio.css`, reutilizando los mismos colores — no son tokens nuevos, solo dimensiones.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `size` | `'medium'` \| `'small'` | `'medium'` | radio |
+| `text` | Texto de la etiqueta | `'Label'` | text |
+| `checked` | Estado marcado (controlado) | — | boolean |
+| `disabled` | Deshabilita el control | `false` | boolean |
+| `id` | id del `<input>` (autogenerado con `useId()` si se omite) | — | text |
+| `onChange` | Handler nativo de cambio | — | — |
+
+Acepta además cualquier prop nativa adicional del `<input>` (`name`, `value`, `required`, etc.), reenviada al `Checkbox` interior.
+
+## Accesibilidad
+
+- Usa un `<label htmlFor>` real asociado al `id` del `<input>` — nombre accesible correcto sin necesidad de `aria-label`.
+- El `Checkbox` interior es un `<input type="checkbox">` nativo: foco, activación por teclado (Espacio) y envío en formularios funcionan sin JavaScript adicional.
+- El anillo de foco (`:focus-visible`) del `Checkbox` tiene contraste suficiente en los 5 temas.
+
+## Componentes relacionados
+
+- **UI10 · Checkboxes & Radios** — el control de selección que envuelve este componente.
+- **UI08 · Checkbox List** — lista de varios `CheckboxLabel` (pendiente).

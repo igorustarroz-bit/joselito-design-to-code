@@ -1,0 +1,41 @@
+/**
+ * UI09-Checkbox-Label — fila horizontal Checkbox + texto, envuelta en
+ * <label> nativo (asociación accesible automática: clicar el texto también
+ * marca/desmarca el control).
+ *
+ * Tokens: gap y color de texto reutilizan globales ya existentes en
+ * semantic.css — no se añadió ningún token nuevo (verificado leyendo las
+ * variables enlazadas en cada nodo de Figma, no asumido por el nombre):
+ *   - Texto (Default / Hover / Selected): --color-content-neutral-1 (Texts/Neutral-1)
+ *   - Texto (Disabled / Disabled+Selected): --color-content-neutral-2 (Texts/Neutral-2)
+ *
+ * Tipografía: Body/03 (16px/24px) en Size=Medium, Body/02 (14px/22px) en
+ * Size=Small — igual que UI06-Input, escala tipográfica component-scoped,
+ * no global.
+ */
+.checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-fx-2, 8px);
+  cursor: pointer;
+}
+
+.checkbox-label__text {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--color-content-neutral-1);
+}
+
+.checkbox-label--small .checkbox-label__text {
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.checkbox-label--disabled {
+  cursor: not-allowed;
+}
+
+.checkbox-label--disabled .checkbox-label__text {
+  color: var(--color-content-neutral-2);
+}
