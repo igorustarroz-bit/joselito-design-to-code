@@ -1,0 +1,53 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import { ColorSwatches, TypographySamples, SpacingScale } from './PrimitivesSwatches'
+
+<Meta title="Tokens/Primitives" />
+
+# Primitives
+
+## Intro
+
+Los tokens **Primitives** son los valores base del sistema de diseño de Joselito: color, tipografía y espaciado. Se generan directamente desde la colección `Primitives` de variables de Figma (133 variables, modo único `Joselito`).
+
+Estos tokens **no se usan directamente en componentes o módulos** — son la capa de valores crudos sobre la que se construyen los tokens semánticos (`Semantic-Color`), que sí definen qué color se usa en qué contexto y con qué tema.
+
+## Demo
+
+<div className="flex flex-col gap-3 p-4 rounded border border-neutral-90">
+  <p className="text-sm text-neutral-40">
+    Ejemplo combinando un color primitivo, un espaciado y una tipografía:
+  </p>
+  <div
+    className="inline-flex items-center rounded"
+    style={{
+      background: 'var(--color-primary-50)',
+      color: 'var(--color-neutral-white)',
+      padding: 'var(--spacing-fx-3) var(--spacing-fx-5)',
+      fontFamily: 'var(--font-cta)',
+      letterSpacing: 'var(--tracking-cta)',
+      width: 'fit-content',
+    }}
+  >
+    Botón de ejemplo
+  </div>
+</div>
+
+## Tokens
+
+### Color
+
+<ColorSwatches />
+
+> **Nota**: los grupos `Secondary-1/2/3` corresponden a las paletas secundarias del Figma tal cual están nombradas — no representan un orden de prioridad de marca, solo el índice de la paleta en el archivo.
+
+### Tipografía
+
+<TypographySamples />
+
+> **Inconsistencia detectada en Figma**: `Tipography/Font-Weight/Title-Black` y `Tipography/Font-Weight/Title-Bold` tienen el mismo valor (`"Kingdom Regular"`), y el valor no es un peso de fuente válido en CSS sino el nombre de una familia/estilo distinta a `Tipography/Font-Family/Title` (`SangBleu`). No se han traducido a tokens de código hasta confirmar con el equipo de diseño cuál es el valor correcto.
+
+### Espaciado (fijo)
+
+<SpacingScale />
+
+Escala de espaciados fijos `fx-0` a `fx-9`, usada en propiedades de ancho/alto y `gap`.

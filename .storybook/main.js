@@ -1,3 +1,5 @@
+import tailwindcss from '@tailwindcss/vite'
+
 /** @type { import('@storybook/react-vite').StorybookConfig } */
 const config = {
   "stories": [
@@ -7,6 +9,11 @@ const config = {
   "addons": [
     "@storybook/addon-docs"
   ],
-  "framework": "@storybook/react-vite"
+  "framework": "@storybook/react-vite",
+  async viteFinal(viteConfig) {
+    viteConfig.plugins = viteConfig.plugins || []
+    viteConfig.plugins.push(tailwindcss())
+    return viteConfig
+  },
 };
 export default config;

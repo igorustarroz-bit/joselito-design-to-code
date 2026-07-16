@@ -10,7 +10,7 @@ Orden: primitivas primero, luego semánticos/responsive.
 
 | Token | Estado |
 |---|---|
-| Primitives (color, espaciado, tipografía) | pendiente |
+| Primitives (color, espaciado, tipografía) | completado |
 | Responsive (breakpoints: XS-375, SM-480, M-768, LG-1024, XL-1440, XXL-1620, XXXL-1920) | pendiente |
 | Semantic-Color (temas: Light-White, Light-Grey, Dark-Red-Primary, Dark-Black-Neutral, Light-Yellow) | pendiente |
 
@@ -75,4 +75,8 @@ Contenedores 100% ancho de viewport.
 
 ## Siguiente paso
 
-Empezar por **Primitives** (tokens de color, espaciado y tipografía) antes de tocar ningún componente.
+Seguir con **Responsive** (breakpoints) y **Semantic-Color** (temas) antes de tocar ningún componente.
+
+## Notas de implementación
+
+- **Primitives**: `src/styles/tokens/primitives.css` (`@theme` de Tailwind v4, importado desde `src/index.css`), catálogo de nombres en `src/tokens/primitives.js`, documentado en Storybook en `src/stories/tokens/Primitives.mdx`. Se detectó una inconsistencia en Figma (`Font-Weight/Title-Black` y `Title-Bold` con el mismo valor no válido como peso CSS) — pendiente de aclarar con diseño, documentada en el propio Storybook.

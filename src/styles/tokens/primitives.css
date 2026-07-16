@@ -1,0 +1,153 @@
+/**
+ * Primitives — tokens generados desde Figma (colección "Primitives", modo único "Joselito").
+ * No usar estos valores directamente en componentes: los componentes/módulos deben
+ * consumir los tokens SEMÁNTICOS (Semantic-Color) que referencian a estas primitivas.
+ * Fuente: Figma fileKey xtL6cbqN94yw7pAlr8k1NK — VariableCollectionId:1:3
+ */
+@theme {
+  /* Color / Neutral */
+  --color-neutral-white: #ffffff;
+  --color-neutral-98: #f9fafa;
+  --color-neutral-96: #f7f7f7;
+  --color-neutral-94: #f0f0f0;
+  --color-neutral-90: #e5e5e5;
+  --color-neutral-80: #cccccc;
+  --color-neutral-70: #b3b3b3;
+  --color-neutral-60: #999999;
+  --color-neutral-50: #808080;
+  --color-neutral-40: #666666;
+  --color-neutral-30: #434956;
+  --color-neutral-20: #252931;
+  --color-neutral-10: #14161a;
+  --color-neutral-black: #000000;
+
+  /* Color / Primary */
+  --color-primary-100: #ffffff;
+  --color-primary-98: #fff5f5;
+  --color-primary-96: #ffeceb;
+  --color-primary-94: #ffe2e0;
+  --color-primary-90: #ffcfcc;
+  --color-primary-80: #ff9e99;
+  --color-primary-70: #ff6e66;
+  --color-primary-60: #ff3d33;
+  --color-primary-50: #e23f36;
+  --color-primary-40: #cc0a00;
+  --color-primary-30: #990800;
+  --color-primary-20: #481815;
+  --color-primary-10: #260200;
+  --color-primary-0: #000000;
+
+  /* Color / Secondary-1 */
+  --color-secondary-1-100: #ffffff;
+  --color-secondary-1-98: #fafbf9;
+  --color-secondary-1-96: #f6f6f3;
+  --color-secondary-1-94: #f1f2ee;
+  --color-secondary-1-90: #e7e9e2;
+  --color-secondary-1-80: #dcded4;
+  --color-secondary-1-70: #b8bca9;
+  --color-secondary-1-60: #9ba084;
+  --color-secondary-1-50: #89906f;
+  --color-secondary-1-40: #6e7359;
+  --color-secondary-1-30: #525643;
+  --color-secondary-1-20: #373a2c;
+  --color-secondary-1-10: #1f2019;
+  --color-secondary-1-0: #000000;
+
+  /* Color / Secondary-2 */
+  --color-secondary-2-100: #ffffff;
+  --color-secondary-2-98: #f5fffb;
+  --color-secondary-2-96: #ebfff6;
+  --color-secondary-2-94: #e0fff2;
+  --color-secondary-2-90: #ccffea;
+  --color-secondary-2-80: #9bfdd4;
+  --color-secondary-2-70: #68fdbe;
+  --color-secondary-2-60: #36fca9;
+  --color-secondary-2-50: #04fb93;
+  --color-secondary-2-40: #00c875;
+  --color-secondary-2-30: #00995a;
+  --color-secondary-2-20: #00663c;
+  --color-secondary-2-10: #063320;
+  --color-secondary-2-0: #000000;
+
+  /* Color / Secondary-3 */
+  --color-secondary-3-100: #ffffff;
+  --color-secondary-3-98: #fffcf5;
+  --color-secondary-3-96: #fff9eb;
+  --color-secondary-3-94: #fff6e0;
+  --color-secondary-3-90: #fff0cc;
+  --color-secondary-3-80: #ffe199;
+  --color-secondary-3-70: #ffd366;
+  --color-secondary-3-60: #ffc433;
+  --color-secondary-3-50: #ffb800;
+  --color-secondary-3-40: #cc9300;
+  --color-secondary-3-30: #996e00;
+  --color-secondary-3-20: #664a00;
+  --color-secondary-3-10: #372800;
+  --color-secondary-3-0: #000000;
+
+  /* Color / Opacity (negro/blanco a distintos niveles de transparencia) */
+  --color-opacity-black-100: rgb(0 0 0 / 0);
+  --color-opacity-black-98: rgb(0 0 0 / 0.02);
+  --color-opacity-black-96: rgb(0 0 0 / 0.04);
+  --color-opacity-black-94: rgb(0 0 0 / 0.06);
+  --color-opacity-black-90: rgb(0 0 0 / 0.1);
+  --color-opacity-black-80: rgb(0 0 0 / 0.2);
+  --color-opacity-black-70: rgb(0 0 0 / 0.3);
+  --color-opacity-black-60: rgb(0 0 0 / 0.4);
+  --color-opacity-black-50: rgb(0 0 0 / 0.5);
+  --color-opacity-black-40: rgb(0 0 0 / 0.6);
+  --color-opacity-black-30: rgb(0 0 0 / 0.7);
+  --color-opacity-black-20: rgb(0 0 0 / 0.8);
+  --color-opacity-black-10: rgb(0 0 0 / 0.9);
+  --color-opacity-black-0: #000000;
+  --color-opacity-white-100: rgb(255 255 255 / 0);
+  --color-opacity-white-98: rgb(255 255 255 / 0.02);
+  --color-opacity-white-96: rgb(255 255 255 / 0.04);
+  --color-opacity-white-94: rgb(255 255 255 / 0.06);
+  --color-opacity-white-90: rgb(255 255 255 / 0.1);
+  --color-opacity-white-80: rgb(255 255 255 / 0.2);
+  --color-opacity-white-70: rgb(255 255 255 / 0.3);
+  --color-opacity-white-60: rgb(255 255 255 / 0.4);
+  --color-opacity-white-50: rgb(255 255 255 / 0.5);
+  --color-opacity-white-40: rgb(255 255 255 / 0.6);
+  --color-opacity-white-30: rgb(255 255 255 / 0.7);
+  --color-opacity-white-20: rgb(255 255 255 / 0.8);
+  --color-opacity-white-10: rgb(255 255 255 / 0.9);
+  --color-opacity-white-0: #ffffff;
+
+  /* Color / System (feedback) */
+  --color-system-error-01: #d9b8b9;
+  --color-system-error-02: #d63838;
+  --color-system-error-03: #850606;
+  --color-system-success-01: #a2dbb3;
+  --color-system-success-02: #6dc849;
+  --color-system-success-03: #237210;
+  --color-system-warning-01: #f9d999;
+  --color-system-warning-02: #f7ba40;
+  --color-system-warning-03: #7a5706;
+
+  /* Tipografía — familias, pesos (nombre de estilo) y tracking */
+  --font-title: 'SangBleu', serif;
+  --font-body: 'Euclid Circular B', sans-serif;
+  --font-label: 'Euclid Circular B', sans-serif;
+  --font-cta: 'Euclid Circular B', sans-serif;
+  --font-forms: 'Euclid Circular B', sans-serif;
+
+  --tracking-title: -1.5px;
+  --tracking-body: 0px;
+  --tracking-label: 0px;
+  --tracking-cta: 0.5px;
+  --tracking-forms: 0px;
+
+  /* Espaciado fijo (fx-0 … fx-9) */
+  --spacing-fx-0: 2px;
+  --spacing-fx-1: 4px;
+  --spacing-fx-2: 8px;
+  --spacing-fx-3: 12px;
+  --spacing-fx-4: 16px;
+  --spacing-fx-5: 20px;
+  --spacing-fx-6: 24px;
+  --spacing-fx-7: 28px;
+  --spacing-fx-8: 32px;
+  --spacing-fx-9: 40px;
+}
