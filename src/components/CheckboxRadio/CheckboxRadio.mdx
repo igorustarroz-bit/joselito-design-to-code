@@ -1,0 +1,69 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as CheckboxRadioStories from './CheckboxRadio.stories'
+
+<Meta of={CheckboxRadioStories} />
+
+# Checkbox & Radio
+
+## Intro
+
+`Checkbox` y `Radio` son los controles de selección base del sistema. Corresponden a **UI10-Checkboxes-Radios** de Figma (`node 49722:19804`, 20 variantes: Type Checkboxes/Radio × 5 estados × 2 "Theme"). Son la pieza de más bajo nivel de la que dependen **UI09 · Checkbox + Label** y, a través de él, **UI08 · Checkbox List**.
+
+## Demo
+
+<Canvas of={CheckboxRadioStories.CheckboxDefault} />
+
+## Anatomía
+
+Ambos son un `<input>` nativo (`type="checkbox"` / `type="radio"`) de 20×20px con `appearance: none`, estilizado con:
+
+1. Una caja/anillo exterior (borde)
+2. Un relleno interior de 16×16px centrado (2px de margen respecto al borde) — cuadrado redondeado en Checkbox, círculo en Radio
+3. En Checkbox marcado: un check dibujado con CSS (dos bordes rotados 45°, sin depender de un asset de icono)
+
+Al ser un `<input>` real (no un `<div>` simulado), hereda gratis foco, activación por teclado, envío en formularios y agrupación nativa por `name` (Radio).
+
+## Temas
+
+Cambia el selector **"Tema"** en la barra de herramientas de Storybook — todos los colores usan tokens globales ya existentes (`Strokes-Icons/*`, `Backgrounds/*`), no un namespace propio, así que se adaptan automáticamente. La propiedad "Theme" (Light/Dark) del master de Figma **no se tradujo como prop**: es redundante con el sistema de 5 temas de este proyecto, ya que los tokens subyacentes ya resuelven el color correcto en cada `data-theme`.
+
+## Comportamiento
+
+- **Hover** solo se define quando el control no está seleccionado ni deshabilitado (Figma no define una variante "Selected + Hover").
+- **Focus** usa el `:focus-visible` nativo con un anillo de color con contraste suficiente.
+- **Disabled** usa el atributo nativo `disabled`; combinado con `checked` muestra el relleno atenuado (`Backgrounds/Neutral-3`) en vez del color de acento.
+
+<Story of={CheckboxRadioStories.CheckboxChecked} />
+<Story of={CheckboxRadioStories.CheckboxDisabled} />
+<Story of={CheckboxRadioStories.CheckboxCheckedDisabled} />
+<Story of={CheckboxRadioStories.RadioGroup} />
+<Story of={CheckboxRadioStories.RadioDisabled} />
+<Story of={CheckboxRadioStories.RadioCheckedDisabled} />
+
+## Tokens
+
+| Estado | Borde | Relleno |
+|---|---|---|
+| No seleccionado | `--color-icon-neutral-1` | — |
+| Hover (no seleccionado) | `--color-icon-accent-1` | — |
+| Seleccionado | `--color-icon-neutral-3` | `--color-surface-accent-base` |
+| Seleccionado + Disabled | `--color-icon-neutral-3` | `--color-surface-neutral-3` |
+| Disabled | `--color-icon-neutral-2` | — |
+
+Todos son tokens globales reutilizados de `semantic.css` — verificado leyendo las variables realmente enlazadas en cada nodo de Figma (no asumido por el nombre del estado).
+
+## Propiedades
+
+Ambos componentes son wrappers directos de `<input type="checkbox">` / `<input type="radio">`: aceptan cualquier prop nativa del elemento (`checked`, `defaultChecked`, `disabled`, `name`, `value`, `onChange`, `required`, etc.) además de `className`.
+
+## Accesibilidad
+
+- Son `<input>` nativos: foco, activación con teclado (Espacio/Flechas) y envío en formularios funcionan sin JavaScript adicional.
+- Deben usarse siempre envueltos en un `<label>` (ver **UI09 · Checkbox + Label**) para tener un nombre accesible — usarlos sueltos requiere `aria-label` o `aria-labelledby`.
+- El anillo de foco (`:focus-visible`) tiene contraste suficiente en los 5 temas.
+
+## Componentes relacionados
+
+- **UI09 · Checkbox + Label** — combina `Checkbox` con un texto de etiqueta (pendiente).
+- **UI08 · Checkbox List** — lista de varios `UI09 · Checkbox + Label` (pendiente).
+- **UI07 · Listbox** — su variante `checkbox` usa provisionalmente un `<input type="checkbox">` nativo; se actualizará para usar este componente.

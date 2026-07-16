@@ -1,0 +1,94 @@
+/**
+ * UI10-Checkboxes-Radios — `<input>` nativo con `appearance: none`, 20×20px,
+ * caja exterior (borde) + relleno interior 16×16 centrado (2px de margen) +
+ * check dibujado en CSS (dos bordes rotados) para Checkbox.
+ *
+ * Todos los colores reutilizan tokens globales ya existentes en
+ * semantic.css — no se añadió ningún token nuevo (verificado leyendo las
+ * variables enlazadas en cada nodo de Figma, no asumido):
+ *   - No seleccionado: borde --color-icon-neutral-1 (Strokes-Icons/Neutral-1)
+ *   - Hover (no seleccionado): borde --color-icon-accent-1 (Strokes-Icons/Accent-1)
+ *   - Disabled: borde --color-icon-neutral-2 (Strokes-Icons/Neutral-2)
+ *   - Seleccionado: relleno --color-surface-accent-base (Backgrounds/Accent-Base),
+ *     borde --color-icon-neutral-3 (Strokes-Icons/Neutral-3)
+ *   - Seleccionado + Disabled: relleno --color-surface-neutral-3 (Backgrounds/Neutral-3)
+ */
+
+.checkbox-radio {
+  appearance: none;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid var(--color-icon-neutral-1);
+  cursor: pointer;
+}
+
+.checkbox-radio--checkbox {
+  border-radius: 2px;
+}
+
+.checkbox-radio--radio {
+  border-radius: 50%;
+}
+
+.checkbox-radio::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background: transparent;
+}
+
+.checkbox-radio--checkbox::before {
+  border-radius: 1px;
+}
+
+.checkbox-radio--radio::before {
+  border-radius: 50%;
+}
+
+.checkbox-radio:hover:not(:checked):not(:disabled) {
+  border-color: var(--color-icon-accent-1);
+}
+
+.checkbox-radio:checked {
+  border-color: var(--color-icon-neutral-3);
+}
+
+.checkbox-radio:checked::before {
+  background: var(--color-surface-accent-base);
+}
+
+.checkbox-radio:disabled {
+  border-color: var(--color-icon-neutral-2);
+  cursor: not-allowed;
+}
+
+.checkbox-radio:checked:disabled::before {
+  background: var(--color-surface-neutral-3);
+}
+
+/* Check (solo Checkbox, dibujado con dos bordes rotados) */
+.checkbox-radio--checkbox::after {
+  content: '';
+  position: absolute;
+  display: none;
+  left: 7px;
+  top: 3.5px;
+  width: 4px;
+  height: 8px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-radio--checkbox:checked::after {
+  display: block;
+}
+
+.checkbox-radio:focus-visible {
+  outline: 2px solid var(--color-icon-accent-1);
+  outline-offset: 2px;
+}
