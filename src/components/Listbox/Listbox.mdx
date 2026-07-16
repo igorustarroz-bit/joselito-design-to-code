@@ -1,0 +1,79 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as ListboxStories from './Listbox.stories'
+
+<Meta of={ListboxStories} />
+
+# Listbox
+
+## Intro
+
+`Listbox` es el panel de opciones que se abre desde un `Input type="dropdown"` (UI06). Corresponde al componente **UI07-Listbox** de Figma (`node 49650:12398`), con dos variantes de layout ("Breakpoint" en Figma): **Desktop** (panel flotante compacto) y **Mobile** (hoja inferior de ancho completo con cabecera y botón "Aplicar"). Cada fila es un `ListboxItem`, traducción del fragmento `z_fragment_listbox_Item_Dropdown` (`node 49650:11827`).
+
+## Demo
+
+<Canvas of={ListboxStories.Desktop} />
+
+## Anatomía
+
+**Desktop**: panel blanco con esquinas redondeadas que contiene una lista vertical de `ListboxItem`.
+
+**Mobile**: cabecera (título + icono de flecha) + lista de opciones con scroll propio + pie con botón "Aplicar" de ancho completo (reutiliza `Button` de UI02).
+
+Cada `ListboxItem` es una fila con, opcionalmente, un checkbox a la izquierda (variante `checkbox`) o un icono de check a la derecha cuando está seleccionada (variante sin checkbox).
+
+## Temas
+
+Este componente reutiliza tokens globales ya existentes — no hay un namespace `Listbox/*` propio en Figma. El fondo del panel usa `Backgrounds/Base` (`--color-surface-base`), el hover de fila usa `Backgrounds/Neutral-1` (`--color-surface-neutral-1`), y los textos reutilizan `Texts/Base`, `Texts/Neutral-1` y `Forms/Focused/Text` (`--color-field-focused-text`) — verificado literalmente en el código generado por Figma para cada estado del item.
+
+## Comportamiento
+
+- `Listbox` **no gestiona** qué opción está seleccionada ni el posicionamiento respecto al campo que lo abre (mismo criterio presentacional que el resto de componentes): la app pasa los `<ListboxItem>` como children y controla la selección con `selected`/`checked`/`onClick`/`onChange`.
+- **Hover** en cada `ListboxItem` es automático (`:hover`) — nota: en Figma el radio de esquina cambia de 2px (Default/Focused) a 4px (Hover), un pequeño detalle inconsistente que se respetó tal cual en vez de forzar un único valor.
+- El estado **Focused** de Figma muestra el texto en un gris más apagado que el Default (`Texts/Neutral-1` vs `Forms/Focused/Text`) — contraintuitivo pero así está en el archivo, se tradujo literalmente.
+- La variante `checkbox` usa un `<input type="checkbox">` nativo como implementación provisional: en Figma esa variante instancia **UI10-Checkboxes-Radios**, aún no construido — sustituir cuando se construya ese componente.
+
+## Variantes y tamaños
+
+Dos tamaños de item — **Large** y **Medium** — que solo difieren en el tamaño del icono de check (24px / 20px).
+
+<Story of={ListboxStories.DesktopWithCheckboxes} />
+<Story of={ListboxStories.Mobile} />
+<Story of={ListboxStories.ItemMedium} />
+<Story of={ListboxStories.ItemSelected} />
+<Story of={ListboxStories.ItemWithCheckbox} />
+
+## Propiedades
+
+### `Listbox`
+
+| Nombre | Descripción | Por defecto |
+|---|---|---|
+| `variant` | `desktop` o `mobile` | `"desktop"` |
+| `title` | Título de la cabecera (solo `mobile`) | `"Title"` |
+| `applyLabel` | Texto del botón del pie (solo `mobile`) | `"Apply"` |
+| `onApply` | Manejador de clic del botón "Aplicar" | — |
+| `onHeaderClick` | Manejador de clic de la cabecera (solo `mobile`) | — |
+| `children` | Lista de `<ListboxItem>` | — |
+
+### `ListboxItem`
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `text` | Texto de la opción | `"Label"` | text |
+| `size` | `large` o `medium` (tamaño del icono de check) | `"large"` | select |
+| `checkbox` | Muestra un checkbox en vez del check de selección | `false` | boolean |
+| `checked` | Estado del checkbox (si `checkbox`) | `false` | boolean |
+| `selected` | Muestra el icono de check (si no `checkbox`) | `false` | boolean |
+| `onClick` / `onChange` | Manejadores de interacción | — | — |
+
+## Accesibilidad
+
+- `Listbox` usa `role="listbox"`; cada `ListboxItem` usa `role="option"` y `aria-selected`.
+- Cada `ListboxItem` es enfocable por teclado (`tabIndex={0}`).
+- Nota: para un patrón "listbox" completo (navegación con flechas, `aria-activedescendant`, cierre con Escape), la app que integre este componente debe añadir esa lógica — este componente solo resuelve la presentación visual.
+
+## Componentes relacionados
+
+- **UI06 · Input** — campo `type="dropdown"` que abre este panel.
+- **UI02 · Button** — usado en el pie de la variante Mobile.
+- **UI10 · Checkboxes & Radios** — pendiente; sustituirá el checkbox nativo provisional de `ListboxItem`.

@@ -1,0 +1,135 @@
+/**
+ * UI07-Listbox — reutiliza tokens globales ya existentes (no hay namespace
+ * "Listbox/*" propio en Figma): fondo del panel = Backgrounds/Base
+ * (--color-surface-base), fila hover = Backgrounds/Neutral-1
+ * (--color-surface-neutral-1), separador = Strokes-Icons/Neutral-3.
+ */
+
+.listbox {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface-base);
+}
+
+.listbox--desktop {
+  align-items: stretch;
+  width: 320px;
+  max-width: 100%;
+  padding: 12px 8px;
+  border-radius: var(--radius-s);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.12);
+}
+
+.listbox--mobile {
+  width: 100%;
+  border-top-left-radius: var(--radius-s);
+  border-top-right-radius: var(--radius-s);
+}
+
+.listbox__mobile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  padding: 16px var(--grid-margin-default);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-content-always-black);
+  font-family: var(--font-body);
+  font-size: var(--text-body-4);
+  line-height: var(--text-body-4--line-height);
+  text-align: left;
+}
+
+.listbox__mobile-title {
+  flex: 1 0 0;
+}
+
+.listbox__mobile-caret {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.listbox__mobile-items {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 8px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.listbox__mobile-footer {
+  width: 100%;
+  padding: 16px var(--grid-margin-default);
+  border-top: 1px solid var(--color-icon-neutral-3);
+}
+
+.listbox__mobile-apply {
+  width: 100%;
+}
+
+/* Item */
+.listbox-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius-xxs);
+  cursor: pointer;
+  font-family: var(--font-forms);
+  letter-spacing: var(--tracking-forms);
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--color-field-focused-text);
+  background: transparent;
+  transition: background-color 0.15s ease, color 0.15s ease, border-radius 0.15s ease;
+}
+
+.listbox-item:hover {
+  background: var(--color-surface-neutral-1);
+  border-radius: var(--radius-xs);
+  color: var(--color-content-base);
+}
+
+.listbox-item:focus-visible {
+  outline: none;
+  color: var(--color-content-neutral-1);
+}
+
+.listbox-item--medium .listbox-item__check {
+  width: 20px;
+  height: 20px;
+}
+.listbox-item--large .listbox-item__check {
+  width: 24px;
+  height: 24px;
+}
+
+.listbox-item__text {
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+.listbox-item__checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.listbox-item__checkbox {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--color-content-link);
+  cursor: pointer;
+}
+
+.listbox-item__check {
+  flex-shrink: 0;
+  color: var(--color-content-link);
+}
