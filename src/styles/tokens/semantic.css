@@ -196,6 +196,49 @@
   --color-btn-link-primary-disabled-stroke: rgb(0 0 0 / 0.2);
   --color-btn-link-primary-disabled-text: rgb(0 0 0 / 0.2);
   --color-btn-link-primary-disabled-icon: rgb(0 0 0 / 0.2);
+
+  /* Button/Tab Primary + Tab Secondary (UI05-Tabs) */
+  --color-tab-primary-default-fill: #ffffff;
+  --color-tab-primary-default-stroke: #e5e5e5;
+  --color-tab-primary-default-text: #000000;
+  --color-tab-primary-default-icon: #000000;
+  --color-tab-primary-hover-fill: #f7f7f7;
+  --color-tab-primary-hover-stroke: #e5e5e5;
+  --color-tab-primary-hover-text: #000000;
+  --color-tab-primary-hover-icon: #000000;
+  --color-tab-primary-focused-fill: #f7f7f7;
+  --color-tab-primary-focused-stroke: #e5e5e5;
+  --color-tab-primary-focused-text: #260200;
+  --color-tab-primary-focused-icon: #260200;
+  --color-tab-primary-selected-fill: #ffffff;
+  --color-tab-primary-selected-stroke: #000000;
+  --color-tab-primary-selected-text: #000000;
+  --color-tab-primary-selected-icon: #000000;
+  --color-tab-primary-disabled-fill: rgb(0 0 0 / 0);
+  --color-tab-primary-disabled-stroke: rgb(0 0 0 / 0);
+  --color-tab-primary-disabled-text: rgb(0 0 0 / 0.2);
+  --color-tab-primary-disabled-icon: rgb(0 0 0 / 0.2);
+
+  --color-tab-secondary-default-fill: #ffffff;
+  --color-tab-secondary-default-stroke: #e5e5e5;
+  --color-tab-secondary-default-text: #000000;
+  --color-tab-secondary-default-icon: #000000;
+  --color-tab-secondary-hover-fill: #f7f7f7;
+  --color-tab-secondary-hover-stroke: #e5e5e5;
+  --color-tab-secondary-hover-text: #000000;
+  --color-tab-secondary-hover-icon: #000000;
+  --color-tab-secondary-focused-fill: #f7f7f7;
+  --color-tab-secondary-focused-stroke: #e5e5e5;
+  --color-tab-secondary-focused-text: #260200;
+  --color-tab-secondary-focused-icon: #260200;
+  --color-tab-secondary-selected-fill: #ffffff;
+  --color-tab-secondary-selected-stroke: #e23f36;
+  --color-tab-secondary-selected-text: #000000;
+  --color-tab-secondary-selected-icon: #000000;
+  --color-tab-secondary-disabled-fill: rgb(0 0 0 / 0);
+  --color-tab-secondary-disabled-stroke: rgb(0 0 0 / 0);
+  --color-tab-secondary-disabled-text: rgb(0 0 0 / 0.2);
+  --color-tab-secondary-disabled-icon: rgb(0 0 0 / 0.2);
 }
 
 [data-theme="light-grey"] {
@@ -381,6 +424,49 @@
   --color-btn-link-primary-disabled-stroke: rgb(0 0 0 / 0.2);
   --color-btn-link-primary-disabled-text: rgb(0 0 0 / 0.2);
   --color-btn-link-primary-disabled-icon: rgb(0 0 0 / 0.2);
+
+  /* Button/Tab Primary + Tab Secondary (UI05-Tabs) */
+  --color-tab-primary-default-fill: #f7f7f7;
+  --color-tab-primary-default-stroke: rgb(0 0 0 / 0.2);
+  --color-tab-primary-default-text: #000000;
+  --color-tab-primary-default-icon: #000000;
+  --color-tab-primary-hover-fill: #f7f7f7;
+  --color-tab-primary-hover-stroke: #e23f36;
+  --color-tab-primary-hover-text: #000000;
+  --color-tab-primary-hover-icon: #000000;
+  --color-tab-primary-focused-fill: #e5e5e5;
+  --color-tab-primary-focused-stroke: #e23f36;
+  --color-tab-primary-focused-text: #260200;
+  --color-tab-primary-focused-icon: #260200;
+  --color-tab-primary-selected-fill: #e23f36;
+  --color-tab-primary-selected-stroke: rgb(255 255 255 / 0);
+  --color-tab-primary-selected-text: #ffffff;
+  --color-tab-primary-selected-icon: #ffffff;
+  --color-tab-primary-disabled-fill: rgb(0 0 0 / 0.1);
+  --color-tab-primary-disabled-stroke: rgb(0 0 0 / 0);
+  --color-tab-primary-disabled-text: rgb(0 0 0 / 0.2);
+  --color-tab-primary-disabled-icon: rgb(0 0 0 / 0.2);
+
+  --color-tab-secondary-default-fill: #f7f7f7;
+  --color-tab-secondary-default-stroke: rgb(0 0 0 / 0.2);
+  --color-tab-secondary-default-text: #000000;
+  --color-tab-secondary-default-icon: #000000;
+  --color-tab-secondary-hover-fill: #f7f7f7;
+  --color-tab-secondary-hover-stroke: #e23f36;
+  --color-tab-secondary-hover-text: #000000;
+  --color-tab-secondary-hover-icon: #000000;
+  --color-tab-secondary-focused-fill: #e5e5e5;
+  --color-tab-secondary-focused-stroke: #e23f36;
+  --color-tab-secondary-focused-text: #260200;
+  --color-tab-secondary-focused-icon: #260200;
+  --color-tab-secondary-selected-fill: #e23f36;
+  --color-tab-secondary-selected-stroke: rgb(255 255 255 / 0);
+  --color-tab-secondary-selected-text: #ffffff;
+  --color-tab-secondary-selected-icon: #ffffff;
+  --color-tab-secondary-disabled-fill: rgb(0 0 0 / 0.1);
+  --color-tab-secondary-disabled-stroke: rgb(0 0 0 / 0);
+  --color-tab-secondary-disabled-text: rgb(0 0 0 / 0.2);
+  --color-tab-secondary-disabled-icon: rgb(0 0 0 / 0.2);
 }
 
 [data-theme="dark-red-primary"] {
@@ -566,6 +652,49 @@
   --color-btn-link-primary-disabled-stroke: rgb(255 255 255 / 0);
   --color-btn-link-primary-disabled-text: rgb(255 255 255 / 0.4);
   --color-btn-link-primary-disabled-icon: rgb(255 255 255 / 0.4);
+
+  /* Button/Tab Primary + Tab Secondary (UI05-Tabs) */
+  --color-tab-primary-default-fill: #e23f36;
+  --color-tab-primary-default-stroke: #ffcfcc;
+  --color-tab-primary-default-text: #ffffff;
+  --color-tab-primary-default-icon: #ffffff;
+  --color-tab-primary-hover-fill: #ffffff;
+  --color-tab-primary-hover-stroke: rgb(255 255 255 / 0);
+  --color-tab-primary-hover-text: #000000;
+  --color-tab-primary-hover-icon: #000000;
+  --color-tab-primary-focused-fill: #ffffff;
+  --color-tab-primary-focused-stroke: #260200;
+  --color-tab-primary-focused-text: #000000;
+  --color-tab-primary-focused-icon: #ffffff;
+  --color-tab-primary-selected-fill: #ffffff;
+  --color-tab-primary-selected-stroke: rgb(255 255 255 / 0);
+  --color-tab-primary-selected-text: #260200;
+  --color-tab-primary-selected-icon: #260200;
+  --color-tab-primary-disabled-fill: rgb(0 0 0 / 0.06);
+  --color-tab-primary-disabled-stroke: rgb(255 255 255 / 0);
+  --color-tab-primary-disabled-text: rgb(0 0 0 / 0.3);
+  --color-tab-primary-disabled-icon: rgb(0 0 0 / 0.3);
+
+  --color-tab-secondary-default-fill: #e23f36;
+  --color-tab-secondary-default-stroke: #ffcfcc;
+  --color-tab-secondary-default-text: #ffffff;
+  --color-tab-secondary-default-icon: #ffffff;
+  --color-tab-secondary-hover-fill: #ffffff;
+  --color-tab-secondary-hover-stroke: rgb(255 255 255 / 0);
+  --color-tab-secondary-hover-text: #000000;
+  --color-tab-secondary-hover-icon: #000000;
+  --color-tab-secondary-focused-fill: #ffffff;
+  --color-tab-secondary-focused-stroke: #260200;
+  --color-tab-secondary-focused-text: #000000;
+  --color-tab-secondary-focused-icon: #ffffff;
+  --color-tab-secondary-selected-fill: #ffffff;
+  --color-tab-secondary-selected-stroke: rgb(255 255 255 / 0);
+  --color-tab-secondary-selected-text: #260200;
+  --color-tab-secondary-selected-icon: #260200;
+  --color-tab-secondary-disabled-fill: rgb(0 0 0 / 0.06);
+  --color-tab-secondary-disabled-stroke: rgb(255 255 255 / 0);
+  --color-tab-secondary-disabled-text: rgb(0 0 0 / 0.3);
+  --color-tab-secondary-disabled-icon: rgb(0 0 0 / 0.3);
 }
 
 [data-theme="dark-black-neutral"] {
@@ -751,6 +880,49 @@
   --color-btn-link-primary-disabled-stroke: rgb(255 255 255 / 0);
   --color-btn-link-primary-disabled-text: rgb(255 255 255 / 0.2);
   --color-btn-link-primary-disabled-icon: rgb(255 255 255 / 0.2);
+
+  /* Button/Tab Primary + Tab Secondary (UI05-Tabs) */
+  --color-tab-primary-default-fill: #14161a;
+  --color-tab-primary-default-stroke: rgb(255 255 255 / 0.3);
+  --color-tab-primary-default-text: #ffffff;
+  --color-tab-primary-default-icon: #ffffff;
+  --color-tab-primary-hover-fill: #14161a;
+  --color-tab-primary-hover-stroke: #ffffff;
+  --color-tab-primary-hover-text: #ffffff;
+  --color-tab-primary-hover-icon: #ffffff;
+  --color-tab-primary-focused-fill: rgb(255 255 255 / 0.2);
+  --color-tab-primary-focused-stroke: #ffffff;
+  --color-tab-primary-focused-text: #ffffff;
+  --color-tab-primary-focused-icon: #ffffff;
+  --color-tab-primary-selected-fill: #ffffff;
+  --color-tab-primary-selected-stroke: rgb(255 255 255 / 0);
+  --color-tab-primary-selected-text: #000000;
+  --color-tab-primary-selected-icon: #000000;
+  --color-tab-primary-disabled-fill: rgb(255 255 255 / 0.06);
+  --color-tab-primary-disabled-stroke: rgb(255 255 255 / 0);
+  --color-tab-primary-disabled-text: rgb(255 255 255 / 0.1);
+  --color-tab-primary-disabled-icon: rgb(255 255 255 / 0.1);
+
+  --color-tab-secondary-default-fill: #14161a;
+  --color-tab-secondary-default-stroke: rgb(255 255 255 / 0.3);
+  --color-tab-secondary-default-text: #ffffff;
+  --color-tab-secondary-default-icon: #ffffff;
+  --color-tab-secondary-hover-fill: #14161a;
+  --color-tab-secondary-hover-stroke: #ffffff;
+  --color-tab-secondary-hover-text: #ffffff;
+  --color-tab-secondary-hover-icon: #ffffff;
+  --color-tab-secondary-focused-fill: rgb(255 255 255 / 0.2);
+  --color-tab-secondary-focused-stroke: #ffffff;
+  --color-tab-secondary-focused-text: #ffffff;
+  --color-tab-secondary-focused-icon: #ffffff;
+  --color-tab-secondary-selected-fill: #ffffff;
+  --color-tab-secondary-selected-stroke: rgb(255 255 255 / 0);
+  --color-tab-secondary-selected-text: #000000;
+  --color-tab-secondary-selected-icon: #000000;
+  --color-tab-secondary-disabled-fill: rgb(255 255 255 / 0.06);
+  --color-tab-secondary-disabled-stroke: rgb(255 255 255 / 0);
+  --color-tab-secondary-disabled-text: rgb(255 255 255 / 0.1);
+  --color-tab-secondary-disabled-icon: rgb(255 255 255 / 0.1);
 }
 
 [data-theme="light-yellow"] {
@@ -936,4 +1108,47 @@
   --color-btn-link-primary-disabled-stroke: #000000;
   --color-btn-link-primary-disabled-text: rgb(0 0 0 / 0.2);
   --color-btn-link-primary-disabled-icon: rgb(0 0 0 / 0.2);
+
+  /* Button/Tab Primary + Tab Secondary (UI05-Tabs) */
+  --color-tab-primary-default-fill: #dcded4;
+  --color-tab-primary-default-stroke: rgb(0 0 0 / 0.2);
+  --color-tab-primary-default-text: #000000;
+  --color-tab-primary-default-icon: #000000;
+  --color-tab-primary-hover-fill: #dcded4;
+  --color-tab-primary-hover-stroke: #e23f36;
+  --color-tab-primary-hover-text: #000000;
+  --color-tab-primary-hover-icon: #000000;
+  --color-tab-primary-focused-fill: #e5e5e5;
+  --color-tab-primary-focused-stroke: #e23f36;
+  --color-tab-primary-focused-text: #260200;
+  --color-tab-primary-focused-icon: #260200;
+  --color-tab-primary-selected-fill: #e23f36;
+  --color-tab-primary-selected-stroke: rgb(255 255 255 / 0);
+  --color-tab-primary-selected-text: #ffffff;
+  --color-tab-primary-selected-icon: #ffffff;
+  --color-tab-primary-disabled-fill: rgb(0 0 0 / 0.1);
+  --color-tab-primary-disabled-stroke: rgb(0 0 0 / 0);
+  --color-tab-primary-disabled-text: rgb(0 0 0 / 0.2);
+  --color-tab-primary-disabled-icon: rgb(0 0 0 / 0.2);
+
+  --color-tab-secondary-default-fill: #dcded4;
+  --color-tab-secondary-default-stroke: rgb(0 0 0 / 0.2);
+  --color-tab-secondary-default-text: #000000;
+  --color-tab-secondary-default-icon: #000000;
+  --color-tab-secondary-hover-fill: #dcded4;
+  --color-tab-secondary-hover-stroke: #e23f36;
+  --color-tab-secondary-hover-text: #000000;
+  --color-tab-secondary-hover-icon: #000000;
+  --color-tab-secondary-focused-fill: #e5e5e5;
+  --color-tab-secondary-focused-stroke: #e23f36;
+  --color-tab-secondary-focused-text: #260200;
+  --color-tab-secondary-focused-icon: #260200;
+  --color-tab-secondary-selected-fill: #e23f36;
+  --color-tab-secondary-selected-stroke: rgb(255 255 255 / 0);
+  --color-tab-secondary-selected-text: #ffffff;
+  --color-tab-secondary-selected-icon: #ffffff;
+  --color-tab-secondary-disabled-fill: rgb(0 0 0 / 0.1);
+  --color-tab-secondary-disabled-stroke: rgb(0 0 0 / 0);
+  --color-tab-secondary-disabled-text: rgb(0 0 0 / 0.2);
+  --color-tab-secondary-disabled-icon: rgb(0 0 0 / 0.2);
 }

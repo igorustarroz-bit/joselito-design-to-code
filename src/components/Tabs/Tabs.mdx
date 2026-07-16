@@ -1,0 +1,100 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as TabsStories from './Tabs.stories'
+
+<Meta of={TabsStories} />
+
+# Tabs
+
+## Intro
+
+`Tabs` es un conjunto de pestañas de navegación entre paneles de contenido. Corresponde al componente **UI05-Tabs** de Figma (`node 57943:45783`), que en el archivo es un contenedor "slot" que aloja instancias de los fragmentos `z_fragment_tab_primary` / `z_fragment_tab_secondary`. Se traduce como dos piezas: `Tabs` (contenedor, `role="tablist"`) y `Tab` (item individual, `role="tab"`).
+
+## Demo
+
+<Canvas of={TabsStories.Default} />
+
+## Anatomía
+
+Cada `Tab` es una fila horizontal centrada con, de izquierda a derecha:
+
+1. **Icono izquierdo** (opcional, por defecto visible) — 16×16
+2. **Texto** — mayúsculas, tipografía CTA-XS
+3. **Icono derecho** (opcional, por defecto visible, indica desplegable) — 16×16
+
+Un borde inferior de 1px marca la línea de pestañas; en el estado seleccionado ese borde cambia de color para señalar la pestaña activa. `Tabs` es solo un contenedor flex con `gap: 0` — las pestañas se tocan entre sí.
+
+## Temas
+
+Cambia el selector **"Tema"** en la barra de herramientas de Storybook para ver `Tabs` en los 5 temas semánticos — vía los tokens `--color-tab-{primary|secondary}-*`.
+
+## Comportamiento
+
+- **Hover** y **Focus** son automáticos (`:hover`, `:focus-visible`).
+- **Selected** se pasa como prop `selected`; internamente fija `aria-selected="true"` y `data-selected` (usado para el estilo, ya que `aria-selected` siempre está presente con valor `"true"`/`"false"` y no sirve como selector CSS de presencia).
+- **Disabled** desactiva la interacción.
+- El componente **no gestiona qué pestaña está activa**: la app que lo consume controla el índice seleccionado y pasa `selected`/`onClick` a cada `Tab`, igual que el resto de botones del sistema (mismo criterio que `NavButton`/`Button`).
+
+## Variantes y tamaños
+
+Dos variantes de tamaño — **Primary** (40px de alto, más prominente) y **Secondary** (24px, más compacto) — con los mismos tokens de color en Figma (se mantienen namespaces `--color-tab-primary-*` / `--color-tab-secondary-*` separados por si Figma los diferencia en el futuro).
+
+<Story of={TabsStories.Secondary} />
+<Story of={TabsStories.SingleTabSelected} />
+<Story of={TabsStories.SingleTabDisabled} />
+<Story of={TabsStories.NoIcons} />
+
+## Tokens
+
+### Color (por estado)
+
+| Estado | Fill | Stroke | Text | Icon |
+|---|---|---|---|---|
+| Default | `--color-tab-{variant}-default-fill` | `--color-tab-{variant}-default-stroke` | `--color-tab-{variant}-default-text` | `--color-tab-{variant}-default-icon` |
+| Hover | `--color-tab-{variant}-hover-fill` | `--color-tab-{variant}-hover-stroke` | `--color-tab-{variant}-hover-text` | `--color-tab-{variant}-hover-icon` |
+| Focus | `--color-tab-{variant}-focused-fill` | `--color-tab-{variant}-focused-stroke` | `--color-tab-{variant}-focused-text` | `--color-tab-{variant}-focused-icon` |
+| Selected | `--color-tab-{variant}-selected-fill` | `--color-tab-{variant}-selected-stroke` | `--color-tab-{variant}-selected-text` | `--color-tab-{variant}-selected-icon` |
+| Disabled | `--color-tab-{variant}-disabled-fill` | `--color-tab-{variant}-disabled-stroke` | `--color-tab-{variant}-disabled-text` | `--color-tab-{variant}-disabled-icon` |
+
+`{variant}` es `primary` o `secondary`.
+
+### Tamaño
+
+| Variante | Altura | Padding horizontal | Gap icono-texto |
+|---|---|---|---|
+| Primary | `--spacing-fx-9` (40px) | `--spacing-fx-4` (16px) | `--spacing-fx-2` (8px) |
+| Secondary | `--spacing-fx-6` (24px) | `--spacing-fx-2` (8px) | `--spacing-fx-2` (8px) |
+
+Tipografía: `--font-cta`, `--text-cta-xs` + `--text-cta-s--line-height`, `--tracking-cta` (mismos en ambas variantes, estilo Figma "CTA/01").
+
+## Propiedades
+
+### `Tabs`
+
+| Nombre | Descripción | Por defecto |
+|---|---|---|
+| `children` | Lista de `<Tab>` | — |
+| `aria-label` | Nombre accesible del conjunto de pestañas | — |
+
+### `Tab`
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `text` | Texto de la pestaña | `"item"` | text |
+| `variant` | Tamaño: `primary`, `secondary` | `"primary"` | select |
+| `showIconLeft` | Muestra el icono izquierdo | `true` | boolean |
+| `showIconRight` | Muestra el icono derecho | `true` | boolean |
+| `selected` | Marca la pestaña como activa | `false` | boolean |
+| `disabled` | Desactiva la interacción | `false` | boolean |
+| `onClick` | Manejador de clic | — | — |
+
+## Accesibilidad
+
+- `Tabs` usa `role="tablist"`; cada `Tab` usa `role="tab"` y `aria-selected`.
+- Solo la pestaña seleccionada tiene `tabIndex={0}`; el resto usa `tabIndex={-1}` (patrón de "roving tabindex" recomendado para el rol `tab`).
+- El estado `disabled` usa el atributo nativo `disabled`.
+- El foco visible (`:focus-visible`) usa un token de color con contraste suficiente en los 5 temas.
+- Nota: para una implementación completa del patrón ARIA "tabs" (navegación con flechas de teclado entre pestañas, `aria-controls`/`aria-labelledby` enlazando cada `Tab` con su panel), la app que integre este componente debe añadir esa lógica según su estructura de paneles.
+
+## Componentes relacionados
+
+- **UI02 · Button**, **UI01 · Nav Button** — mismo sistema de tokens de estado.

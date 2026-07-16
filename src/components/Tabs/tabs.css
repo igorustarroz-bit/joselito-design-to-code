@@ -1,0 +1,113 @@
+/**
+ * UI05-Tabs — contenedor (gap 0, fila horizontal) + item individual (Tab).
+ * Mismo patrón de variables locales por estado que el resto de botones.
+ */
+
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-fx-2);
+  border: none;
+  border-bottom: 1px solid var(--btn-stroke);
+  background: var(--btn-fill);
+  color: var(--btn-text);
+  font-family: var(--font-cta);
+  font-size: var(--text-cta-xs);
+  line-height: var(--text-cta-s--line-height);
+  letter-spacing: var(--tracking-cta);
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.tab__icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--btn-icon);
+}
+
+.tab__label {
+  white-space: nowrap;
+}
+
+.tab--primary {
+  height: var(--spacing-fx-9);
+  padding-inline: var(--spacing-fx-4);
+  --btn-fill: var(--color-tab-primary-default-fill);
+  --btn-stroke: var(--color-tab-primary-default-stroke);
+  --btn-text: var(--color-tab-primary-default-text);
+  --btn-icon: var(--color-tab-primary-default-icon);
+}
+.tab--primary:hover:not(:disabled):not([data-selected]) {
+  --btn-fill: var(--color-tab-primary-hover-fill);
+  --btn-stroke: var(--color-tab-primary-hover-stroke);
+  --btn-text: var(--color-tab-primary-hover-text);
+  --btn-icon: var(--color-tab-primary-hover-icon);
+}
+.tab--primary:focus-visible {
+  --btn-fill: var(--color-tab-primary-focused-fill);
+  --btn-stroke: var(--color-tab-primary-focused-stroke);
+  --btn-text: var(--color-tab-primary-focused-text);
+  --btn-icon: var(--color-tab-primary-focused-icon);
+  outline: none;
+}
+.tab--primary[data-selected] {
+  --btn-fill: var(--color-tab-primary-selected-fill);
+  --btn-stroke: var(--color-tab-primary-selected-stroke);
+  --btn-text: var(--color-tab-primary-selected-text);
+  --btn-icon: var(--color-tab-primary-selected-icon);
+}
+.tab--primary:disabled {
+  --btn-fill: var(--color-tab-primary-disabled-fill);
+  --btn-stroke: var(--color-tab-primary-disabled-stroke);
+  --btn-text: var(--color-tab-primary-disabled-text);
+  --btn-icon: var(--color-tab-primary-disabled-icon);
+}
+
+.tab--secondary {
+  height: var(--spacing-fx-6);
+  padding-inline: var(--spacing-fx-2);
+  --btn-fill: var(--color-tab-secondary-default-fill);
+  --btn-stroke: var(--color-tab-secondary-default-stroke);
+  --btn-text: var(--color-tab-secondary-default-text);
+  --btn-icon: var(--color-tab-secondary-default-icon);
+}
+.tab--secondary:hover:not(:disabled):not([data-selected]) {
+  --btn-fill: var(--color-tab-secondary-hover-fill);
+  --btn-stroke: var(--color-tab-secondary-hover-stroke);
+  --btn-text: var(--color-tab-secondary-hover-text);
+  --btn-icon: var(--color-tab-secondary-hover-icon);
+}
+.tab--secondary:focus-visible {
+  --btn-fill: var(--color-tab-secondary-focused-fill);
+  --btn-stroke: var(--color-tab-secondary-focused-stroke);
+  --btn-text: var(--color-tab-secondary-focused-text);
+  --btn-icon: var(--color-tab-secondary-focused-icon);
+  outline: none;
+}
+.tab--secondary[data-selected] {
+  --btn-fill: var(--color-tab-secondary-selected-fill);
+  --btn-stroke: var(--color-tab-secondary-selected-stroke);
+  --btn-text: var(--color-tab-secondary-selected-text);
+  --btn-icon: var(--color-tab-secondary-selected-icon);
+}
+.tab--secondary:disabled {
+  --btn-fill: var(--color-tab-secondary-disabled-fill);
+  --btn-stroke: var(--color-tab-secondary-disabled-stroke);
+  --btn-text: var(--color-tab-secondary-disabled-text);
+  --btn-icon: var(--color-tab-secondary-disabled-icon);
+}
+
+.tab:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
