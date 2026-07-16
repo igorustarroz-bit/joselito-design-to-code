@@ -1,0 +1,78 @@
+# PLAN — Joselito Design to Code
+
+Generado automáticamente analizando los masters del archivo Figma (páginas `📐 Foundations`, `📦 Components` y `- Modules`), ya que todos los componentes y módulos están creados como master en Figma.
+
+Estados posibles: `pendiente` · `en progreso` · `completado`
+
+## 1. Tokens
+
+Orden: primitivas primero, luego semánticos/responsive.
+
+| Token | Estado |
+|---|---|
+| Primitives (color, espaciado, tipografía) | pendiente |
+| Responsive (breakpoints: XS-375, SM-480, M-768, LG-1024, XL-1440, XXL-1620, XXXL-1920) | pendiente |
+| Semantic-Color (temas: Light-White, Light-Grey, Dark-Red-Primary, Dark-Black-Neutral, Light-Yellow) | pendiente |
+
+## 2. Componentes
+
+Orden: primero los que son base de otros (botones, tabs/listbox dependen de sus fragmentos internos `z_fragment_*`).
+
+| Componente | Estado |
+|---|---|
+| UI01 · Nav Button | pendiente |
+| UI02 · Button | pendiente |
+| UI03 · Button Icon | pendiente |
+| UI04 · Button Action Link | pendiente |
+| UI05 · Tabs (incl. z_fragment_tab_primary / secondary) | pendiente |
+| UI06 · Input | pendiente |
+| UI07 · Listbox (incl. z_fragment_listbox_Item_Dropdown) | pendiente |
+| UI08 · Checkbox List | pendiente |
+| UI09 · Checkbox + Label | pendiente |
+| UI10 · Checkboxes & Radios | pendiente |
+| UI11 · Form | pendiente |
+| UI12 · Tag | pendiente |
+| UI13 · Accordion | pendiente |
+| UI14 · Placeholder Text | pendiente |
+| Title | pendiente |
+| Card Product | pendiente |
+| Card Link | pendiente |
+| Card Carrusel | pendiente |
+
+## 3. Módulos
+
+Contenedores 100% ancho de viewport.
+
+| Módulo | Estado |
+|---|---|
+| Content / Text + Image ⭐ (referencia de calidad, usar como base) | pendiente |
+| Content / Text only | pendiente |
+| Content / Image only | pendiente |
+| Content / Title | pendiente |
+| Content / Intro text | pendiente |
+| Hero / Section hero | pendiente |
+| Hero / Section header | pendiente |
+| Hero / Homepage hero | pendiente |
+| List / Characteristics | pendiente |
+| List / Numbers | pendiente |
+| List / Timeline | pendiente |
+| List / Archive table (incl. z_fragment-Table List Item) | pendiente |
+| Cards / Links | pendiente |
+| Cards / Gallery | pendiente |
+| Cards / Product carousel | pendiente |
+| Cards / Showcase | pendiente |
+| Cards / Categories | pendiente |
+| Cards / Accordion | pendiente |
+| Navigation / Secondary menu | pendiente |
+| Navigation / PreviousNext | pendiente |
+| Navigation / Breadcrumb | pendiente |
+| Navigation / Footer | pendiente |
+| Navigation (header principal) | pendiente |
+| Menu | pendiente |
+| Form (módulo) | pendiente |
+| Banners / Section banner | pendiente |
+| Toast | pendiente |
+
+## Siguiente paso
+
+Empezar por **Primitives** (tokens de color, espaciado y tipografía) antes de tocar ningún componente.
