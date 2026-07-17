@@ -1,0 +1,92 @@
+/**
+ * List / Characteristics — node 58163:39646 en Figma (COMPONENT_SET:
+ * Device=desktop/mobile).
+ *
+ * La cabecera reutiliza el módulo `ContentTitle` ya construido (mismo master
+ * "Content / Title" en Figma, instanciado aquí sin label/descripción/botón/
+ * enlace — el bloque derecho queda vacío en la instancia original). El
+ * título "Title/01" de los items usa `Tipography/Font-Family/Body` (no la
+ * familia de título) — verificado dos veces en Figma (desktop y mobile),
+ * así que se implementa con `--font-body`, no `--font-title` (a diferencia
+ * de otros títulos de módulo).
+ *
+ * `--text-title-1`/`--text-body-5`/`--text-body-6` verificados en el
+ * breakpoint `xl` (1440px) contra los valores fallback de Figma (24/28,
+ * 22/32, 26/38 respectivamente) — coinciden exactamente.
+ *
+ * Grid de 12 columnas: el padding horizontal de la fila `List` (60px
+ * desktop / 20px mobile) coincide exactamente con `--grid-margin-default` —
+ * aplicado vía `padding-inline`. Los paddings verticales (60/120px desktop,
+ * 40/80px mobile) y el gap entre items (60px desktop / 32px mobile) son
+ * literales sin variable en Figma.
+ */
+.list-characteristics {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: var(--color-surface-base);
+}
+
+.list-characteristics__row {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  padding: 40px 0 80px;
+  padding-inline: var(--grid-margin-default);
+}
+
+.list-characteristics__item {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.list-characteristics__item-head {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.list-characteristics__num {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-6);
+  line-height: var(--text-body-6--line-height);
+  color: var(--color-content-neutral-1);
+}
+
+.list-characteristics__item-title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-title-1);
+  line-height: var(--text-title-1--line-height);
+  color: var(--color-content-base);
+}
+
+.list-characteristics__text {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-5);
+  line-height: var(--text-body-5--line-height);
+  color: var(--color-content-neutral-1);
+}
+
+@media (min-width: 768px) {
+  .list-characteristics__row {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 60px;
+    padding: 60px 0 120px;
+  }
+
+  .list-characteristics__item {
+    flex: 1 0 0;
+    min-width: 0;
+  }
+}

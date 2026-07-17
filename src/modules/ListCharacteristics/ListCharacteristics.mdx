@@ -1,0 +1,53 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as ListCharacteristicsStories from './ListCharacteristics.stories'
+
+<Meta of={ListCharacteristicsStories} />
+
+# List / Characteristics
+
+## Intro
+
+`ListCharacteristics` traduce el módulo **List / Characteristics** de Figma (`node 58163:39646`, COMPONENT_SET: Device=desktop/mobile). Cabecera de título + una fila de características numeradas (número/título/texto).
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport.
+
+## Demo
+
+<Canvas of={ListCharacteristicsStories.Default} />
+
+## Anatomía
+
+1. **Cabecera** — reutiliza el módulo `ContentTitle` ya construido (mismo master "Content / Title" de Figma, instanciado aquí sin label/descripción/botón/enlace: la instancia original de Figma deja ese bloque derecho vacío).
+2. **Fila de características** (`z_fragment_list_characteristic`) — número, título y texto, repetidos N veces vía el array `items`.
+
+<Story of={ListCharacteristicsStories.TwoItems} />
+
+## Comportamiento
+
+**Reutilización de `ContentTitle`**: en vez de reimplementar la cabecera título+padding, este módulo instancia directamente el componente `ContentTitle` (con `showLabel`/`showDescription`/`showButton`/`showLink` a `false`) — su padding vertical (120/60px desktop, 60px mobile, sin padding-bottom) ya coincide exactamente con el de la instancia de Figma de este módulo, así que no hace falta reimplementar nada.
+
+**Hallazgo tipográfico verificado dos veces** (desktop y mobile): el título de cada item (`Title/01`) usa `Tipography/Font-Family/Body`, no la familia de título — se implementó con `--font-body`, a diferencia de otros títulos de módulo que sí usan `--font-title`. Los tamaños (`--text-title-1`/`--text-body-5`/`--text-body-6`) se verificaron en el breakpoint `xl` (1440px) contra los valores fallback exactos de Figma (24/28px, 22/32px, 26/38px).
+
+La propiedad "Device" es responsive real (media query en `768px`): en desktop los items van en fila (`flex-direction: row`, cada uno `flex: 1 0 0`); en mobile se apilan en columna.
+
+**Grid de 12 columnas**: el padding horizontal de la fila de items (60px desktop / 20px mobile) coincide exactamente con `--grid-margin-default`, aplicado vía `padding-inline`. Los paddings verticales (60/120px desktop, 40/80px mobile) y el gap entre items (60px desktop / 32px mobile) son literales sin variable en Figma.
+
+## Tokens
+
+`--font-body`, `--text-title-1`, `--text-body-5`, `--text-body-6`, `--color-content-base`, `--color-content-neutral-1`, `--color-surface-base`, `--grid-margin-default`. La cabecera no añade tokens nuevos (los hereda de `ContentTitle`).
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `title` | Título de la cabecera | `'This is a title'` | text |
+| `items` | Array de características (`{ num, title, text }`) | 3 items de ejemplo | — |
+
+## Accesibilidad
+
+- La cabecera usa `<section>` (heredado de `ContentTitle`).
+- Cada característica es un bloque de texto simple sin controles interactivos.
+
+## Componentes relacionados
+
+- **Content / Title** — módulo reutilizado tal cual para la cabecera.
