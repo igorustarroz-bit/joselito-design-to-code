@@ -59,6 +59,15 @@
   color: var(--color-content-base);
 }
 
+/* Variante detectada en módulos que reutilizan este master de Figma con el
+   título en estilo Title/01 en vez de Title/04 (ver ContentTitle.jsx). */
+.content-title__title--title-1 {
+  font-family: var(--font-body);
+  font-size: var(--text-title-1);
+  line-height: var(--text-title-1--line-height);
+  letter-spacing: normal;
+}
+
 .content-title__aside {
   display: flex;
   flex-direction: column;

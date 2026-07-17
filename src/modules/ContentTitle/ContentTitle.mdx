@@ -37,6 +37,8 @@ La propiedad "Device" de Figma es responsive real (media query en `768px`, mismo
 
 **Botón no conectado al design system**: igual que en Content / Text only y Content / Text + Image, la instancia de botón en Figma usa un color de relleno azul genérico (`interactive/color-interactive-default`, `#0045FF`) y tipografía `static/font/brand`, ajenos a los tokens `Button/*` del resto del sistema — se sustituyó por el componente `Button` ya construido (`type="secondary"` `size="m"`, mismo criterio usado en los módulos hermanos).
 
+**Prop `titleSize`** (`'title-4'` por defecto, alternativa `'title-1'`): otros módulos que reutilizan este mismo master de Figma ("Content / Title") instancian a veces el título con el estilo `Title/01` (24px/28px desktop, 20px/24px mobile, familia `--font-body`, sin `--tracking-title`) en vez del `Title/04` de este componente — verificado consistente en ambos breakpoints de esas instancias (no un glitch puntual). Ver **List / Numbers**, que usa `titleSize="title-1"`.
+
 ## Variantes y tamaños
 
 <Canvas of={ContentTitleStories.AllVariants} />
@@ -54,6 +56,7 @@ Ningún token nuevo — reutiliza globales ya existentes: fondo `--color-surface
 | `label` | Texto del label superior | `'This is a label'` | text |
 | `showLabel` | Muestra/oculta el label | `true` | boolean |
 | `title` | Título del módulo | — | text |
+| `titleSize` | Estilo tipográfico del título (`'title-4'`/`'title-1'`) | `'title-4'` | select |
 | `description` | Texto de la descripción | — | text |
 | `showDescription` | Muestra/oculta la descripción | `true` | boolean |
 | `showButton` | Muestra/oculta el botón (solo visible ≥768px) | `false` | boolean |

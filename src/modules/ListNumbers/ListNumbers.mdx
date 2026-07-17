@@ -1,0 +1,54 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as ListNumbersStories from './ListNumbers.stories'
+
+<Meta of={ListNumbersStories} />
+
+# List / Numbers
+
+## Intro
+
+`ListNumbers` traduce el módulo **List / Numbers** de Figma (`node 58163:39683`, COMPONENT_SET: Device=desktop/mobile). Cabecera de título + una lista de "big numbers" (dato numérico grande + texto explicativo), cada fila separada por un borde superior.
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport.
+
+## Demo
+
+<Canvas of={ListNumbersStories.Default} />
+
+## Anatomía
+
+1. **Cabecera** — reutiliza `ContentTitle` con `titleSize="title-1"` (sin label/descripción/botón/enlace).
+2. **Filas de "big numbers"** (`z_fragment_list_BigNumbers`) — número/dato grande (`--text-title-5`) + texto (`--text-body-5`), cada una con borde superior.
+
+<Story of={ListNumbersStories.TwoItems} />
+
+## Comportamiento
+
+**Hallazgo que amplió `ContentTitle`**: esta cabecera reutiliza el mismo master de Figma "Content / Title" que `List / Characteristics`, pero aquí el título usa el estilo `Title/01` (24px/28px desktop, 20px/24px mobile) en vez del `Title/04` de aquel — confirmado consistente en ambos breakpoints de esta instancia, no un error puntual. Se añadió la prop `titleSize` a `ContentTitle` (ver su documentación) en vez de duplicar todo el layout de cabecera.
+
+Cada fila es un borde superior + padding vertical, sin gap adicional entre filas (el espaciado lo da el propio padding+borde de cada una, patrón de "lista con divisores"). El título del número reutiliza `--text-title-5` — el mismo token ya usado en Hero / Homepage hero y Hero / Section header.
+
+La propiedad "Device" es responsive real (media query en `768px`): en desktop cada fila es una fila de 2 columnas (título flexible + texto de ancho fijo 309px + gap 120px); en mobile se apila en columna (gap 12px).
+
+**Grid de 12 columnas**: el padding horizontal de las filas (60px desktop/20px mobile) coincide con `--grid-margin-default`. El ancho fijo del texto (309px) y el gap desktop (120px) no coinciden limpiamente con ninguna franja de columnas del grid (solo 309px se acerca a 3 columnas, con 3px de diferencia, pero el resto de medidas de esta fila no cuadran) — se dejan como literales bespoke de esta instancia; el título usa `flex: 1 0 0` para mantener el módulo fluido.
+
+## Tokens
+
+`--font-title`, `--text-title-5`, `--tracking-title`, `--font-body`, `--text-body-5`, `--color-content-base`, `--color-icon-neutral-2` (borde), `--color-surface-base`, `--grid-margin-default`. La cabecera no añade tokens nuevos (los hereda de `ContentTitle`).
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `title` | Título de la cabecera | `'This is a title'` | text |
+| `items` | Array de filas (`{ title, text }`) | 3 items de ejemplo | — |
+
+## Accesibilidad
+
+- La cabecera usa `<section>` (heredado de `ContentTitle`).
+- Cada fila es un bloque de texto simple sin controles interactivos.
+
+## Componentes relacionados
+
+- **Content / Title** — módulo reutilizado (vía prop `titleSize="title-1"`) para la cabecera.
+- **List / Characteristics** — mismo patrón de reutilización de cabecera, con `titleSize="title-4"` (por defecto).

@@ -1,0 +1,92 @@
+/**
+ * List / Numbers — node 58163:39683 en Figma (COMPONENT_SET:
+ * Device=desktop/mobile).
+ *
+ * Cabecera: reutiliza `ContentTitle` con `titleSize="title-1"` — se detectó
+ * (verificado en ambos breakpoints) que esta instancia usa el título en
+ * estilo `Title/01` (24px/28px desktop, 20px/24px mobile) en vez del
+ * `Title/04` que usa Content / Title y List / Characteristics — de ahí la
+ * nueva prop `titleSize` de `ContentTitle` (ver ContentTitle.mdx).
+ *
+ * Cada fila ("z_fragment_list_BigNumbers") es un borde superior +
+ * padding vertical (sin gap propio entre filas, el espaciado lo da el
+ * padding+borde de cada fila, patrón tipo "lista con divisores"). Título del
+ * número en `--text-title-5` (60px desktop/40px mobile, mismo token que
+ * Hero / Homepage hero y Hero / Section header) + `--font-title`. Texto
+ * descriptivo en `--text-body-5`. Borde `--color-icon-neutral-2`.
+ *
+ * Desktop: fila en 2 columnas (título/texto) con ancho de texto fijo 309px y
+ * gap 120px — no coinciden limpiamente con ninguna franja de columnas del
+ * grid de 12 (309px ≈ 3 columnas pero con 3px de diferencia solo en ese
+ * elemento, el resto no cuadra) — se tratan como literales bespoke de esta
+ * instancia; el título ocupa el espacio flexible restante (`flex: 1 0 0`)
+ * para mantener el módulo fluido en vez de fijar también su ancho.
+ *
+ * Grid de 12 columnas: el padding horizontal del bloque de filas (60px
+ * desktop/20px mobile) coincide con `--grid-margin-default`, vía
+ * `padding-inline`. Paddings verticales (60/120px desktop, 40/80px mobile) y
+ * el gap desktop (120px) son literales sin variable en Figma.
+ */
+.list-numbers {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: var(--color-surface-base);
+  color: var(--color-content-base);
+}
+
+.list-numbers__rows {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 40px 0 80px;
+  padding-inline: var(--grid-margin-default);
+}
+
+.list-numbers__item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 24px 0;
+  border-top: 1px solid var(--color-icon-neutral-2);
+}
+
+.list-numbers__item-title {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: var(--text-title-5);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-title);
+}
+
+.list-numbers__item-text {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-5);
+  line-height: var(--text-body-5--line-height);
+}
+
+@media (min-width: 768px) {
+  .list-numbers__rows {
+    padding: 60px 0 120px;
+  }
+
+  .list-numbers__item {
+    flex-direction: row;
+    align-items: center;
+    gap: 120px;
+    padding: 40px 0;
+  }
+
+  .list-numbers__item-title {
+    flex: 1 0 0;
+    min-width: 0;
+  }
+
+  .list-numbers__item-text {
+    width: 309px;
+    flex-shrink: 0;
+  }
+}

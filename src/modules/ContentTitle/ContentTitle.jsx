@@ -12,11 +12,21 @@ import { Icon } from '../../components/Icon/Icon'
  * criterio que el resto de módulos "Content"). El master mobile de Figma no
  * expone la propiedad "button" (solo label/description/link) — se respetó
  * tal cual: el botón, si se pasa, solo se muestra a partir de `768px`.
+ *
+ * Prop `titleSize` (`'title-4'` por defecto): se detectó que otros módulos
+ * que reutilizan este mismo master de Figma ("Content / Title") instancian
+ * a veces el título con el estilo `Title/01` (24px/28px desktop, 20px/24px
+ * mobile, familia `--font-body`) en vez del `Title/04` por defecto de este
+ * componente (verificado consistente en ambos breakpoints de esas
+ * instancias, no es un glitch puntual) — ver `List / Numbers`. Se añadió
+ * como prop en vez de duplicar todo el layout de cabecera en cada módulo
+ * que lo necesite.
  */
 export function ContentTitle({
   label = 'This is a label',
   showLabel = true,
   title = 'Lorem ipsum accumsan eleifend',
+  titleSize = 'title-4',
   description = 'Lorem ipsum dolor sit amet consectetur. Nibh lacus erat urna molestie.',
   showDescription = true,
   showButton = false,
@@ -31,6 +41,9 @@ export function ContentTitle({
   ...rest
 }) {
   const classes = ['content-title', className].filter(Boolean).join(' ')
+  const titleClasses = ['content-title__title', titleSize === 'title-1' && 'content-title__title--title-1']
+    .filter(Boolean)
+    .join(' ')
 
   const linkContent = (
     <>
@@ -43,7 +56,7 @@ export function ContentTitle({
     <section className={classes} {...rest}>
       {showLabel && <p className="content-title__label">{label}</p>}
       <div className="content-title__row">
-        <p className="content-title__title">{title}</p>
+        <p className={titleClasses}>{title}</p>
         <div className="content-title__aside">
           {showDescription && <p className="content-title__description">{description}</p>}
           {showButton && (
