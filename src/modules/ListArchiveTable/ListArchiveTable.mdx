@@ -1,0 +1,55 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as ListArchiveTableStories from './ListArchiveTable.stories'
+
+<Meta of={ListArchiveTableStories} />
+
+# List / Archive table
+
+## Intro
+
+`ListArchiveTable` traduce el módulo **List / Archive table** de Figma (`node 58163:39738`, COMPONENT_SET: Device=desktop/mobile). Cabecera + listado de filas fecha/texto (`z_fragment-list-archive`), con una miniatura flotante que aparece al pasar el ratón sobre cada fila (solo desktop).
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport.
+
+## Demo
+
+<Canvas of={ListArchiveTableStories.Default} />
+
+## Anatomía
+
+1. **Cabecera** — reutiliza `ContentTitle` con `titleSize="title-1"` (tercera confirmación de este patrón, tras List / Numbers y List / Timeline).
+2. **Filas** — fecha (`--text-body-5`) + texto (`--text-body-6`), separadas por un borde superior fuerte (`--color-icon-base`, negro).
+3. **Miniatura hover** — imagen (`AspectRatio` `ratio="2:3"`, 190×285) que aparece flotando sobre la fila al pasar el ratón o al enfocarla por teclado.
+
+<Story of={ListArchiveTableStories.TwoItems} />
+
+## Comportamiento
+
+**Hallazgo importante inspeccionando la estructura del nodo** (`use_figma`, no visible en la exportación estática por defecto de `get_design_context`): cada fila incluye en Figma una instancia de `Aspect Ratio` con `visible: false` — la miniatura que se revela al pasar el ratón por encima ("List with hover images", nombre de la capa contenedora en Figma). En vez de ignorarla por estar oculta en la captura estática, se implementó como una tarjeta flotante mostrada con `:hover`/`:focus-within` (CSS puro, sin JavaScript) — visible solo en desktop, ya que en mobile no existe "hover" real.
+
+Borde de fila: `Strokes-Icons/Base` (`--color-icon-base`, negro) — más fuerte que los divisores grises usados en List / Numbers y List / Timeline, apropiado para un listado tipo "archivo de noticias".
+
+**Grid de 12 columnas**: el bloque de filas usa `padding-inline: 56px` en desktop — un literal propio de esta instancia, **distinto** de `--grid-margin-default` (60px): verificado que 1440 − 2×56 = 1328px coincide exactamente con el ancho de fila capturado en Figma, así que no es un error de medición sino un margen deliberadamente distinto para este módulo. En mobile sí coincide con `--grid-margin-default` (20px), así que ahí se usa el token. El ancho fijo de la columna de fecha (225px) y el gap (112px) son literales sin variable en Figma; el texto usa `flex: 1 0 0` para mantener el módulo fluido.
+
+## Tokens
+
+`--font-body`, `--text-body-5`, `--text-body-6`, `--color-content-base`, `--color-icon-base`, `--color-surface-base`, `--grid-margin-default` (mobile). La cabecera no añade tokens nuevos (los hereda de `ContentTitle`).
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `title` | Título de la cabecera | `'Últimas noticias'` | text |
+| `items` | Array de filas (`{ date, text, image, imageAlt }`) | 3 items de ejemplo | — |
+
+## Accesibilidad
+
+- La cabecera usa `<section>` (heredado de `ContentTitle`).
+- Cada fila tiene `tabIndex={0}` para que la miniatura hover también se pueda revelar por teclado (`:focus-within`), no solo con el ratón.
+- La miniatura usa `pointer-events: none` para no interferir con la interacción de la fila mientras está visible.
+
+## Componentes relacionados
+
+- **Content / Title** — reutilizado (vía `titleSize="title-1"`) para la cabecera.
+- **Aspect Ratio** — miniatura hover de cada fila.
+- **List / Numbers**, **List / Timeline** — mismo patrón de cabecera reutilizada.

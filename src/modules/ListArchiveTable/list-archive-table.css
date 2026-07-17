@@ -1,0 +1,122 @@
+/**
+ * List / Archive table — node 58163:39738 en Figma (COMPONENT_SET:
+ * Device=desktop/mobile), fragmento "z_fragment-list-archive".
+ *
+ * Cabecera: reutiliza `ContentTitle` con `titleSize="title-1"` (mismo
+ * hallazgo ya visto en List / Numbers y List / Timeline — tercera
+ * confirmación de que esta variante de título es un patrón real, no un
+ * glitch puntual).
+ *
+ * **Hallazgo importante inspeccionando la estructura del nodo** (`use_figma`,
+ * no visible en el `get_design_context` por defecto): cada fila del listado
+ * incluye una instancia de `Aspect Ratio` con `visible: false` (190×285,
+ * proporción exacta `2:3`, posicionada en `layoutPositioning: ABSOLUTE`
+ * anclada abajo-derecha) — es la miniatura que Figma muestra al pasar el
+ * ratón por encima de la fila ("List with hover images", nombre de la capa
+ * contenedora). Se implementó como una tarjeta flotante mostrada con
+ * `:hover`/`:focus-within` sobre cada fila (CSS puro, sin JS), en vez de
+ * ignorarla por estar oculta por defecto en la exportación estática de
+ * Figma.
+ *
+ * Borde de fila: `Strokes-Icons/Base` (`--color-icon-base`, negro) — más
+ * fuerte que los divisores grises de List / Numbers y List / Timeline
+ * (`--color-icon-neutral-2/3`), consistente con un listado tipo "archivo de
+ * noticias" con separación visual más marcada.
+ *
+ * Grid de 12 columnas: el bloque de filas usa `padding-inline: 56px` en
+ * desktop — **distinto** de `--grid-margin-default` (60px), verificado
+ * como literal propio de esta instancia (1440 − 2×56 = 1328, coincide
+ * exactamente con el ancho de fila capturado en Figma). En mobile sí
+ * coincide con `--grid-margin-default` (20px), así que ahí se usa el
+ * token. El ancho fijo de la columna de fecha (225px) y el gap (112px) son
+ * literales sin variable en Figma; el texto usa `flex: 1 0 0` para
+ * mantener el módulo fluido.
+ */
+.list-archive-table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: var(--color-surface-base);
+}
+
+.list-archive-table__rows {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-block: 32px 60px;
+  padding-inline: var(--grid-margin-default);
+}
+
+.list-archive-table__item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  padding: 24px 0 48px;
+  border-top: 1px solid var(--color-icon-base);
+  color: var(--color-content-base);
+}
+
+.list-archive-table__item-date {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-5);
+  line-height: var(--text-body-5--line-height);
+}
+
+.list-archive-table__item-text {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-6);
+  line-height: var(--text-body-6--line-height);
+}
+
+.list-archive-table__item-image {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .list-archive-table__rows {
+    padding: 60px 56px 80px;
+  }
+
+  .list-archive-table__item {
+    flex-direction: row;
+    align-items: center;
+    gap: 112px;
+    padding: 24px 0 48px;
+    overflow: visible;
+  }
+
+  .list-archive-table__item-date {
+    width: 225px;
+    flex-shrink: 0;
+  }
+
+  .list-archive-table__item-text {
+    flex: 1 0 0;
+    min-width: 0;
+  }
+
+  .list-archive-table__item-image {
+    display: block;
+    position: absolute;
+    right: 32px;
+    bottom: 47px;
+    width: 190px;
+    height: 285px;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.15);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+    z-index: 1;
+  }
+
+  .list-archive-table__item:hover .list-archive-table__item-image,
+  .list-archive-table__item:focus-within .list-archive-table__item-image {
+    opacity: 1;
+  }
+}
