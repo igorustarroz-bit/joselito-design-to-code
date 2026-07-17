@@ -1,0 +1,73 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as IconStories from './Icon.stories'
+
+<Meta of={IconStories} />
+
+# Icon
+
+## Intro
+
+`Icon` traduce los 132 iconos + el componente "Icon Sizer" (5 tamaños) de la página "🏷️ Brand Assets" de Figma. Al igual que **Aspect Ratio** y **Brand Logo**, vive fuera de la página "📦 Components" pero se trata como componente base fundacional — usado potencialmente por casi cualquier otro componente/módulo del sistema (botones, tags, tarjetas, navegación...).
+
+## Demo
+
+<Canvas of={IconStories.Default} />
+
+## Comportamiento
+
+- Cada uno de los 132 SVG se guarda como archivo individual en `src/assets/icons/{Nombre}.svg` (convención `PascalCase`, ya documentada en `docs/assets-workflow.md`). `Icon.jsx` los importa todos de una vez con `import.meta.glob('../../assets/icons/*.svg', { eager: true, query: '?react', import: 'default' })` (pipeline SVGR de `vite-plugin-svgr`), construyendo en tiempo de build un mapa `nombre → Componente`.
+- La prop `name` busca en ese mapa; si no existe ningún icono con ese nombre, el componente no renderiza nada (`null`) y emite un `console.warn` en modo desarrollo — se prefirió fallar de forma silenciosa en producción (un icono ausente no debe romper la UI) pero visible para quien desarrolla.
+- Color: cada SVG fuente usa `stroke="currentColor"`/`fill="currentColor"` (los exports de Figma traen `stroke="black"`/`fill="black"` por defecto — se sustituyeron al guardar cada archivo, respetando los `fill="none"` intactos). El color real lo define la propiedad CSS `color` heredada del elemento contenedor — `Icon` nunca hardcodea un color.
+- Accesibilidad: si se pasa `title`, el icono se marca como imagen accesible (`role="img"` + `aria-label`, en vez de inyectar un `<title>` interno — los componentes SVGR generados por `vite-plugin-svgr` no exponen automáticamente una prop `title` para eso sin configuración adicional, así que se optó por la alternativa más simple y igual de válida). Sin `title`, el icono se marca como decorativo (`aria-hidden="true"` + `focusable="false"`).
+
+## Variantes y tamaños
+
+<Canvas of={IconStories.AllSizes} />
+
+Los 132 iconos disponibles:
+
+<Canvas of={IconStories.AllIcons} />
+
+## Tokens
+
+Ningún token nuevo. El tamaño reutiliza los primitivos de espaciado ya existentes en `primitives.css`:
+
+| Tamaño (Figma "Icon Sizer") | Prop `size` | Token reutilizado | Valor |
+|---|---|---|---|
+| XXS | `'xxs'` | `--spacing-fx-3` | 12px |
+| XS | `'xs'` | `--spacing-fx-4` | 16px |
+| S | `'s'` | `--spacing-fx-5` | 20px |
+| M (por defecto) | `'m'` | `--spacing-fx-6` | 24px |
+| L | `'l'` | `--spacing-fx-8` | 32px |
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `name` | Nombre del icono (`PascalCase`, p. ej. `'Star'`, `'ArrowRight'`) | — (requerido) | text |
+| `size` | `'xxs'` \| `'xs'` \| `'s'` \| `'m'` \| `'l'` | `'m'` | radio |
+| `title` | Texto accesible; si se pasa, el icono deja de ser decorativo | — | text |
+| `className` | Clases adicionales | — | text |
+
+Acepta además cualquier prop nativa adicional del SVG (`onClick`, `style`, etc.).
+
+## Accesibilidad
+
+- Sin `title`: `aria-hidden="true"` + `focusable="false"` (icono puramente decorativo, p. ej. junto a un texto que ya transmite el significado).
+- Con `title`: `role="img"` + `aria-label={title}` (icono informativo por sí mismo, p. ej. un botón de solo icono).
+
+## Inconsistencias detectadas en Figma
+
+Durante la exportación se detectaron **3 pares de iconos duplicados exactos** en la página "🏷️ Brand Assets" — el mismo icono insertado dos veces bajo el mismo nombre, con la segunda instancia añadiendo un `stroke-linecap="round"` extra pero visualmente idéntica en todo lo demás:
+
+| Icono | Nodo canónico (usado) | Nodo duplicado (descartado) |
+|---|---|---|
+| `MapPin` | `49026:6648` | `49864:3114` |
+| `Quotes` | `49026:6574` | `50347:142` |
+| `House` | `49026:6650` | `52060:10407` |
+
+Se conservó en cada caso la primera aparición (nodo con ID más bajo) como fuente única, siguiendo el mismo criterio de otras inconsistencias documentadas en el proyecto (p. ej. la variante mobile huérfana detectada en `ContentTextImage.mdx`): no se trata a los 132 iconos como 135 solo porque Figma los liste dos veces.
+
+## Componentes relacionados
+
+Ninguno directo — es un componente hoja, base de prácticamente cualquier otro componente del sistema que necesite un icono (Button, ButtonIcon, Tag, Accordion, NavButton, CardProduct...).

@@ -1,0 +1,36 @@
+/**
+ * Icon — 5 tamaños ("Icon Sizer" de Figma, página "🏷️ Brand Assets",
+ * COMPONENT_SET node 49026:6521). Los valores en px coinciden numéricamente
+ * con tokens de espaciado ya existentes en `primitives.css`
+ * (--spacing-fx-3/4/5/6/8) — reutilizados aquí en vez de crear una escala de
+ * tamaño nueva.
+ */
+.icon {
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.icon--xxs {
+  width: var(--spacing-fx-3);
+  height: var(--spacing-fx-3);
+}
+
+.icon--xs {
+  width: var(--spacing-fx-4);
+  height: var(--spacing-fx-4);
+}
+
+.icon--s {
+  width: var(--spacing-fx-5);
+  height: var(--spacing-fx-5);
+}
+
+.icon--m {
+  width: var(--spacing-fx-6);
+  height: var(--spacing-fx-6);
+}
+
+.icon--l {
+  width: var(--spacing-fx-8);
+  height: var(--spacing-fx-8);
+}
