@@ -35,7 +35,7 @@ Orden: primero los que son base de otros (botones, tabs/listbox dependen de sus 
 | UI13 · Accordion | completado |
 | UI14 · Placeholder Text | completado |
 | Title | completado |
-| Card Product | pendiente |
+| Card Product | completado |
 | Card Link | pendiente |
 | Card Carrusel | pendiente |
 
@@ -75,7 +75,7 @@ Contenedores 100% ancho de viewport.
 
 ## Siguiente paso
 
-Con Title completado, seguir con **Card Product**, después Card Link, Card Carrusel, y por último los 27 módulos empezando por "Content / Text + Image" (referencia de calidad marcada en las instrucciones del proyecto).
+Con Card Product completado, seguir con **Card Link**, después Card Carrusel, y por último los 27 módulos empezando por "Content / Text + Image" (referencia de calidad marcada en las instrucciones del proyecto).
 
 ## Notas de implementación
 
@@ -97,3 +97,4 @@ Con Title completado, seguir con **Card Product**, después Card Link, Card Carr
 - **UI13 · Accordion**: `src/components/Accordion/` — dos piezas: `Accordion` (contenedor "slot", node 57943:46123) y `AccordionItem` (traducción de `z_fragment_accordion`, node 57943:46054, 2 variantes: Open=Yes/No). Mismo criterio presentacional que Tabs/CheckboxList: ni `Accordion` ni `AccordionItem` gestionan qué panel está abierto, la app controla `open`/`onToggle` de cada item — permite tanto "solo un panel abierto" como varios simultáneos. La cabecera es un `<button>` nativo real con `aria-expanded`/`aria-controls`; el panel usa `role="region"` + `aria-labelledby`. Ningún token semántico nuevo: fondo `--color-surface-neutral-1`, texto `--color-content-base`, tipografía cabecera `--text-cta-xs`+`--text-cta-s--line-height` (mismo par que UI02-Button tamaño XS), tipografía contenido `--text-body-2`, radio `--radius-l` — todos ya existentes. Iconos Plus/Minus recreados a mano como SVG con `currentColor` (`icons.jsx`). Documentación completa en `Accordion.mdx`.
 - **UI14 · Placeholder Text**: `src/components/PlaceholderText/` (`PlaceholderText.jsx`, node 57961:792, componente único sin variantes). Párrafo de texto genérico (Body/02) pensado como contenido "de relleno" reutilizable dentro de módulos/plantillas; prop `as` permite cambiar el elemento HTML renderizado. Ningún token nuevo: reutiliza `--text-body-2`/`--text-body-2--line-height` y `--color-content-base`, ya usados en componentes anteriores (Accordion, CheckboxLabel). Es el componente más simple del sistema hasta ahora — un solo elemento sin estados ni composición. Documentación completa en `PlaceholderText.mdx`.
 - **Title**: `src/components/Title/` (`Title.jsx`, node 58196:4804, componente único sin variantes). Cabecera de sección: `<h2>` con el título a la izquierda + enlace "Ver todos" con icono chevron a la derecha (renderiza `<a href>` o `<button>` según se pase `href`, mismo criterio que Button/ActionLink). Ningún token nuevo: título usa `--text-body-4`/`--color-content-base`, enlace usa `--text-body-3`/`--color-content-neutral-1`, todos ya existentes. Se verificó con `get_metadata` que no hay separación entre el texto del enlace y el icono (el icono empieza exactamente donde termina el texto). Icono chevron-right recreado a mano como SVG con `currentColor` (`icons.jsx`). Documentación completa en `Title.mdx`.
+- **Card Product**: `src/components/CardProduct/` (`CardProduct.jsx`, node 58163:83839, componente único con props booleanas `tag`/`tagsStars` en Figma). Tarjeta de producto que compone `Button` (UI02, tipo secondary/xs para los tags de ubicación) y `ActionLink` (UI04, tamaño l para el enlace de acción), ambos ya construidos — sin reinventar sus estilos. Ningún token nuevo: título usa `--font-title`/`--text-title-2`/`--tracking-title`, precio/dirección/badge usan `--text-body-1/2/3` y `--color-content-base`/`--color-content-neutral-2`, badge usa `--color-surface-base` + borde `--color-icon-neutral-3`, gaps `--spacing-fx-9/8/4/2` — todos ya existentes. El gap de 9px entre estrellas no mapea a ningún token de espaciado (fx-1=4px, fx-2=8px) y se dejó como valor literal, documentado como particularidad de Figma. Icono Star (contorno) recreado a mano como SVG con `currentColor` (`icons.jsx`). El ancho fijo de 324px del frame de ejemplo se tradujo como `width: 100%` (fluido). Documentación completa en `CardProduct.mdx`.

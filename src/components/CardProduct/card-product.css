@@ -1,0 +1,130 @@
+/**
+ * Card Product — node 58163:83839 en Figma (componente único, sin
+ * variantes; props booleanas `tag`/`tagsStars` para mostrar/ocultar
+ * bloques). Compone `Button` (UI02, tags de ubicación) y `ActionLink`
+ * (UI04, enlace "Descubrir") ya construidos.
+ *
+ * Ningún token nuevo — reutiliza globales ya existentes en
+ * `responsive.css`/`primitives.css`/`semantic.css`, verificado
+ * literalmente en `get_design_context`:
+ *   - Título: --font-title, --text-title-2, --tracking-title
+ *   - Precio/dirección/badge: --text-body-1/2/3, --color-content-base/-neutral-2
+ *   - Gaps: --spacing-fx-9/8/4/2 (40/32/16/8px)
+ *   - Badge: --color-surface-base + borde --color-icon-neutral-3
+ *
+ * El ancho fijo de 324px del frame de ejemplo en Figma se tradujo como
+ * `width: 100%` (fluido dentro de su contenedor/grid), igual criterio que
+ * Form (502px) y Title (1280px).
+ */
+.card-product {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-fx-8, 32px);
+  width: 100%;
+}
+
+.card-product__media {
+  position: relative;
+  width: 100%;
+}
+
+.card-product__image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 300 / 400;
+  overflow: hidden;
+  background: var(--color-surface-neutral-1);
+}
+
+.card-product__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-product__tag {
+  position: absolute;
+  left: var(--spacing-fx-5, 20px);
+  top: var(--spacing-fx-5, 20px);
+  padding: var(--spacing-fx-2, 8px);
+  background: var(--color-surface-base);
+  border: 1px solid var(--color-icon-neutral-3);
+  font-family: var(--font-body);
+  font-size: var(--text-body-1);
+  line-height: var(--text-body-1--line-height);
+  color: var(--color-content-base);
+  white-space: nowrap;
+}
+
+.card-product__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-fx-9, 40px);
+  width: 100%;
+}
+
+.card-product__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-fx-4, 16px);
+  width: 100%;
+}
+
+.card-product__title-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-fx-2, 8px);
+  width: 100%;
+  color: var(--color-content-base);
+}
+
+.card-product__title {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: var(--text-title-2);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-title);
+}
+
+.card-product__price {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-2);
+  line-height: var(--text-body-2--line-height);
+}
+
+.card-product__address {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-3);
+  line-height: var(--text-body-3--line-height);
+  color: var(--color-content-neutral-2);
+}
+
+.card-product__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-fx-4, 16px);
+  width: 100%;
+}
+
+.card-product__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-fx-2, 8px);
+  width: 100%;
+}
+
+.card-product__stars {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.card-product__star {
+  width: 18px;
+  height: 18px;
+  color: var(--color-content-base);
+}

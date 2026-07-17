@@ -1,0 +1,72 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as CardProductStories from './CardProduct.stories'
+
+<Meta of={CardProductStories} />
+
+# Card Product
+
+## Intro
+
+`CardProduct` traduce el componente **Card Product** de Figma (`node 58163:83839`, componente único con dos props booleanas: `tag`/`tagsStars`). Es una tarjeta de producto que compone piezas ya construidas: `Button` (UI02, tags de ubicación) y `ActionLink` (UI04, enlace de acción).
+
+## Demo
+
+<Canvas of={CardProductStories.Default} />
+
+## Anatomía
+
+1. **Imagen** (ratio 300:400) con un badge opcional superpuesto en la esquina superior izquierda (p. ej. "Top ventas")
+2. **Título + precio** — título en tipografía de titular (`Title/02`), precio en `Body/02`
+3. **Dirección** opcional (`Body/03`, color atenuado)
+4. **Tags de ubicación** opcionales — reutiliza `Button` tipo `secondary` tamaño `xs` por cada elemento de `locationTags`
+5. **Valoración por estrellas** opcional — `rating` estrellas (contorno, sin versión "vacía" en Figma)
+6. **Enlace de acción** — reutiliza `ActionLink` tamaño `l`
+
+## Comportamiento
+
+Es puramente presentacional: no gestiona favoritos, carrito ni ningún estado propio — solo recibe `onClick`/`href` para el enlace de acción, igual criterio que el resto del sistema.
+
+<Story of={CardProductStories.NoTag} />
+<Story of={CardProductStories.NoTagsStars} />
+<Story of={CardProductStories.Minimal} />
+
+## Tokens
+
+Ningún token nuevo — reutiliza globales ya existentes, verificado literalmente en `get_design_context`:
+
+| Elemento | Token |
+|---|---|
+| Título | `--font-title`, `--text-title-2`, `--tracking-title` |
+| Precio / dirección / badge | `--text-body-1/2/3`, `--color-content-base`/`--color-content-neutral-2` |
+| Badge (fondo/borde) | `--color-surface-base`, `--color-icon-neutral-3` |
+| Gaps | `--spacing-fx-9` (40px) / `--spacing-fx-8` (32px) / `--spacing-fx-4` (16px) / `--spacing-fx-2` (8px) |
+
+El ancho fijo de 324px del frame de ejemplo en Figma se tradujo como `width: 100%` (fluido), igual criterio que Form/Title.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `image` | URL de la imagen del producto | — | text |
+| `imageAlt` | Texto alternativo de la imagen | `''` | text |
+| `tag` | Muestra/oculta el badge sobre la imagen | `true` | boolean |
+| `tagText` | Texto del badge | `'Top ventas'` | text |
+| `title` | Título del producto | `'Título del producto'` | text |
+| `price` | Texto de precio | `'Desde 0€'` | text |
+| `address` | Dirección opcional | — | text |
+| `showTagsStars` | Muestra/oculta el bloque de tags + estrellas | `true` | boolean |
+| `locationTags` | Array de textos para los tags de ubicación | `[]` | — |
+| `rating` | Número de estrellas a mostrar | `0` | number |
+| `linkText` | Texto del enlace de acción | `'Descubrir'` | text |
+| `href` / `onClick` | Destino/handler del enlace de acción | — | — |
+
+## Accesibilidad
+
+- La imagen usa `alt` (vacío por defecto, indicado explícitamente por quien use el componente si es informativa).
+- El bloque de estrellas usa `aria-label` describiendo la valoración en texto, ya que los iconos son puramente visuales (`aria-hidden`).
+- El enlace de acción reutiliza `ActionLink`, ya accesible (foco, teclado, `:focus-visible`).
+
+## Componentes relacionados
+
+- **UI02 · Button** — tags de ubicación.
+- **UI04 · Button Action Link** — enlace "Descubrir".
