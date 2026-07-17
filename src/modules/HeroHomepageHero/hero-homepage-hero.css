@@ -1,0 +1,287 @@
+/**
+ * Hero / Homepage hero — node 58182:4353 en Figma (COMPONENT_SET:
+ * Property1=desktop/mobile).
+ *
+ * ALCANCE: este master de Figma incrusta, dentro de su propia anatomía, una
+ * barra de navegación completa ("Navigation", node 58163:33790/58163:33792)
+ * y una tarjeta "Toast" (node 58182:23555/58182:23562) — ambos ya listados
+ * como módulos independientes y aún `pendiente` en PLAN.md ("Navigation
+ * (header principal)" y "Toast"). Para no duplicar ese trabajo ni bloquear
+ * este módulo, `HeroHomepageHero` compone aquí versiones simplificadas e
+ * INTERNAS (no exportadas, viven solo en este archivo) de ambas piezas —
+ * suficientes para reproducir el diseño visual — documentadas explícitamente
+ * como stand-ins temporales. Cuando se construyan los módulos dedicados
+ * "Navigation (header principal)" y "Toast", sustituir estas piezas internas
+ * por instancias de esos componentes.
+ *
+ * Altura: 800px mobile / 860px desktop — literales sin variable en Figma.
+ * Ancho del bloque de contenido: 350px mobile / 664px desktop — literal (a
+ * 1440px, 664px no coincide limpiamente con ningún nº de columnas: 6 cols =
+ * 648px, 16px de diferencia — por encima del margen de redondeo de 4px
+ * aceptado en otros módulos — así que se trata como bespoke, no se fuerza a
+ * `grid-column`). Centrado con flexbox, mismo criterio que Hero / Section
+ * hero.
+ *
+ * Márgenes de la barra de navegación (40px desktop / 24px mobile) son
+ * distintos y más estrechos que `--grid-margin-default` (60px/20px) — no es
+ * un descuido: la nav de Figma usa su propio margen, literal, específico de
+ * esta pieza (a definir como token propio cuando se construya el módulo
+ * dedicado "Navigation (header principal)").
+ *
+ * Tema: el bloque de contenido central usa `data-theme="dark-black-neutral"`
+ * (label #b3b3b3 = --color-content-neutral-3, título blanco =
+ * --color-content-base de ese tema) — coincide exactamente con los valores
+ * de Figma, aplicado como override de tema sobre la imagen de fondo, según
+ * el criterio de temas por (data-theme) del punto 16 de las instrucciones.
+ *
+ * El icono de menú móvil (hamburguesa) en Figma es un asset raster suelto,
+ * no un icono del set — se sustituye aquí por el icono componentizado
+ * `List` (mismo criterio visual, 3 líneas horizontales) para mantener todo
+ * apoyado en el sistema de componentes en vez de assets sueltos.
+ */
+.hero-homepage-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 800px;
+  overflow: hidden;
+  color: var(--color-content-base);
+}
+
+@media (min-width: 768px) {
+  .hero-homepage-hero {
+    min-height: 860px;
+  }
+}
+
+.hero-homepage-hero__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Degradado inferior — solo en mobile en el diseño de Figma (el frame
+   desktop no incluye este overlay, el texto/nav ya contrastan sobre la
+   imagen a ese tamaño). */
+.hero-homepage-hero__scrim {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 409px;
+  background: linear-gradient(to bottom, rgb(0 0 0 / 0), rgb(0 0 0 / 0.7));
+  z-index: 1;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .hero-homepage-hero__scrim {
+    display: none;
+  }
+}
+
+/* --- Navigation (stand-in temporal, ver comentario superior) --- */
+
+.hero-homepage-hero__nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 56px;
+  padding: 12px 24px;
+}
+
+@media (min-width: 768px) {
+  .hero-homepage-hero__nav {
+    min-height: 0;
+    padding: 24px 40px;
+  }
+}
+
+.hero-homepage-hero__nav-logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 22px;
+  width: auto;
+  color: var(--color-content-base, #fff);
+}
+
+.hero-homepage-hero__nav-menu {
+  display: flex;
+  color: var(--color-content-base, #fff);
+}
+
+.hero-homepage-hero__nav-links {
+  display: none;
+  align-items: center;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-homepage-hero__nav-links a {
+  font-family: var(--font-body);
+  font-size: var(--text-body-2);
+  line-height: var(--text-body-2--line-height);
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.hero-homepage-hero__nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-homepage-hero__nav-actions--desktop {
+  display: none;
+}
+
+.hero-homepage-hero__nav-search-label,
+.hero-homepage-hero__nav-account,
+.hero-homepage-hero__nav-cart {
+  font-family: var(--font-body);
+  font-size: var(--text-body-2);
+  line-height: var(--text-body-2--line-height);
+  color: inherit;
+  white-space: nowrap;
+}
+
+.hero-homepage-hero__nav-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-homepage-hero__nav-cart-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+@media (min-width: 768px) {
+  .hero-homepage-hero__nav-menu {
+    display: none;
+  }
+
+  .hero-homepage-hero__nav-links {
+    display: flex;
+  }
+
+  .hero-homepage-hero__nav-actions--mobile {
+    display: none;
+  }
+
+  .hero-homepage-hero__nav-actions--desktop {
+    display: flex;
+    gap: 20px;
+  }
+}
+
+/* --- Contenido central --- */
+
+.hero-homepage-hero__content {
+  position: relative;
+  z-index: 2;
+  flex: 1 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  width: 350px;
+  max-width: 100%;
+  margin-inline: auto;
+  text-align: center;
+  padding-inline: var(--grid-margin-default);
+}
+
+@media (min-width: 768px) {
+  .hero-homepage-hero__content {
+    width: 664px;
+  }
+}
+
+.hero-homepage-hero__label {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-2);
+  line-height: var(--text-body-2--line-height);
+  color: var(--color-content-neutral-3);
+}
+
+.hero-homepage-hero__title {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: var(--text-title-5);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-title);
+  color: var(--color-content-base);
+}
+
+/* --- Toast (stand-in temporal, ver comentario superior) --- */
+
+.hero-homepage-hero__toast {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  width: calc(100% - 48px);
+  height: 104px;
+  left: 24px;
+  right: 24px;
+  bottom: 16px;
+  padding: 14px;
+  background: var(--color-surface-base);
+}
+
+@media (min-width: 768px) {
+  .hero-homepage-hero__toast {
+    width: 343px;
+    left: auto;
+    right: 40px;
+    bottom: 40px;
+  }
+}
+
+.hero-homepage-hero__toast-image {
+  flex-shrink: 0;
+  width: 76px;
+  height: 76px;
+}
+
+.hero-homepage-hero__toast-text {
+  display: flex;
+  flex: 1 0 0;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-2);
+  line-height: var(--text-body-2--line-height);
+}
+
+.hero-homepage-hero__toast-title {
+  margin: 0;
+  color: var(--color-content-base);
+}
+
+.hero-homepage-hero__toast-description {
+  margin: 0;
+  color: var(--color-content-neutral-2);
+}

@@ -58,7 +58,7 @@ Contenedores 100% ancho de viewport.
 | Hero / Section hero | completado |
 | Hero / Section header | completado |
 | Navigation / Breadcrumb (adelantado, dependencia de Section header) | completado |
-| Hero / Homepage hero | pendiente |
+| Hero / Homepage hero | completado |
 | List / Characteristics | pendiente |
 | List / Numbers | pendiente |
 | List / Timeline | pendiente |
@@ -80,7 +80,7 @@ Contenedores 100% ancho de viewport.
 
 ## Siguiente paso
 
-Con **Hero / Section header** completado (y **Navigation / Breadcrumb** adelantado como su dependencia), seguir con **Hero / Homepage hero**, y continuar en el orden listado arriba.
+Con **Hero / Homepage hero** completado, seguir con **List / Characteristics**, y continuar en el orden listado arriba.
 
 ## Notas de implementación
 
@@ -126,3 +126,4 @@ Con **Hero / Section header** completado (y **Navigation / Breadcrumb** adelanta
   - **Corrección de `--grid-margin-default`**: el valor que se había tomado inicialmente de responsive.css (32px/16px en los breakpoints base) no coincidía con las instancias reales medidas en Figma en los módulos de esta auditoría; se confirmó con el usuario que las instancias visuales tienen prioridad sobre el nombre de la variable en Figma, y se corrigió el token a 60px (desktop `m`) / 20px (mobile), valores con los que sí cuadran todos los módulos revisados.
 - **Navigation / Breadcrumb**: `src/modules/NavigationBreadcrumb/` (node 58084:30166, COMPONENT_SET: Device=desktop/mobile). Construido antes de lo previsto en el orden del plan porque es una dependencia real de Hero / Section header (lo compone directamente en Figma). Barra "volver" a todo el ancho: icono `Icon` (`ArrowLeft`) + texto, envueltos en `<nav aria-label>`. **Detectado**: el fondo cambia de verdad entre breakpoints (`--color-surface-neutral-1` desktop, `--color-surface-base` mobile), no solo el tamaño. El color de texto (`#373f41`, "Light / Black" en Figma) no está enlazado a ninguna variable y no coincide con `--color-content-base` (negro puro) — se mantiene como literal documentado. Construido ya con `padding-inline: var(--grid-margin-default)` desde el principio (no necesitó retrofit). Documentación completa en `NavigationBreadcrumb.mdx`.
 - **Hero / Section header**: `src/modules/HeroSectionHeader/` (node 58163:39446, COMPONENT_SET: Device=desktop/mobile). Compone `NavigationBreadcrumb` + un bloque label/título (`--text-title-5`)/descripción sobre `--color-surface-neutral-1`. Construido ya con el grid de 12 columnas desde el principio (primer módulo posterior a la auditoría del punto 15): mismo patrón exacto de Content / Title (título y descripción `span 6` cada uno en desktop, gap de fila 24px = `--grid-gutter` a 1440px), sin necesitar retrofit posterior. A diferencia de Content / Title, no tiene botón ni enlace. Documentación completa en `HeroSectionHeader.mdx`.
+- **Hero / Homepage hero**: `src/modules/HeroHomepageHero/` (node 58182:4353, COMPONENT_SET: Property1=desktop/mobile). Imagen de fondo a sangre completa + navegación superpuesta + bloque centrado (label/título/botón, `data-theme="dark-black-neutral"`) + tarjeta "Toast" flotante (`data-theme="light-white"` local, override anidado sobre el tema oscuro del padre). **Decisión de alcance importante**: el master de Figma incrusta una barra de navegación completa y una tarjeta "Toast" dentro de su propia anatomía, pero ambas están listadas además como módulos independientes y aún `pendiente` en este plan ("Navigation (header principal)" y "Toast"). Para no bloquear este módulo ni duplicar ese trabajo, se construyeron aquí versiones simplificadas e internas de ambas piezas (funciones no exportadas dentro de `HeroHomepageHero.jsx`) — a sustituir por los módulos dedicados cuando les llegue su turno en el plan. El icono de menú móvil (hamburguesa), un asset raster suelto en Figma, se sustituyó por el icono componentizado `List` del sistema de iconos. Márgenes de la nav interna (40px desktop/24px mobile) son literales propios, distintos y más estrechos que `--grid-margin-default` (60px/20px) del resto del módulo. Ancho del bloque de contenido (664px desktop) es literal sin match limpio de columnas (16px de diferencia con 6 columnas, por encima de la tolerancia habitual), centrado por flexbox igual que Hero / Section hero. Documentación completa en `HeroHomepageHero.mdx`.
