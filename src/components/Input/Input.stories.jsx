@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Input } from './Input'
+import { VariantGrid, VariantSwatch } from '../../stories/VariantSwatch'
 
 export default {
   title: 'Components/Input',
@@ -89,4 +90,36 @@ function DemoDropdown(args) {
 
 export const Dropdown = {
   render: (args) => <DemoDropdown {...args} />,
+}
+
+export const AllSizes = {
+  render: () => (
+    <VariantGrid>
+      <VariantSwatch label="Big">
+        <div style={{ width: 280 }}>
+          <Input size="big" label="Label" defaultValue="Input text" />
+        </div>
+      </VariantSwatch>
+      <VariantSwatch label="Small">
+        <div style={{ width: 280 }}>
+          <Input size="small" label="Label" defaultValue="Input text" />
+        </div>
+      </VariantSwatch>
+    </VariantGrid>
+  ),
+}
+
+export const AllTypes = {
+  render: () => (
+    <VariantGrid>
+      <VariantSwatch label="Default">
+        <div style={{ width: 280 }}>
+          <Input label="Label" defaultValue="Input text" />
+        </div>
+      </VariantSwatch>
+      <VariantSwatch label="Dropdown">
+        <DemoDropdown label="Label" />
+      </VariantSwatch>
+    </VariantGrid>
+  ),
 }

@@ -1,4 +1,5 @@
 import './card-link.css'
+import { AspectRatio } from '../AspectRatio/AspectRatio'
 
 /**
  * Card Link — node 58182:23781 en Figma. Tarjeta-enlace de imagen a
@@ -13,9 +14,7 @@ export function CardLink({ image, imageAlt = '', title = 'Título', price = 'Des
 
   const content = (
     <>
-      <div className="card-link__image-wrap">
-        {image && <img src={image} alt={imageAlt} className="card-link__image" />}
-      </div>
+      <AspectRatio ratio="3:4" image={image} imageAlt={imageAlt} />
       <div className="card-link__overlay" data-theme="dark-red-primary">
         <p className="card-link__title">{title}</p>
         <p className="card-link__price">{price}</p>

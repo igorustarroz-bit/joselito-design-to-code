@@ -1,6 +1,7 @@
 import './card-carrusel.css'
 import { Button } from '../Button/Button'
 import { ActionLink } from '../ActionLink/ActionLink'
+import { AspectRatio } from '../AspectRatio/AspectRatio'
 
 /**
  * Card Carrusel — node 58182:24262 en Figma. Tarjeta con imagen, título,
@@ -29,9 +30,13 @@ export function CardCarrusel({
 
   return (
     <div className={classes} {...rest}>
-      <div className="card-carrusel__image-wrap">
-        {image && <img src={image} alt={imageAlt} className="card-carrusel__image" />}
-      </div>
+      <AspectRatio
+        className="card-carrusel__image-wrap"
+        ratio="3:2"
+        style={{ aspectRatio: '1440 / 933.33' }}
+        image={image}
+        imageAlt={imageAlt}
+      />
       <div className="card-carrusel__content">
         <div className="card-carrusel__title-group">
           <p className="card-carrusel__title">{title}</p>

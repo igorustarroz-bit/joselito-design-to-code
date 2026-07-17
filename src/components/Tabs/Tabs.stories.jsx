@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Tabs } from './Tabs'
 import { Tab } from './Tab'
+import { VariantGrid, VariantSwatch } from '../../stories/VariantSwatch'
 
 export default {
   title: 'Components/Tabs',
@@ -54,5 +55,18 @@ export const SingleTabDisabled = {
 export const NoIcons = {
   render: () => (
     <Tab variant="primary" text="item" showIconLeft={false} showIconRight={false} />
+  ),
+}
+
+export const AllVariants = {
+  render: () => (
+    <VariantGrid>
+      <VariantSwatch label="Primary">
+        <DemoTabs variant="primary" />
+      </VariantSwatch>
+      <VariantSwatch label="Secondary">
+        <DemoTabs variant="secondary" />
+      </VariantSwatch>
+    </VariantGrid>
   ),
 }

@@ -1,4 +1,5 @@
 import { ActionLink } from './ActionLink'
+import { VariantGrid, VariantSwatch } from '../../stories/VariantSwatch'
 
 export default {
   title: 'Components/Action Link',
@@ -46,4 +47,20 @@ export const Disabled = {
 
 export const AsLink = {
   args: { href: '#' },
+}
+
+export const AllSizes = {
+  render: () => (
+    <VariantGrid>
+      <VariantSwatch label="L">
+        <ActionLink size="l" text="Button" />
+      </VariantSwatch>
+      <VariantSwatch label="M">
+        <ActionLink size="m" text="Button" />
+      </VariantSwatch>
+      <VariantSwatch label="S">
+        <ActionLink size="s" text="Button" />
+      </VariantSwatch>
+    </VariantGrid>
+  ),
 }

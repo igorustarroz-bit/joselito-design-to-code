@@ -37,6 +37,8 @@ La propiedad "Device" de Figma (desktop/mobile) **no se tradujo como prop**: es 
 | `text-right` (por defecto) | Imagen a la izquierda, texto a la derecha | Imagen arriba, texto abajo |
 | `text-left` | Texto a la izquierda, imagen a la derecha | Imagen arriba, texto abajo |
 
+<Canvas of={ContentTextImageStories.AllLayouts} />
+
 ## Tokens
 
 Ningún token nuevo — reutiliza globales ya existentes, verificado literalmente en `get_design_context` de las 3 variantes:
@@ -80,3 +82,4 @@ Los paddings de sección (60px/120px en desktop; 20px/40px/60px en mobile) no es
 ## Componentes relacionados
 
 - **UI02 · Button** — botón opcional del módulo.
+- **Aspect Ratio** — caja de imagen (`ratio="2:3"`).

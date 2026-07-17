@@ -57,6 +57,8 @@ Tres colecciones de variables en el archivo Figma, a traducir como tokens de dis
 - Contenedores con hijos estructuralmente relacionados usan flexbox/grid según auto-layout de Figma.
 - Cada componente/módulo se documenta en Storybook con secciones: Intro, Demo, Anatomía (solo módulos), Subtemas por tema semántico, Comportamiento, Variantes y tamaños, Tokens, Propiedades, Accesibilidad, Componentes relacionados.
 - Las cajas de demo en Storybook no tienen tamaño fijo — dependen del contenido.
+- **Sección "Variantes y tamaños"**: todas las variantes se muestran juntas, en una sola caja de demo (`<Canvas>`, igual que la sección Demo), en fila con `flex-wrap`, cada una con su título encima — nunca como tabla markdown sola ni como varios `<Story>` sueltos apilados. Se usa el helper `VariantGrid`/`VariantSwatch` de `src/stories/VariantSwatch.jsx` desde el `.stories.jsx` de cada componente (export `AllVariants`/`AllTypes`/`AllSizes`, según convenga), referenciado en el `.mdx` con un único `<Canvas of={Stories.AllX} />`. Los `<Story>` individuales se reservan para casos concretos (un estado, un ejemplo con icono, etc.), no para recorrer variantes.
+- **Componentes fundacionales fuera de "📦 Components"**: Figma incluye piezas que se tratan como componentes base aunque vivan en otras páginas — **Aspect Ratio** (página "📐 Foundations"), **Icons** e **Brand Logo** (página "🏷️ Brand Assets"). Van los primeros en el orden de construcción de componentes (antes que UI01), ya que otros componentes/módulos dependen de ellos (Aspect Ratio, en particular, lo usan casi todos los módulos y tarjetas con imagen).
 
 ## Notas de entorno
 

@@ -1,4 +1,5 @@
 import { Button } from './Button'
+import { VariantGrid, VariantSwatch } from '../../stories/VariantSwatch'
 
 export default {
   title: 'Components/Button',
@@ -60,4 +61,39 @@ export const Disabled = {
 
 export const AsLink = {
   args: { href: '#' },
+}
+
+export const AllTypes = {
+  render: () => (
+    <VariantGrid>
+      <VariantSwatch label="Primary">
+        <Button type="primary" text="Button" />
+      </VariantSwatch>
+      <VariantSwatch label="Secondary">
+        <Button type="secondary" text="Button" />
+      </VariantSwatch>
+      <VariantSwatch label="Terciary">
+        <Button type="terciary" text="Button" />
+      </VariantSwatch>
+    </VariantGrid>
+  ),
+}
+
+export const AllSizes = {
+  render: () => (
+    <VariantGrid>
+      <VariantSwatch label="L">
+        <Button size="l" text="Button" />
+      </VariantSwatch>
+      <VariantSwatch label="M">
+        <Button size="m" text="Button" />
+      </VariantSwatch>
+      <VariantSwatch label="S">
+        <Button size="s" text="Button" />
+      </VariantSwatch>
+      <VariantSwatch label="XS">
+        <Button size="xs" text="Button" />
+      </VariantSwatch>
+    </VariantGrid>
+  ),
 }

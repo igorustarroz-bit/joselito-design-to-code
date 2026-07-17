@@ -2,6 +2,7 @@ import './card-product.css'
 import { IconStar } from './icons'
 import { Button } from '../Button/Button'
 import { ActionLink } from '../ActionLink/ActionLink'
+import { AspectRatio } from '../AspectRatio/AspectRatio'
 
 /**
  * Card Product — node 58163:83839 en Figma. Tarjeta de producto: imagen
@@ -36,9 +37,7 @@ export function CardProduct({
   return (
     <div className={classes} {...rest}>
       <div className="card-product__media">
-        <div className="card-product__image-wrap">
-          {image && <img src={image} alt={imageAlt} className="card-product__image" />}
-        </div>
+        <AspectRatio ratio="3:4" image={image} imageAlt={imageAlt} />
         {tag && <span className="card-product__tag">{tagText}</span>}
       </div>
       <div className="card-product__content">

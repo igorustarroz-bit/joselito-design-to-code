@@ -18,6 +18,9 @@
  * El gap de 60px entre imagen y texto en la variante horizontal no mapea a
  * ningún token de espaciado existente (el mayor es fx-9=40px) y se dejó
  * como valor literal, documentado como particularidad de Figma.
+ *
+ * La caja de imagen usa el componente base `AspectRatio` en vez de
+ * duplicar `aspect-ratio`/`object-fit` propios.
  */
 .card-carrusel {
   display: flex;
@@ -35,26 +38,14 @@
   gap: 60px;
 }
 
-.card-carrusel__image-wrap {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1440 / 933.33;
-  overflow: hidden;
-  background: var(--color-surface-neutral-1);
-}
-
+/* Caja de imagen: componente base `AspectRatio` (ver AspectRatio.jsx).
+   1440:933.33 no es una de las 7 proporciones fijas de Figma — se pasa
+   como `style` inline sobre el modificador `ratio="3:2"` (el más cercano),
+   documentado en CardCarrusel.jsx. */
 .card-carrusel--horizontal .card-carrusel__image-wrap {
   flex: 1 0 0;
   min-width: 0;
   width: auto;
-}
-
-.card-carrusel__image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .card-carrusel__content {

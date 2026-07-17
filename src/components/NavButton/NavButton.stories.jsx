@@ -1,4 +1,5 @@
 import { NavButton } from './NavButton'
+import { VariantGrid, VariantSwatch } from '../../stories/VariantSwatch'
 
 export default {
   title: 'Components/Nav Button',
@@ -36,4 +37,20 @@ export const Disabled = {
 
 export const AsLink = {
   args: { href: '#' },
+}
+
+export const AllVariants = {
+  render: () => (
+    <VariantGrid>
+      <VariantSwatch label="Default">
+        <NavButton text="Nav" showIconRight />
+      </VariantSwatch>
+      <VariantSwatch label="Selected">
+        <NavButton text="Nav" showIconRight selected />
+      </VariantSwatch>
+      <VariantSwatch label="Disabled">
+        <NavButton text="Nav" showIconRight disabled />
+      </VariantSwatch>
+    </VariantGrid>
+  ),
 }

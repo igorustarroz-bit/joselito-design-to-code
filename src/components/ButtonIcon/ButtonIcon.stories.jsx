@@ -1,4 +1,5 @@
 import { ButtonIcon } from './ButtonIcon'
+import { VariantGrid, VariantSwatch } from '../../stories/VariantSwatch'
 
 export default {
   title: 'Components/Button Icon',
@@ -56,4 +57,42 @@ export const Disabled = {
 
 export const AsLink = {
   args: { href: '#' },
+}
+
+export const AllTypes = {
+  render: () => (
+    <VariantGrid>
+      <VariantSwatch label="Primary">
+        <ButtonIcon type="primary" aria-label="Siguiente" />
+      </VariantSwatch>
+      <VariantSwatch label="Secondary">
+        <ButtonIcon type="secondary" aria-label="Siguiente" />
+      </VariantSwatch>
+      <VariantSwatch label="Terciary">
+        <ButtonIcon type="terciary" aria-label="Siguiente" />
+      </VariantSwatch>
+    </VariantGrid>
+  ),
+}
+
+export const AllSizes = {
+  render: () => (
+    <VariantGrid>
+      <VariantSwatch label="XL (solo Primary)">
+        <ButtonIcon size="xl" aria-label="Siguiente" />
+      </VariantSwatch>
+      <VariantSwatch label="L">
+        <ButtonIcon size="l" aria-label="Siguiente" />
+      </VariantSwatch>
+      <VariantSwatch label="M">
+        <ButtonIcon size="m" aria-label="Siguiente" />
+      </VariantSwatch>
+      <VariantSwatch label="S">
+        <ButtonIcon size="s" aria-label="Siguiente" />
+      </VariantSwatch>
+      <VariantSwatch label="XS">
+        <ButtonIcon size="xs" aria-label="Siguiente" />
+      </VariantSwatch>
+    </VariantGrid>
+  ),
 }

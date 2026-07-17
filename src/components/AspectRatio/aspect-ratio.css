@@ -1,0 +1,52 @@
+/**
+ * Aspect Ratio — node 50942:37236 en Figma (COMPONENT_SET, página
+ * "📐 Foundations", 7 variantes: Size 9:16/2:3/3:4/1:1/4:3/3:2/16:9).
+ *
+ * Detectado durante la revisión del plan: este elemento vive fuera de la
+ * página "📦 Components" pero se trata como componente base — es la pieza
+ * de la que dependen casi todos los módulos y tarjetas con imagen (Card
+ * Product, Card Link, Card Carrusel, Content / Text + Image...), así que
+ * se construye ahora y se usa retroactivamente en vez de repetir la misma
+ * regla `aspect-ratio` + `object-fit: cover` en cada componente.
+ *
+ * Sin tokens nuevos: solo define la relación de aspecto vía `aspect-ratio`
+ * CSS nativo; el color de fondo de placeholder reutiliza
+ * `--color-surface-neutral-1` ya existente.
+ */
+.aspect-ratio {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-surface-neutral-1);
+}
+
+.aspect-ratio__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.aspect-ratio--9-16 {
+  aspect-ratio: 9 / 16;
+}
+.aspect-ratio--2-3 {
+  aspect-ratio: 2 / 3;
+}
+.aspect-ratio--3-4 {
+  aspect-ratio: 3 / 4;
+}
+.aspect-ratio--1-1 {
+  aspect-ratio: 1 / 1;
+}
+.aspect-ratio--4-3 {
+  aspect-ratio: 4 / 3;
+}
+.aspect-ratio--3-2 {
+  aspect-ratio: 3 / 2;
+}
+.aspect-ratio--16-9 {
+  aspect-ratio: 16 / 9;
+}

@@ -4,6 +4,7 @@ import { FormRow } from './FormRow'
 import { Input } from '../Input/Input'
 import { CheckboxList } from '../CheckboxList/CheckboxList'
 import { CheckboxLabel } from '../CheckboxLabel/CheckboxLabel'
+import { VariantGrid, VariantSwatch } from '../../stories/VariantSwatch'
 
 export default {
   title: 'Components/Form',
@@ -102,4 +103,28 @@ function DemoWithChecklist() {
 
 export const WithChecklist = {
   render: () => <DemoWithChecklist />,
+}
+
+export const AllRowVariants = {
+  render: () => (
+    <VariantGrid>
+      <VariantSwatch label="FormRow (2 inputs)">
+        <div style={{ width: 360 }}>
+          <FormRow>
+            <Input label="Nombre" />
+            <Input label="Apellidos" />
+          </FormRow>
+        </div>
+      </VariantSwatch>
+      <VariantSwatch label="FormRow (3 inputs)">
+        <div style={{ width: 480 }}>
+          <FormRow>
+            <Input label="Calle" />
+            <Input label="Número" />
+            <Input label="Código postal" />
+          </FormRow>
+        </div>
+      </VariantSwatch>
+    </VariantGrid>
+  ),
 }

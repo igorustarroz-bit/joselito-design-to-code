@@ -1,4 +1,5 @@
 import { Tag } from './Tag'
+import { VariantGrid, VariantSwatch } from '../../stories/VariantSwatch'
 
 export default {
   title: 'Components/Tag',
@@ -28,4 +29,33 @@ export const Small = {
 
 export const CustomText = {
   render: () => <Tag type="aseptic" text="Sin gluten" />,
+}
+
+export const AllTypes = {
+  render: () => (
+    <VariantGrid>
+      <VariantSwatch label="Transaction">
+        <Tag type="transaction" />
+      </VariantSwatch>
+      <VariantSwatch label="New">
+        <Tag type="new" />
+      </VariantSwatch>
+      <VariantSwatch label="Aseptic">
+        <Tag type="aseptic" />
+      </VariantSwatch>
+    </VariantGrid>
+  ),
+}
+
+export const AllSizes = {
+  render: () => (
+    <VariantGrid>
+      <VariantSwatch label="L">
+        <Tag type="transaction" size="l" />
+      </VariantSwatch>
+      <VariantSwatch label="XS">
+        <Tag type="transaction" size="xs" />
+      </VariantSwatch>
+    </VariantGrid>
+  ),
 }

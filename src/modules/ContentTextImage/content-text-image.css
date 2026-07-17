@@ -38,6 +38,10 @@
  * `--text-body-5` en ambos breakpoints por consistencia con el resto del
  * sistema, en vez de introducir una familia tipográfica nueva para un único
  * párrafo de un único módulo.
+ *
+ * La caja de imagen usa el componente base `AspectRatio` en vez de
+ * duplicar `aspect-ratio`/`object-fit` propios (536:804 en Figma se
+ * simplifica exactamente a 2:3, igual en mobile y desktop).
  */
 .content-text-image {
   display: flex;
@@ -49,21 +53,11 @@
   background: var(--color-surface-base);
 }
 
+/* Caja de imagen: componente base `AspectRatio` (`ratio="2:3"`, exacto en
+   mobile y desktop — 536:804 en Figma se simplifica a 2:3). Solo se
+   controla aquí el orden visual respecto al texto (ver `order` más abajo). */
 .content-text-image__media {
   order: 0;
-  position: relative;
-  width: 100%;
-  aspect-ratio: 2 / 3;
-  overflow: hidden;
-  background: var(--color-surface-neutral-1);
-}
-
-.content-text-image__image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .content-text-image__content {
@@ -119,8 +113,6 @@
   .content-text-image__media {
     flex: 1 0 0;
     min-width: 0;
-    width: auto;
-    aspect-ratio: 536 / 804;
   }
 
   .content-text-image__content {

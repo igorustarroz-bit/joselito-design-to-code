@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { CheckboxList } from './CheckboxList'
 import { CheckboxLabel } from '../CheckboxLabel/CheckboxLabel'
+import { VariantGrid, VariantSwatch } from '../../stories/VariantSwatch'
 
 export default {
   title: 'Components/Checkbox List',
@@ -33,5 +34,18 @@ export const WithDisabled = {
       <CheckboxLabel text="Opción deshabilitada" disabled />
       <CheckboxLabel text="Opción marcada y deshabilitada" checked disabled onChange={() => {}} />
     </CheckboxList>
+  ),
+}
+
+export const AllVariants = {
+  render: () => (
+    <VariantGrid>
+      <VariantSwatch label="Vertical=Yes">
+        <DemoList vertical />
+      </VariantSwatch>
+      <VariantSwatch label="Vertical=No">
+        <DemoList vertical={false} />
+      </VariantSwatch>
+    </VariantGrid>
   ),
 }

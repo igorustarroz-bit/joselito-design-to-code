@@ -1,5 +1,6 @@
 import './content-text-image.css'
 import { Button } from '../../components/Button/Button'
+import { AspectRatio } from '../../components/AspectRatio/AspectRatio'
 
 /**
  * Content / Text + Image — node 58163:39941 en Figma. Módulo marcado en
@@ -30,9 +31,7 @@ export function ContentTextImage({
 
   return (
     <section className={classes} {...rest}>
-      <div className="content-text-image__media">
-        {image && <img src={image} alt={imageAlt} className="content-text-image__image" />}
-      </div>
+      <AspectRatio className="content-text-image__media" ratio="2:3" image={image} imageAlt={imageAlt} />
       <div className="content-text-image__content">
         <div className="content-text-image__titles">
           {showLabel && <p className="content-text-image__label">{label}</p>}

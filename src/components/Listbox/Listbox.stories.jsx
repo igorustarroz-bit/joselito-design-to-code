@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Listbox } from './Listbox'
 import { ListboxItem } from './ListboxItem'
+import { VariantGrid, VariantSwatch } from '../../stories/VariantSwatch'
 
 export default {
   title: 'Components/Listbox',
@@ -64,4 +65,21 @@ export const ItemSelected = {
 
 export const ItemWithCheckbox = {
   render: () => <ListboxItem text="Label" checkbox />,
+}
+
+export const AllItemSizes = {
+  render: () => (
+    <VariantGrid>
+      <VariantSwatch label="Large">
+        <div style={{ width: 220 }}>
+          <ListboxItem size="large" text="Label" />
+        </div>
+      </VariantSwatch>
+      <VariantSwatch label="Medium">
+        <div style={{ width: 220 }}>
+          <ListboxItem size="medium" text="Label" />
+        </div>
+      </VariantSwatch>
+    </VariantGrid>
+  ),
 }

@@ -1,0 +1,49 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as AspectRatioStories from './AspectRatio.stories'
+
+<Meta of={AspectRatioStories} />
+
+# Aspect Ratio
+
+## Intro
+
+`AspectRatio` traduce el componente **Aspect Ratio** de Figma (`node 50942:37236`, página "📐 Foundations", 7 variantes de tamaño). Aunque vive fuera de la página "📦 Components" en Figma, se trata como componente base: casi todos los módulos y tarjetas con imagen del sistema (Card Product, Card Link, Card Carrusel, Content / Text + Image) lo instancian.
+
+## Demo
+
+<Canvas of={AspectRatioStories.Default} />
+
+## Anatomía
+
+Un `<div>` con `aspect-ratio` CSS fijo y `overflow: hidden`, que contiene una `<img>` con `object-fit: cover` (o un fondo neutro de placeholder si no se pasa `image`).
+
+## Comportamiento
+
+Es puramente presentacional: no recorta ni redimensiona la imagen en JavaScript, solo aplica la relación de aspecto vía CSS nativo (`aspect-ratio`) — sin librerías externas.
+
+<Story of={AspectRatioStories.Placeholder} />
+
+## Variantes y tamaños
+
+<Canvas of={AspectRatioStories.AllRatios} />
+
+## Tokens
+
+Ningún token de color/tipografía — solo define proporciones (`aspect-ratio` CSS nativo, valores fijos por variante, no responsive). El fondo de placeholder reutiliza `--color-surface-neutral-1`, ya existente.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `ratio` | `'9:16'` \| `'2:3'` \| `'3:4'` \| `'1:1'` \| `'4:3'` \| `'3:2'` \| `'16:9'` | `'1:1'` | radio |
+| `image` | URL de la imagen | — | text |
+| `imageAlt` | Texto alternativo de la imagen | `''` | text |
+| `children` | Contenido adicional superpuesto (p. ej. un badge) | — | — |
+
+## Accesibilidad
+
+La imagen usa `alt` (vacío por defecto, indicado explícitamente por quien use el componente si es informativa).
+
+## Componentes relacionados
+
+Usado como base por **Card Product**, **Card Link**, **Card Carrusel** y **Content / Text + Image**.

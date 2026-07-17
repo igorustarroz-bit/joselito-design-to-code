@@ -1,4 +1,5 @@
 import { ContentTextOnly } from './ContentTextOnly'
+import { VariantGrid, VariantSwatch } from '../../stories/VariantSwatch'
 
 export default {
   title: 'Modules/Content Text only',
@@ -33,4 +34,26 @@ export const OneColumn = {
 
 export const NoLabel = {
   render: () => <ContentTextOnly variant="1-column" showLabel={false} columns={[[LONG_PARAGRAPH]]} />,
+}
+
+export const AllVariants = {
+  render: () => (
+    <VariantGrid gap={16}>
+      <VariantSwatch label="split (por defecto)">
+        <div style={{ width: 480 }}>
+          <ContentTextOnly variant="split" columns={[[LONG_PARAGRAPH]]} />
+        </div>
+      </VariantSwatch>
+      <VariantSwatch label="2-column">
+        <div style={{ width: 480 }}>
+          <ContentTextOnly variant="2-column" columns={[[LONG_PARAGRAPH], [LONG_PARAGRAPH]]} />
+        </div>
+      </VariantSwatch>
+      <VariantSwatch label="1-column">
+        <div style={{ width: 480 }}>
+          <ContentTextOnly variant="1-column" title="Arte e instinto" columns={[[LONG_PARAGRAPH]]} />
+        </div>
+      </VariantSwatch>
+    </VariantGrid>
+  ),
 }
