@@ -1,0 +1,58 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as ContentImageOnlyStories from './ContentImageOnly.stories'
+
+<Meta of={ContentImageOnlyStories} />
+
+# Content / Image only
+
+## Intro
+
+`ContentImageOnly` traduce el módulo **Content / Image only** de Figma (`node 58163:40001`, COMPONENT_SET: Images=1/2 × Device=desktop/mobile). Módulo de solo imagen(es), sin ningún texto — el más simple de los módulos "Content" junto a Text only y Text + Image.
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport.
+
+## Demo
+
+<Canvas of={ContentImageOnlyStories.OneImage} />
+
+## Anatomía
+
+- **1 imagen**: una única `AspectRatio` (`ratio="16:9"`) a todo el ancho del módulo.
+- **2 imágenes**: dos `AspectRatio` (`ratio="3:4"` cada una) en fila, con anchos asimétricos fijos (una más estrecha que la otra, replicando las instancias de ejemplo de Figma).
+
+<Story of={ContentImageOnlyStories.TwoImages} />
+
+## Comportamiento
+
+La propiedad "Device" de Figma (desktop/mobile) **no se tradujo como prop**: es responsive real, resuelto con una media query en `768px` (mismo criterio que Content / Text only y Content / Text + Image). La propiedad "Images" (1/2) sí es una decisión de disposición real, traducida como la longitud del array `images` — con 2 elementos se activa el layout de dos columnas, con 1 (o 0) el de una sola imagen a todo el ancho.
+
+Se verificó en Figma que la variante de 2 imágenes cambia de comportamiento entre breakpoints, no solo de tamaño: en desktop usa `justify-content: space-between` (las dos imágenes con anchos fijos de 424px/648px, separadas por el espacio restante del contenedor) mientras que en mobile usa un `gap` fijo de 12px con alineación a la izquierda (anchos fijos de 142px/196px) — se respetó esa diferencia de comportamiento tal cual, en vez de forzar el mismo mecanismo de espaciado en ambos breakpoints.
+
+## Variantes y tamaños
+
+| Prop `images` | Layout |
+|---|---|
+| 1 elemento (o vacío) | 1 imagen, ratio 16:9, a todo el ancho |
+| 2 elementos | 2 imágenes, ratio 3:4 cada una, anchos asimétricos fijos (424px/648px desktop, 142px/196px mobile) |
+
+<Canvas of={ContentImageOnlyStories.AllVariants} />
+
+## Tokens
+
+Ningún token nuevo — reutiliza `--color-surface-base` para el fondo, ya existente. Los paddings de sección (60px/40px según variante y breakpoint) y los anchos fijos de la variante de 2 imágenes no están enlazados a ninguna variable en Figma (literales, sin `var()`, en el propio archivo) — se implementaron igual, como literales de este módulo.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `images` | Array de `{ src, alt }` (1 o 2 elementos deciden el layout) | `[]` | — |
+
+## Accesibilidad
+
+- Usa `<section>` como raíz — landmark semántico correcto para un bloque de contenido de página.
+- Cada imagen usa `alt` (vacío por defecto, indicado explícitamente por quien use el módulo si es informativa).
+
+## Componentes relacionados
+
+- **Aspect Ratio** — caja de imagen (`ratio="16:9"` con 1 imagen, `ratio="3:4"` con 2).
+- **Content / Text + Image** / **Content / Text only** — módulos hermanos de la misma familia "Content".

@@ -1,0 +1,62 @@
+/**
+ * Content / Image only — paddings de sección (60px desktop / 40px mobile en
+ * la variante de 1 imagen; 60px/24px gap desktop, 40px-20px/12px gap mobile
+ * en la de 2) sin variable en Figma (literales, sin `var()`, en el propio
+ * archivo) — implementados igual, como literales de este módulo. Anchos
+ * fijos de la variante de 2 imágenes (424px/648px desktop, 142px/196px
+ * mobile) tampoco están enlazados a ninguna variable — son geometría fija
+ * de las instancias de ejemplo en Figma.
+ */
+.content-image-only {
+  display: flex;
+  width: 100%;
+  background: var(--color-surface-base);
+}
+
+/* Images=1: una sola imagen a todo el ancho, ratio 16:9 */
+.content-image-only--1 {
+  flex-direction: column;
+  padding-bottom: 40px;
+}
+
+.content-image-only--1 .content-image-only__image {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .content-image-only--1 {
+    padding-bottom: 60px;
+  }
+}
+
+/* Images=2: dos imágenes en fila, ratio 3:4, anchos asimétricos fijos */
+.content-image-only--2 {
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 40px 20px;
+  gap: 12px;
+}
+
+.content-image-only--2 .content-image-only__image--0 {
+  width: 142px;
+}
+
+.content-image-only--2 .content-image-only__image--1 {
+  width: 196px;
+}
+
+@media (min-width: 768px) {
+  .content-image-only--2 {
+    padding: 60px;
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  .content-image-only--2 .content-image-only__image--0 {
+    width: 424px;
+  }
+
+  .content-image-only--2 .content-image-only__image--1 {
+    width: 648px;
+  }
+}
