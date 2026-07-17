@@ -1,0 +1,211 @@
+/**
+ * List / Timeline — node 58163:39708 en Figma (COMPONENT_SET:
+ * Device=desktop/mobile).
+ *
+ * Cabecera: reutiliza `ContentTitle` con `titleSize="title-1"` (mismo
+ * hallazgo que List / Numbers).
+ *
+ * **Hallazgo importante verificado con `use_figma`** (inspección directa de
+ * `boundVariables`, no asumido): el título del bloque de contenido
+ * ("Heading") está enlazado a una variable real (`text/color-text-base`,
+ * #011a33, azul marino), pero esa variable vive en una colección de Figma
+ * llamada "Semantic" que ni siquiera aparece en
+ * `getLocalVariableCollectionsAsync()` (a diferencia de "Semantic-Color",
+ * la colección de 5 temas usada en todo el proyecto) — es una colección
+ * huérfana/heredada, no conectada al design system actual. Se ignoró en
+ * favor de `--color-content-base` (negro, "Texts/Base" de siempre), mismo
+ * criterio que otras inconsistencias ya documentadas en el proyecto
+ * (botones placeholder, estilos huérfanos).
+ *
+ * El color gris de los años inactivos (`#e6e6e6`, "Greyscale/Grey-90" en
+ * Figma) no tiene token propio — se reutiliza `--color-icon-neutral-3`
+ * (`#e5e5e5`, 1 unidad de diferencia, mismo margen de redondeo aceptado en
+ * otros módulos) en vez de crear un token nuevo para un solo uso.
+ *
+ * **Interacción (presentacional)**: igual criterio que Tabs/Listbox — el
+ * módulo no gestiona qué año está activo, la app pasa `activeIndex` +
+ * `onYearSelect`. El "tick" (marca de Figma junto al año activo) se
+ * implementa con un `::after` posicionado respecto al año activo, en vez de
+ * replicar el offset absoluto en píxeles de la instancia de Figma (que
+ * dependía del índice concreto seleccionado en el ejemplo) — se generaliza
+ * correctamente para cualquier `activeIndex`.
+ *
+ * **Simplificación responsive deliberada**: la instancia mobile de Figma
+ * solo cabía 4 años (recorta el 5º por ancho fijo de la instancia) — en vez
+ * de replicar ese recorte arbitrario, la fila de años tiene scroll
+ * horizontal (`overflow-x: auto`) en mobile, más robusto para cualquier
+ * cantidad de años.
+ *
+ * Imagen: `AspectRatio` `ratio="2:3"` (422×633 desktop coincide exactamente
+ * con esa proporción; mobile confirmado explícito como `aspect-[2/3]`).
+ *
+ * Grid de 12 columnas: `padding-inline: var(--grid-margin-default)` en la
+ * fila de años (ambos breakpoints) y en el bloque de contenido (mobile). En
+ * desktop, la columna de años no lleva margen de página (empieza a borde
+ * izquierdo, diseño deliberado full-bleed en ese lado) — el margen de 60px
+ * se aplica como `padding-left` local de esa columna en vez de en la
+ * sección, y el margen derecho de la fila usa `--grid-margin-default`.
+ * Ancho fijo de la columna de años (284px) y del bloque de contenido
+ * (445px) son literales sin variable en Figma.
+ */
+.list-timeline {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.list-timeline__body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 40px;
+  padding-bottom: 60px;
+  background: var(--color-surface-neutral-1);
+}
+
+/* --- Years --- */
+
+.list-timeline__years {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  width: 100%;
+  height: 88px;
+  padding-inline: var(--grid-margin-default);
+  border-bottom: 1px solid var(--color-icon-neutral-3);
+  overflow-x: auto;
+}
+
+.list-timeline__year {
+  all: unset;
+  box-sizing: border-box;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-end;
+  align-self: stretch;
+  padding-bottom: 6px;
+  cursor: pointer;
+  font-family: var(--font-title);
+  font-size: var(--text-title-6);
+  line-height: var(--text-title-6--line-height);
+  letter-spacing: var(--tracking-title);
+  color: var(--color-icon-neutral-3);
+}
+
+.list-timeline__year[data-active='true'] {
+  color: var(--color-content-base);
+}
+
+.list-timeline__year[data-active='true']::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -24px;
+  width: 1px;
+  height: 24px;
+  background: var(--color-icon-neutral-3);
+  transform: translateX(-50%);
+}
+
+.list-timeline__year:focus-visible {
+  outline: 2px solid var(--color-icon-accent-1);
+  outline-offset: 2px;
+}
+
+/* --- Content row --- */
+
+.list-timeline__row {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  padding-inline: var(--grid-margin-default);
+}
+
+.list-timeline__content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.list-timeline__heading {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-title-1);
+  line-height: var(--text-title-1--line-height);
+  color: var(--color-content-base);
+}
+
+.list-timeline__text {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-4);
+  line-height: var(--text-body-4--line-height);
+  color: var(--color-content-neutral-1);
+}
+
+.list-timeline__image {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .list-timeline__body {
+    flex-direction: column;
+    gap: 0;
+    padding-bottom: 0;
+  }
+
+  .list-timeline__years {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 16px;
+    width: 284px;
+    height: 560px;
+    padding-inline: 0;
+    padding-left: 60px;
+    border-bottom: none;
+    border-right: 1px solid var(--color-icon-neutral-3);
+    overflow: visible;
+  }
+
+  .list-timeline__year {
+    width: 100%;
+    align-items: center;
+    align-self: auto;
+    padding-bottom: 0;
+    justify-content: flex-start;
+  }
+
+  .list-timeline__year[data-active='true']::after {
+    left: 100%;
+    top: 50%;
+    bottom: auto;
+    width: 40px;
+    height: 1px;
+    transform: translateY(-50%);
+  }
+
+  .list-timeline__row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0;
+    padding: 80px var(--grid-margin-default) 120px 0;
+  }
+
+  .list-timeline__content {
+    width: 445px;
+    flex-shrink: 0;
+  }
+
+  .list-timeline__image {
+    width: 422px;
+    flex-shrink: 0;
+  }
+}

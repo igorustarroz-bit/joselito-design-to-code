@@ -1,0 +1,65 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as ListTimelineStories from './ListTimeline.stories'
+
+<Meta of={ListTimelineStories} />
+
+# List / Timeline
+
+## Intro
+
+`ListTimeline` traduce el módulo **List / Timeline** de Figma (`node 58163:39708`, COMPONENT_SET: Device=desktop/mobile). Cabecera + selector de años (vertical en desktop, horizontal en mobile) + contenido (título/texto/imagen) correspondiente al año activo.
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport.
+
+## Demo
+
+<Canvas of={ListTimelineStories.Default} />
+
+## Anatomía
+
+1. **Cabecera** — reutiliza `ContentTitle` con `titleSize="title-1"` (mismo hallazgo que List / Numbers).
+2. **Selector de años** — lista de años, uno activo (negro) y el resto en gris, con una marca ("tick") junto al año activo.
+3. **Contenido** — título + texto + imagen (`AspectRatio` `ratio="2:3"`) del año seleccionado.
+
+<Story of={ListTimelineStories.Interactive} />
+
+## Comportamiento
+
+**Presentacional** (igual criterio que Tabs/Listbox): el módulo no gestiona qué año está activo — la app pasa `activeIndex` + `onYearSelect`. El story "Interactive" de arriba demuestra el patrón de control externo con `useState`.
+
+**Hallazgo importante verificado con `use_figma`** (inspección directa de `boundVariables`, no asumido por el color de la captura): el título del bloque de contenido está enlazado a una variable real (`text/color-text-base`, `#011a33`), pero esa variable vive en una colección de Figma llamada "Semantic" que ni siquiera aparece en `getLocalVariableCollectionsAsync()` — a diferencia de "Semantic-Color" (la colección de 5 temas usada en todo el proyecto), es una colección huérfana/heredada no conectada al design system actual. Se ignoró en favor de `--color-content-base` (negro, "Texts/Base" de siempre).
+
+El gris de los años inactivos (`#e6e6e6`, "Greyscale/Grey-90" en Figma) no tiene token propio — se reutiliza `--color-icon-neutral-3` (`#e5e5e5`, 1 unidad de diferencia, mismo margen de redondeo aceptado en otros módulos).
+
+**Tick generalizado, no hardcodeado**: en vez de replicar el offset absoluto en píxeles de la instancia de Figma (que dependía de qué año concreto estaba seleccionado en el ejemplo), el "tick" se implementa con un `::after` en el año con `data-active="true"` — funciona correctamente para cualquier `activeIndex`, no solo para el capturado en Figma.
+
+**Simplificación responsive deliberada**: la instancia mobile de Figma solo cabía 4 años por el ancho fijo de la instancia (recortaba el 5º) — en vez de replicar ese recorte arbitrario, la fila de años tiene scroll horizontal (`overflow-x: auto`) en mobile, más robusto para cualquier cantidad de años.
+
+**Grid de 12 columnas**: `padding-inline: var(--grid-margin-default)` en la fila de años (ambos breakpoints) y en el bloque de contenido (mobile). En desktop, la columna de años no lleva margen de página — empieza a borde izquierdo (diseño deliberado full-bleed en ese lado); el margen de 60px se aplica como `padding-left` local de esa columna, y el margen derecho de la fila de contenido usa `--grid-margin-default`. El ancho fijo de la columna de años (284px) y del bloque de contenido (445px) son literales sin variable en Figma.
+
+## Tokens
+
+`--font-title`/`--text-title-6`/`--tracking-title` (años), `--font-body`/`--text-title-1` (título de contenido, mismo criterio que List / Characteristics y List / Numbers), `--text-body-4` (texto), `--color-content-base`, `--color-content-neutral-1`, `--color-icon-neutral-3` (borde y gris inactivo), `--color-surface-neutral-1`, `--grid-margin-default`.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `title` | Título de la cabecera | `'Lorem ipsum accumsan eleifend'` | text |
+| `years` | Array de años (string) | `['1868','1899','1922','1957','1986']` | — |
+| `activeIndex` | Índice del año activo | `0` | number |
+| `onYearSelect` | Handler al seleccionar un año | — | — |
+| `heading` | Título del bloque de contenido | text | text |
+| `text` | Texto del bloque de contenido | text | text |
+| `image` / `imageAlt` | Imagen del bloque de contenido | — | — |
+
+## Accesibilidad
+
+- Selector de años con `role="tablist"`/`role="tab"` + `aria-selected`, mismo patrón semántico que Tabs.
+- Cada año es un `<button>` real, navegable por teclado, con foco visible.
+
+## Componentes relacionados
+
+- **Content / Title** — reutilizado (vía `titleSize="title-1"`) para la cabecera.
+- **Aspect Ratio** — imagen del contenido.
+- **UI05 · Tabs** — mismo patrón `role="tablist"`/presentacional aplicado aquí al selector de años.
