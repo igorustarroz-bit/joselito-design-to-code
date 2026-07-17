@@ -1,0 +1,66 @@
+/**
+ * Content / Intro text — padding vertical (200px desktop / 104px mobile,
+ * horizontal 24px en mobile) y ancho máximo de texto (1058px desktop) sin
+ * variable en Figma — literales de este módulo.
+ *
+ * El borde de la variante mobile SÍ está enlazado a una variable real en
+ * Figma (no es un artefacto): `strokes-icons/neutral-4`, ya existente como
+ * `--color-icon-neutral-4`.
+ */
+.content-intro-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 56px;
+  width: 100%;
+  padding: 104px 24px;
+  background: var(--color-surface-base);
+  border: 1px solid var(--color-icon-neutral-4);
+}
+
+.content-intro-text__label {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-2);
+  line-height: var(--text-body-2--line-height);
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--color-content-neutral-2);
+}
+
+.content-intro-text__title {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: var(--text-title-3);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-title);
+  color: var(--color-content-base);
+}
+
+.content-intro-text__button--m {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .content-intro-text {
+    align-items: center;
+    text-align: center;
+    gap: 48px;
+    padding: 200px 0;
+    border: none;
+  }
+
+  .content-intro-text__label,
+  .content-intro-text__title {
+    max-width: 1058px;
+  }
+
+  .content-intro-text__button--m {
+    display: inline-flex;
+  }
+
+  .content-intro-text__button--s {
+    display: none;
+  }
+}

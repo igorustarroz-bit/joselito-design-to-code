@@ -1,0 +1,61 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as ContentIntroTextStories from './ContentIntroText.stories'
+
+<Meta of={ContentIntroTextStories} />
+
+# Content / Intro text
+
+## Intro
+
+`ContentIntroText` traduce el módulo **Content / Intro text** de Figma (`node 58153:32094`, COMPONENT_SET con una única variante `Property 1=Default`, capturada en dos anchos: 1440px desktop / 390px mobile). Bloque centrado de introducción: label pequeño en mayúsculas + título grande + botón terciario opcional.
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport. Es el primer módulo del sistema cuya instancia de botón en Figma SÍ está correctamente conectada al design system (`UI02-Button` real, tipo `Terciary`) — a diferencia de los botones placeholder detectados en Content / Text only y Content / Text + Image.
+
+## Demo
+
+<Canvas of={ContentIntroTextStories.Default} />
+
+## Anatomía
+
+1. **Label**: texto pequeño en mayúsculas (`--text-body-2`, color `--color-content-neutral-2`).
+2. **Título**: titular grande (`--text-title-3`).
+3. **Botón** opcional, tipo `terciary` (reutiliza `Button`).
+
+En desktop (≥768px) todo el bloque está centrado (texto y botón), con el texto limitado a un ancho máximo de 1058px. En mobile se alinea a la izquierda, sin límite de ancho, y el bloque entero queda enmarcado por un borde de 1px.
+
+<Story of={ContentIntroTextStories.NoButton} />
+
+## Comportamiento
+
+La única variante de Figma (`Property 1=Default`) se capturó en dos anchos (1440px/390px) con diferencias reales de alineación y de tamaño de botón entre ellos — se tradujeron como responsive real (media query en `768px`), no como props.
+
+**Detectado en Figma**: el tamaño del botón cambia de verdad entre breakpoints (`M`/56px en desktop, `S`/48px en mobile). Como `size` de `Button` es una prop discreta (no un token CSS fluido), no puede resolverse con una sola instancia — se renderizan ambos tamaños de `Button` y se oculta por CSS (`display: none`) el que no corresponde al breakpoint activo, mismo criterio ya usado en Content / Title para su botón condicional.
+
+**Borde de la variante mobile**: a diferencia de otros detalles "sospechosos" encontrados en otros módulos, este borde (`strokes-icons/neutral-4`, 1px) SÍ está enlazado a una variable real de Figma (`boundVariables` confirmado con `use_figma`) — se implementó tal cual, no se descartó como artefacto.
+
+## Variantes y tamaños
+
+<Canvas of={ContentIntroTextStories.AllVariants} />
+
+## Tokens
+
+Ningún token nuevo — reutiliza globales ya existentes: fondo `--color-surface-base`, label `--text-body-2`/`--color-content-neutral-2`, título `--font-title`/`--text-title-3`/`--tracking-title`/`--color-content-base`, borde mobile `--color-icon-neutral-4`. El padding vertical (200px desktop/104px mobile), el padding horizontal mobile (24px) y el ancho máximo de texto en desktop (1058px) son literales sin variable en Figma.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `label` | Texto del label superior (mayúsculas) | `'UN LEGADO ÚNICO'` | text |
+| `title` | Título del módulo | — | text |
+| `showButton` | Muestra/oculta el botón | `true` | boolean |
+| `buttonText` | Texto del botón | `'NUESTRA HISTORIA'` | text |
+| `href` / `onClick` | Destino/handler del botón | — | — |
+
+## Accesibilidad
+
+- Usa `<section>` como raíz — landmark semántico correcto para un bloque de contenido de página.
+- El botón reutiliza `Button`, ya accesible (foco, teclado, `:focus-visible`).
+
+## Componentes relacionados
+
+- **UI02 · Button** (tipo `terciary`) — botón opcional del módulo.
