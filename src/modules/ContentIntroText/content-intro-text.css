@@ -1,7 +1,18 @@
 /**
- * Content / Intro text — padding vertical (200px desktop / 104px mobile,
- * horizontal 24px en mobile) y ancho máximo de texto (1058px desktop) sin
- * variable en Figma — literales de este módulo.
+ * Content / Intro text — padding vertical (200px desktop / 104px mobile) sin
+ * variable en Figma — literal de este módulo (ya verificado en una revisión
+ * anterior contra la escala completa de `--spacing-r-*`, sin coincidencia,
+ * genuinamente bespoke).
+ *
+ * GRID (retrofit — auditoría punto 15): el padding horizontal mobile
+ * (literal 24px en Figma) se sustituyó por `padding-inline:
+ * var(--grid-margin-default)` (20px en ese breakpoint) por política de
+ * centralización — 4px de diferencia frente al literal original, aceptado.
+ * El ancho máximo de texto en desktop (1058px) se comprobó contra la
+ * fórmula de columnas (ancho de contenido 1320px a 1440px, columna 88px,
+ * gutter 24px): col-span-10 = 10×88+9×24 = 1096px, 38px de diferencia — no
+ * hay coincidencia limpia con ningún número de columnas, así que se dejó
+ * como literal bespoke (no es una franja de grid real).
  *
  * El borde de la variante mobile SÍ está enlazado a una variable real en
  * Figma (no es un artefacto): `strokes-icons/neutral-4`, ya existente como
@@ -13,7 +24,8 @@
   align-items: flex-start;
   gap: 56px;
   width: 100%;
-  padding: 104px 24px;
+  padding-block: 104px;
+  padding-inline: var(--grid-margin-default);
   background: var(--color-surface-base);
   border: 1px solid var(--color-icon-neutral-4);
 }

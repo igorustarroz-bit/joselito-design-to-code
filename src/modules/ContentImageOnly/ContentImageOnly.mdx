@@ -39,7 +39,9 @@ Se verificó en Figma que la variante de 2 imágenes cambia de comportamiento en
 
 ## Tokens
 
-Ningún token nuevo — reutiliza `--color-surface-base` para el fondo, ya existente. Los paddings de sección (60px/40px según variante y breakpoint) y los anchos fijos de la variante de 2 imágenes no están enlazados a ninguna variable en Figma (literales, sin `var()`, en el propio archivo) — se implementaron igual, como literales de este módulo.
+Ningún token nuevo — reutiliza `--color-surface-base` para el fondo, ya existente. Los paddings verticales de sección (40px/60px) no están enlazados a ninguna variable en Figma y se mantienen como literales.
+
+**Retrofit grid de 12 columnas**: en la variante de 2 imágenes, 424px y 648px (desktop) son exactamente 4 y 6 columnas (4×88+3×24=424, 6×88+5×24=648); el hueco que producía `justify-content: space-between` (~248px) es exactamente 2 columnas vacías + sus 3 gutters (2×88+3×24=248) — hueco de columna real, no arbitrario. Se reescribió como grid real de 12 columnas: imagen 0 = `grid-column: span 4`, imagen 1 = `grid-column: 7 / span 6` (salta las columnas 5-6). En mobile, 142px/196px ≈ 5 y 7 columnas (5+7=12, sin hueco), con el gap de 12px ya coincidiendo exactamente con `--grid-gutter` en ese breakpoint — también expresado como grid real (`span 5` + `span 7` contiguos). El margen lateral de esta variante pasó de literal a `padding-inline: var(--grid-margin-default)` (mismo valor numérico). La variante de 1 imagen no tiene margen lateral en ningún breakpoint (edge-to-edge verificado) y se dejó sin `padding-inline` a propósito.
 
 ## Propiedades
 

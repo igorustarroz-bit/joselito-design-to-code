@@ -10,13 +10,27 @@
  * que se sustituyó por `flex: 1` + `justify-content: flex-end`, que da el
  * mismo resultado visual (grupo pegado a la derecha) sin depender de un
  * offset arbitrario.
+ *
+ * GRID DE 12 COLUMNAS (retrofit — auditoría punto 15): el ancho fijo de
+ * 652px de `__title` ≈ exactamente 6 columnas (6×88+5×24=648px a 1440px,
+ * 4px de diferencia, redondeo aceptable — mismo margen que otros módulos).
+ * El gap de la fila en desktop (24px) ya coincidía literalmente con
+ * `--grid-gutter` a 1440px, confirmando que esta fila es genuinamente
+ * 6+6 columnas. Se reescribió `.content-title__row` como grid real de 12
+ * columnas (`display:grid; grid-template-columns: repeat(12,
+ * minmax(0,1fr)); column-gap: var(--grid-gutter)`), con `__title` en
+ * `grid-column: span 6` (antes `width: 652px` fijo) y `__aside` también en
+ * `grid-column: span 6` (antes `flex: 1 0 0`), conservando su
+ * `justify-content: flex-end` interno para alinear a la derecha su propio
+ * contenido (descripción/botón/enlace).
  */
 .content-title {
   display: flex;
   flex-direction: column;
   gap: 24px;
   width: 100%;
-  padding: 60px 20px 0;
+  padding-top: 60px;
+  padding-inline: var(--grid-margin-default);
   background: var(--color-surface-base);
 }
 
@@ -100,18 +114,17 @@
   }
 
   .content-title__row {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 24px;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--grid-gutter);
   }
 
   .content-title__title {
-    width: 652px;
-    flex-shrink: 0;
+    grid-column: span 6;
   }
 
   .content-title__aside {
-    flex: 1 0 0;
+    grid-column: span 6;
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-end;

@@ -27,15 +27,41 @@
  * resto del sistema) — se identificó como un marcador de posición no
  * conectado al design system real y se sustituyó por el componente
  * `Button` (UI02) ya construido, igual que se hizo en Content / Text + Image.
+ *
+ * GRID DE 12 COLUMNAS (retrofit — auditoría punto 15):
+ *   - `split`: título (537px) + gap (136px) + cuerpo (647px) medidos en
+ *     Figma. 136px = exactamente 1 columna vacía + sus 2 gutters
+ *     (88 + 2×24 = 136) a 1440px — es un hueco de columna real, no
+ *     espaciado editorial. Se reescribió `.content-text-only__row` como
+ *     grid real de 12 columnas: título = `span 5` (536≈537), cuerpo
+ *     empieza en la columna 7 = `7 / span 6` (salta la columna 6, 648≈647).
+ *   - `1-column`: columna centrada de 647px ≈ exactamente 6 columnas
+ *     (6×88+5×24=648, diferencia de 1px, redondeo aceptable) — se expresó
+ *     con la técnica `calc()` (`--col-unit`) en vez del literal `647px`,
+ *     manteniendo el centrado por `justify-content: center` ya existente.
+ *   - `2-column`: gap real medido 144px. NO coincide con `--grid-gutter`
+ *     (24px) ni limpiamente con 1 columna vacía (88+2×24=136, un 5.9% de
+ *     diferencia — fuera de la tolerancia de redondeo usada en el resto
+ *     del proyecto, ~0.5-0.7%). Se mantiene como literal documentado
+ *     (excepción editorial, igual criterio que el gap de 60px en
+ *     Content/Text+Image) en vez de forzarlo a un hueco de columna que no
+ *     encaja con precisión. Las dos columnas ya eran fluidas
+ *     (`flex: 1 1 0`, sin ancho fijo en píxeles) — no había violación de
+ *     "ancho hardcodeado" que corregir aquí, solo el gap se documenta.
+ *   - Margen lateral de sección: `padding-inline: var(--grid-margin-default)`
+ *     en vez del literal 20px/60px anterior (mismo valor numérico).
  */
 .content-text-only {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 80px 20px;
+  padding-block: 80px;
+  padding-inline: var(--grid-margin-default);
   background: var(--color-surface-base);
   color: var(--color-content-base);
   gap: var(--spacing-fx-6, 24px);
+  /* Unidad de 1 columna de la retícula de 12 — usada por `1-column`. */
+  --col-unit: calc((100% - 11 * var(--grid-gutter)) / 12);
 }
 
 .content-text-only__header {
@@ -97,7 +123,8 @@
 
 @media (min-width: 768px) {
   .content-text-only {
-    padding: 120px 60px;
+    padding-block: 120px;
+    padding-inline: var(--grid-margin-default);
     gap: var(--spacing-fx-4, 16px);
   }
 
@@ -112,6 +139,12 @@
 
   .content-text-only__columns {
     flex-direction: row;
+    /* 144px: gap real medido en la variante `2-column`, no coincide con
+       `--grid-gutter` (24px) ni con un hueco de columna vacía limpio
+       (88+2×24=136, 5.9% de diferencia, fuera de la tolerancia habitual
+       de este proyecto) — se mantiene como literal, excepción editorial
+       documentada, igual criterio que Content/Text+Image (60px). Las
+       columnas en sí ya son fluidas (`flex: 1 1 0`), sin ancho fijo. */
     gap: 144px;
   }
 
@@ -125,26 +158,31 @@
   }
 
   .content-text-only--1-column .content-text-only__column {
-    flex: 0 1 647px;
+    /* 6 columnas: 6×88+5×24=648px a 1440px (647px medido, 1px de redondeo) */
+    flex: 0 1 calc(6 * var(--col-unit) + 5 * var(--grid-gutter));
   }
 
   /* split: layout título+cuerpo en fila, con el propio label por encima
      a ancho completo (estructura distinta a 2-column/1-column: en Figma
      el label NO está agrupado con el título, es hermano directo de la
      fila título+cuerpo — el gap general de 16px de `.content-text-only`
-     ya cubre la separación label/fila) */
+     ya cubre la separación label/fila).
+     136px de gap = exactamente 1 columna vacía + sus 2 gutters
+     (88+2×24=136 a 1440px) — hueco de columna real, se implementa como
+     grid real de 12 columnas en vez de flex, saltando la columna 6. */
   .content-text-only--split .content-text-only__row {
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+    column-gap: var(--grid-gutter);
     align-items: flex-start;
-    gap: 136px;
   }
 
   .content-text-only--split .content-text-only__title {
-    flex: 0 0 537px;
+    grid-column: span 5;
   }
 
   .content-text-only--split .content-text-only__body {
-    flex: 1 1 0;
+    grid-column: 7 / span 6;
     min-width: 0;
   }
 }

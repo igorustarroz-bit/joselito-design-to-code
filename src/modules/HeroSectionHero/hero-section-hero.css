@@ -2,6 +2,19 @@
  * Hero / Section hero — altura fija de 742px en ambos breakpoints (sin
  * variable en Figma, literal de este módulo) y ancho máximo del bloque de
  * texto (540px desktop / 350px mobile), también literales.
+ *
+ * EXENTO del retrofit de grid (auditoría punto 15): el fondo de color a
+ * todo el ancho (full-bleed) exige que la raíz del módulo NO tenga
+ * `padding-inline` (el color debe llegar hasta el borde del viewport), así
+ * que no se toca `--grid-margin-default` aquí. El contenido de texto
+ * (540px desktop) se acerca a col-span-5 (5×88+4×24=536px, 4px de
+ * diferencia) pero 5 es un número impar de columnas — no se puede centrar
+ * de forma simétrica dentro de una rejilla de 12 con `grid-column`/`span`
+ * sin un `grid-column-start` asimétrico, así que el centrado se resuelve
+ * con flexbox (`align-items/justify-content: center` en `.hero-section-hero`
+ * + `width: 540px` fijo en `__content`), no con `grid-column`. No es un
+ * descuido: es la solución correcta para un bloque centrado de ancho ≈5
+ * columnas sobre un fondo full-bleed.
  */
 .hero-section-hero {
   display: flex;

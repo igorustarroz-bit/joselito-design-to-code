@@ -6,6 +6,28 @@
  * fijos de la variante de 2 imágenes (424px/648px desktop, 142px/196px
  * mobile) tampoco están enlazados a ninguna variable — son geometría fija
  * de las instancias de ejemplo en Figma.
+ *
+ * GRID DE 12 COLUMNAS (retrofit — auditoría punto 15):
+ *   - Images=1: sin cambios de layout — la variante ya es edge-to-edge sin
+ *     padding horizontal (`padding-bottom` únicamente), verificado contra
+ *     el CSS actual y contra la medida original de Figma (imagen a todo el
+ *     ancho, sin margen lateral) — se deja en 0 a propósito, no es un
+ *     descuido.
+ *   - Images=2 desktop: 424px = exactamente 4 columnas (4×88+3×24=424),
+ *     648px = exactamente 6 columnas (6×88+5×24=648). El hueco que antes
+ *     producía `justify-content: space-between` (~248px a 1440px) =
+ *     exactamente 2 columnas vacías + sus 3 gutters (2×88+3×24=248) — hueco
+ *     de columna real. Se reescribió como grid real de 12 columnas: imagen
+ *     0 = `span 4`, imagen 1 empieza en la columna 7 = `7 / span 6` (salta
+ *     las columnas 5 y 6).
+ *   - Images=2 mobile: 142px≈5 columnas, 196px≈7 columnas (5+7=12, sin
+ *     hueco) con gap de 12px que ya coincide exactamente con
+ *     `--grid-gutter` en este breakpoint — no hay columna vacía. También
+ *     se expresa como grid real: imagen 0 = `span 5`, imagen 1 = `span 7`
+ *     (contigua, sin `grid-column-start` explícito).
+ *   - Margen lateral de la variante de 2 imágenes: `padding-inline:
+ *     var(--grid-margin-default)` en vez del literal 20px/60px anterior
+ *     (mismo valor numérico en ambos breakpoints).
  */
 .content-image-only {
   display: flex;
@@ -13,7 +35,9 @@
   background: var(--color-surface-base);
 }
 
-/* Images=1: una sola imagen a todo el ancho, ratio 16:9 */
+/* Images=1: una sola imagen a todo el ancho, ratio 16:9. Sin
+   `padding-inline`: la instancia real de Figma no tiene margen lateral
+   (edge-to-edge), verificado — no se le aplica `--grid-margin-default`. */
 .content-image-only--1 {
   flex-direction: column;
   padding-bottom: 40px;
@@ -29,34 +53,42 @@
   }
 }
 
-/* Images=2: dos imágenes en fila, ratio 3:4, anchos asimétricos fijos */
+/* Images=2: dos imágenes, ratio 3:4, posicionadas con grid real de 12
+   columnas (ver comentario de cabecera: los huecos de 248px desktop y la
+   ausencia de hueco en mobile son geometría de columnas real, no
+   arbitraria). */
 .content-image-only--2 {
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  column-gap: var(--grid-gutter);
   align-items: flex-start;
-  padding: 40px 20px;
-  gap: 12px;
+  padding-block: 40px;
+  padding-inline: var(--grid-margin-default);
 }
 
 .content-image-only--2 .content-image-only__image--0 {
-  width: 142px;
+  /* mobile: 5 columnas ≈ 142px */
+  grid-column: span 5;
 }
 
 .content-image-only--2 .content-image-only__image--1 {
-  width: 196px;
+  /* mobile: 7 columnas ≈ 196px, contigua a la imagen 0 (5+7=12, sin hueco) */
+  grid-column: span 7;
 }
 
 @media (min-width: 768px) {
   .content-image-only--2 {
-    padding: 60px;
-    justify-content: space-between;
-    gap: 0;
+    padding-block: 60px;
+    padding-inline: var(--grid-margin-default);
   }
 
   .content-image-only--2 .content-image-only__image--0 {
-    width: 424px;
+    /* 4 columnas: 4×88+3×24=424px a 1440px */
+    grid-column: span 4;
   }
 
   .content-image-only--2 .content-image-only__image--1 {
-    width: 648px;
+    /* empieza en la columna 7 (salta 5 y 6): 6 columnas, 6×88+5×24=648px */
+    grid-column: 7 / span 6;
   }
 }

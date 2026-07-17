@@ -12,6 +12,22 @@
  * referencia para el diseño con frames fijos — no se traducen como tokens de código:
  * en CSS el grid de 12 columnas se construye con `grid-template-columns: repeat(12, 1fr)`
  * y `gap: var(--grid-gutter)`, que ya reproduce el mismo resultado de forma fluida.
+ *
+ * CORRECCIÓN (revisión de instrucciones, punto 15): `--grid-margin-default` se importó
+ * originalmente de la variable Figma `Layout/Grids/Wrapper-Default` (32px a 1440 / 16px en
+ * XS). Al auditar el grid de 12 columnas se detectó que NINGUNO de los módulos ya
+ * construidos (Content/Text+Image, Text only, Image only, Title, Intro text, Hero) usa ese
+ * valor — todos usan de forma consistente 60px de margen lateral en desktop y 20px en
+ * mobile (verificado con `use_figma`, ninguno enlazado a variable, pero el número se repite
+ * igual en todas las instancias). Además, las variables de referencia
+ * `Layout/Cols Size/Ncols` de Figma implican un margen efectivo de ~64px a 1440px, mucho
+ * más cercano a 60 que a 32. Confirmado con el usuario: el valor real de las instancias
+ * (60px/20px) tiene prioridad sobre el nombre de la variable original — `Wrapper-Default`
+ * probablemente está pensada para header/nav (coincide con `--grid-margin-header`, sin
+ * tocar), no para el grid de contenido. Se actualiza `--grid-margin-default` a 20px(base)
+ * / 60px (≥768px). Los tramos 1620/1920 no tienen instancia real que los verifique — se
+ * extrapolan con la misma proporción (×1.875) que tenía la curva original en esos tramos,
+ * pendiente de confirmar cuando se construya un módulo que llegue a esos anchos.
  */
 
 /* Breakpoints — sustituye por completo la escala por defecto de Tailwind */
@@ -29,7 +45,7 @@
 /* BASE (XS - 375, mobile-first) */
 :root {
   --grid-gutter: 12px;
-  --grid-margin-default: 16px;
+  --grid-margin-default: 20px;
   --grid-margin-full: 0px;
   --grid-margin-header: 16px;
   --grid-margin-modal: 16px;
@@ -116,7 +132,7 @@
 @media (min-width: 768px) {
   :root {
     --grid-gutter: 16px;
-    --grid-margin-default: 32px;
+    --grid-margin-default: 60px;
     --grid-margin-header: 32px;
     --grid-margin-modal: 32px;
     --radius-xl: 16px;
@@ -198,7 +214,7 @@
 
 @media (min-width: 1620px) {
   :root {
-    --grid-margin-default: 64px;
+    --grid-margin-default: 120px;
     --radius-l: 12px;
     --spacing-r-6: 20px;
     --text-body-4: 22px;
@@ -225,7 +241,7 @@
 @media (min-width: 1920px) {
   :root {
     --grid-gutter: 32px;
-    --grid-margin-default: 84px;
+    --grid-margin-default: 158px;
     --grid-margin-header: 56px;
     --grid-margin-modal: 56px;
     --radius-xl: 40px;

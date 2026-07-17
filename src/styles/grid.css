@@ -1,0 +1,63 @@
+/**
+ * Grid de 12 columnas — sistema compartido por todos los módulos
+ * (`src/modules/`, contenedores 100% del ancho del viewport).
+ *
+ * Construido sobre los tokens fundacionales de `responsive.css`:
+ *   --grid-columns  (12, fijo)
+ *   --grid-gutter    (espacio entre columnas, fluido por breakpoint)
+ *   --grid-margin-default (margen lateral del contenido, fluido por breakpoint)
+ *
+ * Uso: todo módulo envuelve su contenido con `.grid-12` y cada elemento
+ * hijo directo indica cuántas columnas ocupa con `.col-span-{1..12}`
+ * (o `.col-start-{1..12}` si necesita desplazarse). Ningún módulo debe
+ * fijar anchos de columna en píxeles — el ancho de cada columna lo
+ * calcula el navegador (`grid-template-columns: repeat(12, minmax(0,1fr))`),
+ * igual que hace Figma con "Layout guide styles" + las variables Responsive.
+ *
+ * Corrección (auditoría del punto 15 de las instrucciones del proyecto):
+ * antes de este sistema, los módulos ya construidos posicionaban su
+ * contenido con anchos fijos en píxeles medidos directamente de una
+ * instancia de Figma (652px, 424px/648px, 540px...) sin pasar por ninguna
+ * retícula real. Se retrofiteó cada módulo para expresar esos anchos como
+ * `col-span-N`, calculando N a partir del ancho de columna real
+ * ((1440 - 2×60) - 11×24) / 12 ≈ 92.7px a 1440px — ver cada módulo para el
+ * cálculo y la aproximación exacta.
+ */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  column-gap: var(--grid-gutter);
+  width: 100%;
+  padding-inline: var(--grid-margin-default);
+  box-sizing: border-box;
+}
+
+.grid-12--full {
+  padding-inline: var(--grid-margin-full);
+}
+
+.col-span-1 { grid-column: span 1; }
+.col-span-2 { grid-column: span 2; }
+.col-span-3 { grid-column: span 3; }
+.col-span-4 { grid-column: span 4; }
+.col-span-5 { grid-column: span 5; }
+.col-span-6 { grid-column: span 6; }
+.col-span-7 { grid-column: span 7; }
+.col-span-8 { grid-column: span 8; }
+.col-span-9 { grid-column: span 9; }
+.col-span-10 { grid-column: span 10; }
+.col-span-11 { grid-column: span 11; }
+.col-span-12 { grid-column: span 12; }
+
+.col-start-1 { grid-column-start: 1; }
+.col-start-2 { grid-column-start: 2; }
+.col-start-3 { grid-column-start: 3; }
+.col-start-4 { grid-column-start: 4; }
+.col-start-5 { grid-column-start: 5; }
+.col-start-6 { grid-column-start: 6; }
+.col-start-7 { grid-column-start: 7; }
+.col-start-8 { grid-column-start: 8; }
+.col-start-9 { grid-column-start: 9; }
+.col-start-10 { grid-column-start: 10; }
+.col-start-11 { grid-column-start: 11; }
+.col-start-12 { grid-column-start: 12; }

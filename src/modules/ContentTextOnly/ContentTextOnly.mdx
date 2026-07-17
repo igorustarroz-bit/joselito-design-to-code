@@ -52,7 +52,12 @@ Ningún token nuevo — reutiliza globales ya existentes, verificado literalment
 | Párrafos | `--font-body`, `--text-body-5` / `--text-body-5--line-height` |
 | Gaps | `--spacing-fx-8` (32px) / `--spacing-fx-6` (24px) / `--spacing-fx-4` (16px) / `--spacing-fx-2` (8px) |
 
-Los gaps título/cuerpo (136px en `split`, 144px en `2-column`) y los paddings de sección (60/120px desktop, 20/80px mobile) no están enlazados a ninguna variable en Figma y se implementaron como literales de este módulo.
+Los gaps título/cuerpo (136px en `split`, 144px en `2-column`) no están enlazados a ninguna variable en Figma. El padding vertical de sección (80/120px) tampoco. El padding horizontal (20px/60px) sí se centralizó como `padding-inline: var(--grid-margin-default)` en el retrofit de grid de 12 columnas.
+
+**Retrofit grid de 12 columnas**:
+- **`split`**: 136px de gap = exactamente 1 columna vacía + sus 2 gutters (88+2×24=136 a 1440px) — hueco de columna real, no espaciado editorial. `.content-text-only__row` pasó de `flex` a grid real de 12 columnas (`display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); column-gap: var(--grid-gutter)`), con el título en `grid-column: span 5` (536≈537px) y el cuerpo en `grid-column: 7 / span 6` (salta la columna 6, 648≈647px).
+- **`1-column`**: los 647px de ancho máximo ≈ exactamente 6 columnas (6×88+5×24=648, 1px de redondeo) — se expresó con la técnica `calc()` (`--col-unit`) en vez del literal `647px`, sin tocar el centrado (`justify-content: center`) ya existente.
+- **`2-column`**: el gap de 144px NO coincide con `--grid-gutter` (24px) ni limpiamente con 1 columna vacía (88+2×24=136, 5.9% de diferencia — fuera de la tolerancia de redondeo usada en el resto del proyecto, ~0.5-0.7%) — se mantiene como literal documentado, excepción editorial deliberada, mismo criterio que el gap de 60px en Content/Text+Image. Las dos columnas ya eran fluidas (`flex: 1 1 0`, sin ancho fijo en px), así que no había ningún ancho hardcodeado que corregir ahí.
 
 **Sobre el botón de `split`**: la instancia de Figma usa un estilo genérico placeholder ("button", borde azul `interactive/color-interactive-default`, tipografía `static/font/brand`) completamente ajeno a los tokens `Button/*` del resto del sistema — se identificó como un marcador de posición no conectado al design system real (a diferencia del botón de Content / Text + Image, que sí era una instancia real de `UI02-Button`) y se sustituyó por el componente `Button` ya construido, para mantener consistencia visual entre módulos.
 

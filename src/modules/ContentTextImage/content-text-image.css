@@ -13,10 +13,12 @@
  * `layout` — el orden visual imagen/texto se resuelve con `order` de
  * flexbox, sin depender del orden en el DOM.
  *
- * Los paddings de sección (60/120px desktop, 20/40/60px mobile) NO están
- * enlazados a ninguna variable de Figma (aparecen como valores literales
- * en el código generado, sin `var()`) — se implementan como valores
- * literales de este módulo, no como tokens globales.
+ * Los paddings VERTICALES de sección (40/60px mobile, 120px desktop) NO
+ * están enlazados a ninguna variable de Figma — se mantienen como valores
+ * literales de este módulo. El padding HORIZONTAL (antes 20px mobile /
+ * 60px desktop, literal) se sustituyó por `padding-inline:
+ * var(--grid-margin-default)` (retrofit de grid de 12 columnas — mismo
+ * valor numérico, ahora centralizado en el token compartido).
  *
  * Tokens reutilizados (ya existentes, ninguno nuevo):
  *   - Fondo: --color-surface-base
@@ -42,6 +44,21 @@
  * La caja de imagen usa el componente base `AspectRatio` en vez de
  * duplicar `aspect-ratio`/`object-fit` propios (536:804 en Figma se
  * simplifica exactamente a 2:3, igual en mobile y desktop).
+ *
+ * GRID DE 12 COLUMNAS (retrofit — auditoría punto 15): fila desktop imagen
+ * (536px) + contenido (648px) medida sobre una instancia real de Figma.
+ * Verificado contra la retícula compartida (`src/styles/grid.css`,
+ * columna = (contenido - 11×gutter)/12 = 88px a 1440px): 536px = exactamente
+ * 5 columnas (5×88 + 4×24 = 536) y 648px = exactamente 6 columnas
+ * (6×88 + 5×24 = 648) — 5+6=11, no hay requisito de sumar 12 en esta fila.
+ * En vez de reescribir a `display:grid` (fila simple de 2 hijos, sin
+ * columnas vacías), se usa la técnica de anchos equivalentes por `calc()`:
+ * `--col-unit` reproduce el ancho de 1 columna y cada hijo pide N columnas.
+ * El gap real medido entre imagen y contenido es 60px — NO coincide con
+ * `--grid-gutter` (24px a este breakpoint) ni con un múltiplo limpio de
+ * columna vacía, así que se documenta como excepción editorial deliberada
+ * (gap más ancho que el gutter estándar, verificado, no es un error) y se
+ * deja como literal `60px` en vez de `var(--grid-gutter)`.
  */
 .content-text-image {
   display: flex;
@@ -49,8 +66,12 @@
   align-items: stretch;
   gap: var(--spacing-fx-8, 32px);
   width: 100%;
-  padding: 40px 20px 60px;
+  padding-block: 40px 60px;
+  padding-inline: var(--grid-margin-default);
   background: var(--color-surface-base);
+  /* Unidad de 1 columna de la retícula de 12, usada por los anchos calc()
+     de `__media`/`__content` en desktop (ver media query 768px). */
+  --col-unit: calc((100% - 11 * var(--grid-gutter)) / 12);
 }
 
 /* Caja de imagen: componente base `AspectRatio` (`ratio="2:3"`, exacto en
@@ -105,19 +126,25 @@
   .content-text-image {
     flex-direction: row;
     align-items: flex-start;
-    justify-content: space-between;
+    /* 60px: gap editorial deliberado, distinto del gutter de grid (24px a
+       este breakpoint) — ver comentario de cabecera. Literal a propósito,
+       no `var(--grid-gutter)`. */
     gap: 60px;
-    padding: 120px 60px;
+    padding-block: 120px;
+    padding-inline: var(--grid-margin-default);
   }
 
   .content-text-image__media {
-    flex: 1 0 0;
+    /* 5 columnas: 5×88 + 4×24 = 536px a 1440px */
+    width: calc(5 * var(--col-unit) + 4 * var(--grid-gutter));
+    flex: 0 0 auto;
     min-width: 0;
   }
 
   .content-text-image__content {
-    flex: 0 1 648px;
-    width: auto;
+    /* 6 columnas: 6×88 + 5×24 = 648px a 1440px */
+    width: calc(6 * var(--col-unit) + 5 * var(--grid-gutter));
+    flex: 0 0 auto;
     gap: var(--spacing-fx-8, 32px);
   }
 

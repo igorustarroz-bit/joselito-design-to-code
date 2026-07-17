@@ -39,7 +39,9 @@ La única variante de Figma (`Property 1=Default`) se capturó en dos anchos (14
 
 ## Tokens
 
-Ningún token nuevo — reutiliza globales ya existentes: fondo `--color-surface-base`, label `--text-body-2`/`--color-content-neutral-2`, título `--font-title`/`--text-title-3`/`--tracking-title`/`--color-content-base`, borde mobile `--color-icon-neutral-4`. El padding vertical (200px desktop/104px mobile), el padding horizontal mobile (24px) y el ancho máximo de texto en desktop (1058px) son literales sin variable en Figma.
+Ningún token nuevo — reutiliza globales ya existentes: fondo `--color-surface-base`, label `--text-body-2`/`--color-content-neutral-2`, título `--font-title`/`--text-title-3`/`--tracking-title`/`--color-content-base`, borde mobile `--color-icon-neutral-4`. El padding vertical (200px desktop/104px mobile) es literal sin variable en Figma (ya verificado contra la escala completa de `--spacing-r-*`, sin coincidencia, genuinamente bespoke).
+
+**Retrofit grid de 12 columnas**: el padding horizontal mobile (literal 24px en Figma) pasó a `padding-inline: var(--grid-margin-default)` (20px en ese breakpoint) por política de centralización — 4px de diferencia frente al literal original, aceptado. El ancho máximo de texto en desktop (1058px) se comprobó contra la fórmula de columnas (ancho de contenido 1320px a 1440px, columna 88px, gutter 24px): col-span-10 = 10×88+9×24 = 1096px, 38px de diferencia — sin coincidencia limpia con ningún número de columnas, así que se mantuvo como literal bespoke documentado (no es una franja de grid real).
 
 ## Propiedades
 

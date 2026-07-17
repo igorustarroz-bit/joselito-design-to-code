@@ -43,7 +43,9 @@ La propiedad "Device" de Figma es responsive real (media query en `768px`, mismo
 
 ## Tokens
 
-Ningún token nuevo — reutiliza globales ya existentes: fondo `--color-surface-base`, label `--text-body-6`, título `--font-title`/`--text-title-4`/`--tracking-title`, descripción y enlace `--text-body-5`, color de enlace `--color-content-accent-base`, foco `--color-icon-accent-1`. Paddings de sección (120/60px desktop, 60/20px mobile) y el ancho fijo de 652px de la columna de título son literales sin variable en Figma.
+Ningún token nuevo — reutiliza globales ya existentes: fondo `--color-surface-base`, label `--text-body-6`, título `--font-title`/`--text-title-4`/`--tracking-title`, descripción y enlace `--text-body-5`, color de enlace `--color-content-accent-base`, foco `--color-icon-accent-1`. Paddings de sección (120/60px desktop, 60/20px mobile) son literales sin variable en Figma; el padding lateral pasó de literal a `padding-inline: var(--grid-margin-default)`.
+
+**Retrofit grid de 12 columnas**: el ancho fijo de 652px de `.content-title__title` es ≈ exactamente 6 columnas a 1440px (6×88+5×24=648px, 4px de diferencia, redondeo aceptable). El gap de la fila en desktop (24px) ya coincidía literalmente con `--grid-gutter` en ese breakpoint, confirmando que la fila es genuinamente 6+6 columnas. Se reescribió `.content-title__row` (solo en el breakpoint desktop, `≥768px`) como grid real de 12 columnas (`display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); column-gap: var(--grid-gutter)`), con `__title` en `grid-column: span 6` (antes `width: 652px` fijo) y `__aside` también en `grid-column: span 6` (antes `flex: 1 0 0`) — `__aside` conserva su `flex-direction: row` + `justify-content: flex-end` interno para alinear a la derecha su propio contenido (descripción/botón/enlace). En mobile, `.content-title__row` se mantiene como stack vertical simple (`display: flex; flex-direction: column`), sin grid, ya que no hay dos columnas que alinear en ese breakpoint.
 
 ## Propiedades
 

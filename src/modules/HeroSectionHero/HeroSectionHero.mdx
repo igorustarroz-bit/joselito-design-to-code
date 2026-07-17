@@ -29,6 +29,8 @@ La propiedad "Device" de Figma es responsive real (media query en `768px`, mismo
 
 Ningún token nuevo — reutiliza `--color-surface-base` y `--color-content-base` (que resuelven a rojo/blanco gracias al `data-theme="dark-red-primary"`), `--text-body-6`, `--font-title`/`--text-title-4`/`--tracking-title`. La altura fija (742px, igual en ambos breakpoints) y el ancho máximo del bloque de texto (540px desktop/350px mobile) son literales sin variable en Figma.
 
+**Exento del retrofit de grid de 12 columnas** (auditoría punto 15): el fondo de color es full-bleed (a todo el ancho del viewport), así que la raíz del módulo no lleva `padding-inline: var(--grid-margin-default)` a propósito. El ancho del bloque de texto en desktop (540px) se acerca a col-span-5 (5×88+4×24=536px, 4px de diferencia) pero, al ser 5 un número impar de columnas, no puede centrarse de forma simétrica con `grid-column`/`span` dentro de una rejilla de 12 sin un offset asimétrico — se mantiene el centrado por flexbox, que es la solución correcta aquí, no una omisión.
+
 ## Propiedades
 
 | Nombre | Descripción | Por defecto | Control |
