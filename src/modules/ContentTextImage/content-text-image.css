@@ -1,0 +1,143 @@
+/**
+ * Content / Text + Image — node 58163:39941 en Figma (COMPONENT_SET,
+ * 3 variantes: Device=desktop×Layout=text-right, Device=desktop×
+ * Layout=text-left, Device=mobile×Layout=text-all). Módulo marcado en las
+ * instrucciones del proyecto como referencia de calidad — base de
+ * comparación para el resto de módulos.
+ *
+ * La propiedad "Device" de Figma no se tradujo como prop: es responsive
+ * real (media query en `min-width: 768px`, el mismo breakpoint "m" en el
+ * que ya cambia `--grid-margin-default` en responsive.css), no un
+ * componente distinto por dispositivo. La propiedad "Layout" (text-left/
+ * text-right) sí es una decisión de diseño real y se tradujo como prop
+ * `layout` — el orden visual imagen/texto se resuelve con `order` de
+ * flexbox, sin depender del orden en el DOM.
+ *
+ * Los paddings de sección (60/120px desktop, 20/40/60px mobile) NO están
+ * enlazados a ninguna variable de Figma (aparecen como valores literales
+ * en el código generado, sin `var()`) — se implementan como valores
+ * literales de este módulo, no como tokens globales.
+ *
+ * Tokens reutilizados (ya existentes, ninguno nuevo):
+ *   - Fondo: --color-surface-base
+ *   - Label: --text-body-6 / --text-body-6--line-height (idéntico en
+ *     mobile y desktop, confirmado en ambas capturas de Figma)
+ *   - Título: --font-title, --text-title-4, --tracking-title (idéntico
+ *     en mobile y desktop, misma escala fluida)
+ *   - Párrafo (desktop): --font-body, --text-body-5 / --text-body-5--line-height
+ *   - Gaps: --spacing-fx-8 (32px, desktop) / --spacing-fx-6 (24px, mobile)
+ *     entre título y párrafo; --spacing-fx-4 (16px, desktop) /
+ *     --spacing-fx-2 (8px, mobile) entre label y título
+ *
+ * INCONSISTENCIA DETECTADA (documentada, no propagada): en la variante
+ * mobile, el párrafo de texto está enlazado en Figma a un estilo "Title/medium"
+ * huérfano (`static/font/brand` = "Neue Haas Grotesk Display Pro", 16px/24px)
+ * completamente distinto de la familia tipográfica `Tipography/*` usada en
+ * el resto del sistema (incluida la variante desktop de este mismo módulo,
+ * que sí usa Body/05 correctamente). Se implementó con `--font-body` +
+ * `--text-body-5` en ambos breakpoints por consistencia con el resto del
+ * sistema, en vez de introducir una familia tipográfica nueva para un único
+ * párrafo de un único módulo.
+ */
+.content-text-image {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-fx-8, 32px);
+  width: 100%;
+  padding: 40px 20px 60px;
+  background: var(--color-surface-base);
+}
+
+.content-text-image__media {
+  order: 0;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background: var(--color-surface-neutral-1);
+}
+
+.content-text-image__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content-text-image__content {
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-fx-6, 24px);
+  width: 100%;
+}
+
+.content-text-image__titles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-fx-2, 8px);
+  width: 100%;
+  color: var(--color-content-base);
+}
+
+.content-text-image__label {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-6);
+  line-height: var(--text-body-6--line-height);
+}
+
+.content-text-image__title {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: var(--text-title-4);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-title);
+}
+
+.content-text-image__text {
+  margin: 0;
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: var(--text-body-5);
+  line-height: var(--text-body-5--line-height);
+  color: var(--color-content-base);
+}
+
+@media (min-width: 768px) {
+  .content-text-image {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 60px;
+    padding: 120px 60px;
+  }
+
+  .content-text-image__media {
+    flex: 1 0 0;
+    min-width: 0;
+    width: auto;
+    aspect-ratio: 536 / 804;
+  }
+
+  .content-text-image__content {
+    flex: 0 1 648px;
+    width: auto;
+    gap: var(--spacing-fx-8, 32px);
+  }
+
+  .content-text-image__titles {
+    gap: var(--spacing-fx-4, 16px);
+  }
+
+  .content-text-image--text-left .content-text-image__media {
+    order: 1;
+  }
+
+  .content-text-image--text-left .content-text-image__content {
+    order: 0;
+  }
+}

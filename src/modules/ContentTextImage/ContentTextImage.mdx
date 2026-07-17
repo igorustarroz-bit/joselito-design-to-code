@@ -1,0 +1,82 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as ContentTextImageStories from './ContentTextImage.stories'
+
+<Meta of={ContentTextImageStories} />
+
+# Content / Text + Image
+
+## Intro
+
+`ContentTextImage` traduce el módulo **Content / Text + Image** de Figma (`node 58163:39941`, COMPONENT_SET con 3 variantes: Device=desktop×Layout=text-right, Device=desktop×Layout=text-left, Device=mobile×Layout=text-all). Marcado en las instrucciones del proyecto como referencia de calidad — la mejor construida en Figma, usada aquí como base de comparación para el resto de módulos.
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport.
+
+## Demo
+
+<Canvas of={ContentTextImageStories.TextRight} />
+
+## Anatomía
+
+1. **Imagen** (ratio 2:3) — a la izquierda o derecha según `layout`
+2. **Bloque de texto**: label opcional + título (título de titular) + párrafo + botón opcional (reutiliza `Button` de UI02)
+
+En mobile (por debajo de 768px de ancho) se apila siempre en columna, con la imagen arriba — independientemente del valor de `layout`.
+
+## Comportamiento
+
+La propiedad "Device" de Figma (desktop/mobile) **no se tradujo como prop**: es responsive real, resuelto con una media query en `768px` (el mismo breakpoint "m" en el que ya cambia `--grid-margin-default` en `responsive.css`) — no son dos componentes distintos. La propiedad "Layout" (text-left/text-right) sí es una decisión de diseño real y se tradujo como la prop `layout`: decide en qué lado aparece la imagen a partir de 768px, resuelto con `order` de flexbox (el orden en el DOM no cambia).
+
+<Story of={ContentTextImageStories.TextLeft} />
+<Story of={ContentTextImageStories.WithButton} />
+<Story of={ContentTextImageStories.NoLabel} />
+
+## Variantes y tamaños
+
+| Prop `layout` | Comportamiento en desktop (≥768px) | Comportamiento en mobile (&lt;768px) |
+|---|---|---|
+| `text-right` (por defecto) | Imagen a la izquierda, texto a la derecha | Imagen arriba, texto abajo |
+| `text-left` | Texto a la izquierda, imagen a la derecha | Imagen arriba, texto abajo |
+
+## Tokens
+
+Ningún token nuevo — reutiliza globales ya existentes, verificado literalmente en `get_design_context` de las 3 variantes:
+
+| Elemento | Token |
+|---|---|
+| Fondo | `--color-surface-base` |
+| Label | `--text-body-6` / `--text-body-6--line-height` (idéntico en mobile y desktop) |
+| Título | `--font-title`, `--text-title-4`, `--tracking-title` (idéntico en mobile y desktop) |
+| Párrafo | `--font-body`, `--text-body-5` / `--text-body-5--line-height` |
+| Gap título/párrafo | `--spacing-fx-8` (32px, desktop) / `--spacing-fx-6` (24px, mobile) |
+| Gap label/título | `--spacing-fx-4` (16px, desktop) / `--spacing-fx-2` (8px, mobile) |
+
+Los paddings de sección (60px/120px en desktop; 20px/40px/60px en mobile) no están enlazados a ninguna variable en Figma — aparecen como valores literales en el propio archivo, sin `var()` — y se implementaron igual, como valores literales de este módulo.
+
+**Inconsistencia detectada** (documentada, no propagada): en la variante mobile, el párrafo de texto está enlazado en Figma a un estilo huérfano ("Title/medium", familia `static/font/brand` = "Neue Haas Grotesk Display Pro", 16px/24px) completamente distinto de la familia `Tipography/*` usada en el resto del sistema — incluida la propia variante desktop de este módulo, que sí usa Body/05 correctamente. Se implementó con `--font-body` + `--text-body-5` en ambos breakpoints por consistencia, en vez de introducir una familia tipográfica nueva para un único párrafo de un único módulo.
+
+**Nota sobre el botón**: la instancia de `UI02-Button` en Figma mezcla altura de tamaño `L` (64px) con padding de tamaño `M` (24px) — una probable anulación manual de la instancia en este módulo concreto, no una variante sistemática. Se usó el componente `Button` ya construido con `size="m"` tal cual, sin crear un tamaño ad-hoc para esta única instancia.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `layout` | `'text-right'` \| `'text-left'` | `'text-right'` | radio |
+| `image` | URL de la imagen | — | text |
+| `imageAlt` | Texto alternativo de la imagen | `''` | text |
+| `label` | Texto del label superior | `'This is a label'` | text |
+| `showLabel` | Muestra/oculta el label | `true` | boolean |
+| `title` | Título del módulo | — | text |
+| `text` | Párrafo de texto | — | text |
+| `showButton` | Muestra/oculta el botón | `false` | boolean |
+| `buttonText` | Texto del botón | `'Lorem ipsum'` | text |
+| `href` / `onClick` | Destino/handler del botón | — | — |
+
+## Accesibilidad
+
+- Usa `<section>` como raíz — landmark semántico correcto para un bloque de contenido de página.
+- El botón reutiliza `Button`, ya accesible (foco, teclado, `:focus-visible`).
+- La imagen usa `alt` (vacío por defecto, indicado explícitamente por quien use el módulo si es informativa).
+
+## Componentes relacionados
+
+- **UI02 · Button** — botón opcional del módulo.
