@@ -36,7 +36,7 @@ Orden: primero los que son base de otros (botones, tabs/listbox dependen de sus 
 | UI14 · Placeholder Text | completado |
 | Title | completado |
 | Card Product | completado |
-| Card Link | pendiente |
+| Card Link | completado |
 | Card Carrusel | pendiente |
 
 ## 3. Módulos
@@ -75,7 +75,7 @@ Contenedores 100% ancho de viewport.
 
 ## Siguiente paso
 
-Con Card Product completado, seguir con **Card Link**, después Card Carrusel, y por último los 27 módulos empezando por "Content / Text + Image" (referencia de calidad marcada en las instrucciones del proyecto).
+Con Card Link completado, seguir con **Card Carrusel**, y por último los 27 módulos empezando por "Content / Text + Image" (referencia de calidad marcada en las instrucciones del proyecto).
 
 ## Notas de implementación
 
@@ -98,3 +98,4 @@ Con Card Product completado, seguir con **Card Link**, después Card Carrusel, y
 - **UI14 · Placeholder Text**: `src/components/PlaceholderText/` (`PlaceholderText.jsx`, node 57961:792, componente único sin variantes). Párrafo de texto genérico (Body/02) pensado como contenido "de relleno" reutilizable dentro de módulos/plantillas; prop `as` permite cambiar el elemento HTML renderizado. Ningún token nuevo: reutiliza `--text-body-2`/`--text-body-2--line-height` y `--color-content-base`, ya usados en componentes anteriores (Accordion, CheckboxLabel). Es el componente más simple del sistema hasta ahora — un solo elemento sin estados ni composición. Documentación completa en `PlaceholderText.mdx`.
 - **Title**: `src/components/Title/` (`Title.jsx`, node 58196:4804, componente único sin variantes). Cabecera de sección: `<h2>` con el título a la izquierda + enlace "Ver todos" con icono chevron a la derecha (renderiza `<a href>` o `<button>` según se pase `href`, mismo criterio que Button/ActionLink). Ningún token nuevo: título usa `--text-body-4`/`--color-content-base`, enlace usa `--text-body-3`/`--color-content-neutral-1`, todos ya existentes. Se verificó con `get_metadata` que no hay separación entre el texto del enlace y el icono (el icono empieza exactamente donde termina el texto). Icono chevron-right recreado a mano como SVG con `currentColor` (`icons.jsx`). Documentación completa en `Title.mdx`.
 - **Card Product**: `src/components/CardProduct/` (`CardProduct.jsx`, node 58163:83839, componente único con props booleanas `tag`/`tagsStars` en Figma). Tarjeta de producto que compone `Button` (UI02, tipo secondary/xs para los tags de ubicación) y `ActionLink` (UI04, tamaño l para el enlace de acción), ambos ya construidos — sin reinventar sus estilos. Ningún token nuevo: título usa `--font-title`/`--text-title-2`/`--tracking-title`, precio/dirección/badge usan `--text-body-1/2/3` y `--color-content-base`/`--color-content-neutral-2`, badge usa `--color-surface-base` + borde `--color-icon-neutral-3`, gaps `--spacing-fx-9/8/4/2` — todos ya existentes. El gap de 9px entre estrellas no mapea a ningún token de espaciado (fx-1=4px, fx-2=8px) y se dejó como valor literal, documentado como particularidad de Figma. Icono Star (contorno) recreado a mano como SVG con `currentColor` (`icons.jsx`). El ancho fijo de 324px del frame de ejemplo se tradujo como `width: 100%` (fluido). Documentación completa en `CardProduct.mdx`.
+- **Card Link**: `src/components/CardLink/` (`CardLink.jsx`, node 58182:23781, componente único sin variantes). Tarjeta-enlace de imagen a sangre con título+precio superpuestos, renderiza `<a href>` o `<button>` según se pase `href` (mismo criterio que Button/ActionLink). Hallazgo importante verificado con `use_figma` (inspección directa de `fills`/`boundVariables`, no asumido por el color de la captura): el texto está enlazado al token `Texts/Base` de siempre, pero el propio componente en Figma tiene fijado el modo "Dark - Red - Primary" de Semantic-Color (`resolvedVariableModes` del nodo) — el diseño fuerza intencionadamente un tema oscuro local para garantizar contraste sobre cualquier foto. Se tradujo como `data-theme="dark-red-primary"` en el overlay de texto (mismo patrón "un hijo puede sobreescribir el tema" ya documentado en el proyecto). Ningún token nuevo: reutiliza `--color-content-base`, `--font-title`/`--text-title-2`/`--tracking-title`, `--text-body-2`, `--spacing-fx-8/2`. Documentación completa en `CardLink.mdx`.

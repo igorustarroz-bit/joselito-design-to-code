@@ -1,0 +1,87 @@
+/**
+ * Card Link — node 58182:23781 en Figma (componente único, sin variantes).
+ * Tarjeta-enlace: imagen a sangre + título/precio superpuestos en la
+ * esquina inferior, siempre en texto blanco sobre la foto.
+ *
+ * Se verificó con `use_figma` (fills/boundVariables, no asumido por el
+ * nombre) que el texto está enlazado a `Texts/Base` igual que en el resto
+ * del sistema, pero el propio componente en Figma tiene fijado el modo
+ * "Dark - Red - Primary" de la colección Semantic-Color (resolvedVariableModes
+ * del nodo) — es decir, el diseño fija intencionadamente un tema oscuro
+ * local para este bloque de texto, independiente del tema global de la
+ * página, para garantizar contraste sobre cualquier foto. Se traduce como
+ * `data-theme="dark-red-primary"` en el overlay (mismo patrón ya
+ * documentado en el proyecto: "un hijo puede sobreescribir el tema").
+ *
+ * Ningún token nuevo — reutiliza `--color-content-base`, `--font-title`,
+ * `--text-title-2`, `--tracking-title`, `--text-body-2`, `--spacing-fx-8/2`,
+ * todos ya existentes.
+ */
+.card-link {
+  position: relative;
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Reset de estilos nativos de <button> cuando no se pasa `href` */
+button.card-link {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  text-align: inherit;
+}
+
+.card-link__image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 300 / 400;
+  overflow: hidden;
+  background: var(--color-surface-neutral-1);
+}
+
+.card-link__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-link__overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-fx-2, 8px);
+  padding: 0 var(--spacing-fx-8, 32px) var(--spacing-fx-8, 32px);
+}
+
+.card-link__title {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: var(--text-title-2);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-title);
+  color: var(--color-content-base);
+}
+
+.card-link__price {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-2);
+  line-height: var(--text-body-2--line-height);
+  color: var(--color-content-base);
+}
+
+.card-link:focus-visible {
+  outline: 2px solid var(--color-icon-accent-1);
+  outline-offset: 2px;
+}

@@ -1,0 +1,58 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as CardLinkStories from './CardLink.stories'
+
+<Meta of={CardLinkStories} />
+
+# Card Link
+
+## Intro
+
+`CardLink` traduce el componente **Card Link** de Figma (`node 58182:23781`, componente único sin variantes): una tarjeta-enlace de imagen a sangre con título y precio superpuestos en la esquina inferior.
+
+## Demo
+
+<Canvas of={CardLinkStories.Default} />
+
+## Anatomía
+
+Una imagen a pantalla completa (ratio 300:400) con un bloque de texto (título + precio) superpuesto en la esquina inferior izquierda, siempre en texto blanco sobre la foto.
+
+## Comportamiento
+
+Renderiza `<a href>` si se pasa `href`, o `<button>` si no (mismo criterio que `Button`/`ActionLink`) — toda la tarjeta es el elemento clicable, no solo el texto.
+
+<Story of={CardLinkStories.AsButton} />
+
+## Tokens
+
+Se verificó con `use_figma` (inspección directa de `fills`/`boundVariables`, no asumido por el color mostrado en la captura) que el texto está enlazado al token semántico `Texts/Base` igual que en el resto del sistema — pero el propio componente en Figma tiene fijado el modo **"Dark - Red - Primary"** de la colección Semantic-Color para este bloque, es decir, el diseño fuerza intencionadamente un tema oscuro local para garantizar contraste sobre cualquier foto, independientemente del tema activo en el resto de la página. Se tradujo como `data-theme="dark-red-primary"` en el overlay de texto (mismo patrón ya documentado en el proyecto: "un hijo puede sobreescribir el tema", p. ej. footer oscuro + social claro).
+
+Ningún token nuevo — reutiliza globales ya existentes:
+
+| Elemento | Token |
+|---|---|
+| Color de texto | `--color-content-base` (resuelto a blanco por el `data-theme` local) |
+| Título | `--font-title`, `--text-title-2`, `--tracking-title` |
+| Precio | `--text-body-2` / `--text-body-2--line-height` |
+| Padding del overlay | `--spacing-fx-8` (32px) |
+| Gap título/precio | `--spacing-fx-2` (8px) |
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `image` | URL de la imagen | — | text |
+| `imageAlt` | Texto alternativo de la imagen | `''` | text |
+| `title` | Título superpuesto | `'Título'` | text |
+| `price` | Precio superpuesto | `'Desde 0€'` | text |
+| `href` | Si se indica, la tarjeta es un `<a>`; si no, un `<button>` | — | text |
+| `onClick` | Handler de la tarjeta | — | — |
+
+## Accesibilidad
+
+- Toda la tarjeta es un `<a>`/`<button>` nativo real: foco y activación por teclado funcionan sin JavaScript adicional; el anillo de `:focus-visible` tiene contraste suficiente sobre cualquier foto (fijado en tema oscuro).
+- El texto superpuesto se fuerza siempre a blanco (vía `data-theme` local) para garantizar contraste mínimo sobre la imagen, independientemente del tema activo en el resto de la página.
+
+## Componentes relacionados
+
+Ninguno directo — es un componente hoja, usado dentro de módulos de listado de tarjetas (p. ej. "Cards / Links", pendiente).
