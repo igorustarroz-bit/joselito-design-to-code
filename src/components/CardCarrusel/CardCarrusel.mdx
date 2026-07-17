@@ -1,0 +1,66 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as CardCarruselStories from './CardCarrusel.stories'
+
+<Meta of={CardCarruselStories} />
+
+# Card Carrusel
+
+## Intro
+
+`CardCarrusel` traduce el componente **Card Carrusel** de Figma (`node 58182:24262`, COMPONENT_SET con la propiedad `Property 1`: "Carrousel"/"Card Carrusel"). Ambas variantes son la misma tarjeta en dos orientaciones — traducidas como la prop `layout`. Compone `Button` (UI02, tags tipo hashtag) y `ActionLink` (UI04, enlace de acción), ambos ya construidos.
+
+## Demo
+
+<Canvas of={CardCarruselStories.Vertical} />
+
+## Anatomía
+
+Una imagen + un bloque de título, tags y enlace de acción:
+
+- **`layout="vertical"`** (por defecto): imagen arriba, texto abajo — pensada como item estrecho dentro de un carrusel horizontal de varias tarjetas.
+- **`layout="horizontal"`**: imagen a la izquierda (ocupa el espacio disponible), texto a la derecha con el enlace anclado abajo — pensada como pieza destacada única.
+
+<Story of={CardCarruselStories.Horizontal} />
+
+## Comportamiento
+
+Es puramente presentacional: no gestiona el desplazamiento del carrusel en sí (eso corresponde al módulo que use varias `CardCarrusel`, p. ej. "Cards / Product carousel", pendiente) — solo recibe `onClick`/`href` para el enlace de acción.
+
+<Story of={CardCarruselStories.NoTags} />
+
+## Tokens
+
+Ningún token nuevo — reutiliza globales ya existentes, verificado literalmente en `get_design_context` de ambas variantes:
+
+| Elemento | Token |
+|---|---|
+| Título | `--font-title`, `--text-title-4`, `--tracking-title`, `--color-content-base` |
+| Gap imagen/texto (vertical) | `--spacing-fx-5` (20px) |
+| Gap título/tags (vertical) | `--spacing-fx-4` (16px) |
+| Gap bloque-título/enlace (vertical) | `--spacing-fx-9` (40px) |
+| Gap título/tags (horizontal) | `--spacing-fx-6` (24px) |
+| Gap entre tags | `--spacing-fx-2` (8px) |
+
+Se confirmó que `--text-title-4` es el mismo token responsive en ambas variantes (34px en la captura vertical, 48px en la horizontal) — no son tokens distintos, es la misma escala fluida capturada en dos anchos de Figma. El gap de 60px entre imagen y texto en `layout="horizontal"` no mapea a ningún token de espaciado existente y se dejó como valor literal.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `layout` | `'vertical'` \| `'horizontal'` | `'vertical'` | radio |
+| `image` | URL de la imagen | — | text |
+| `imageAlt` | Texto alternativo de la imagen | `''` | text |
+| `title` | Título de la tarjeta | `'Título'` | text |
+| `tags` | Array de textos para los tags hashtag | `[]` | — |
+| `linkText` | Texto del enlace de acción | `'Descubrir'` | text |
+| `href` / `onClick` | Destino/handler del enlace de acción | — | — |
+
+## Accesibilidad
+
+El enlace de acción reutiliza `ActionLink`, ya accesible (foco, teclado, `:focus-visible`). Los tags reutilizan `Button`, cuyo contraste ya está validado en los 5 temas.
+
+## Componentes relacionados
+
+- **UI02 · Button** — tags hashtag.
+- **UI04 · Button Action Link** — enlace "Descubrir".
+- **Card Product** / **Card Link** — otras tarjetas del sistema con estructura similar (imagen + texto + acción).

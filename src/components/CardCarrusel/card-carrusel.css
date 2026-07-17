@@ -1,0 +1,102 @@
+/**
+ * Card Carrusel — node 58182:24262 en Figma (COMPONENT_SET, propiedad
+ * `Property 1` con 2 variantes que son en realidad la misma tarjeta en dos
+ * orientaciones: "Carrousel" (vertical, item estrecho de un carrusel
+ * horizontal de varias tarjetas) y "Card Carrusel" (horizontal, imagen +
+ * texto en fila, pensada como pieza destacada única).
+ *
+ * Ambas variantes usan literalmente el mismo token de tipografía de
+ * título (`--text-title-4`, ya fluido por breakpoint: 34px en la variante
+ * vertical, 48px en la horizontal — confirmado que es el mismo token
+ * capturado en dos anchos de Figma distintos, no un token diferente).
+ *
+ * Ningún token nuevo — reutiliza globales ya existentes:
+ *   - Título: --font-title, --text-title-4, --tracking-title, --color-content-base
+ *   - Gaps verticales: --spacing-fx-5 (20px), --spacing-fx-4 (16px), --spacing-fx-9 (40px)
+ *   - Gap horizontal título/tags: --spacing-fx-6 (24px)
+ *   - Gap entre tags: --spacing-fx-2 (8px)
+ * El gap de 60px entre imagen y texto en la variante horizontal no mapea a
+ * ningún token de espaciado existente (el mayor es fx-9=40px) y se dejó
+ * como valor literal, documentado como particularidad de Figma.
+ */
+.card-carrusel {
+  display: flex;
+  width: 100%;
+}
+
+.card-carrusel--vertical {
+  flex-direction: column;
+  gap: var(--spacing-fx-5, 20px);
+}
+
+.card-carrusel--horizontal {
+  flex-direction: row;
+  align-items: stretch;
+  gap: 60px;
+}
+
+.card-carrusel__image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1440 / 933.33;
+  overflow: hidden;
+  background: var(--color-surface-neutral-1);
+}
+
+.card-carrusel--horizontal .card-carrusel__image-wrap {
+  flex: 1 0 0;
+  min-width: 0;
+  width: auto;
+}
+
+.card-carrusel__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-carrusel__content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.card-carrusel--vertical .card-carrusel__content {
+  gap: var(--spacing-fx-9, 40px);
+}
+
+.card-carrusel--horizontal .card-carrusel__content {
+  justify-content: space-between;
+  flex: 0 1 368px;
+  width: auto;
+}
+
+.card-carrusel__title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-carrusel--vertical .card-carrusel__title-group {
+  gap: var(--spacing-fx-4, 16px);
+}
+
+.card-carrusel--horizontal .card-carrusel__title-group {
+  gap: var(--spacing-fx-6, 24px);
+}
+
+.card-carrusel__title {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: var(--text-title-4);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-title);
+  color: var(--color-content-base);
+}
+
+.card-carrusel__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-fx-2, 8px);
+}
