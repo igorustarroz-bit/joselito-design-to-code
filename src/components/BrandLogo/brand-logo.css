@@ -1,0 +1,17 @@
+/**
+ * BrandLogo — sin tamaño fijo en Figma (un único frame por variante,
+ * 300×200 horizontal / 200×200 square). El logo escala por altura,
+ * manteniendo el aspect-ratio real del SVG (`viewBox`); ancho y alto
+ * concretos los decide quien use el componente (CSS externo o prop
+ * `width`/`height` nativa del SVG).
+ */
+.brand-logo {
+  display: inline-block;
+  height: 2rem;
+  width: auto;
+}
+
+.brand-logo--square {
+  height: 2rem;
+  width: 2rem;
+}

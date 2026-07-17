@@ -1,0 +1,54 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as BrandLogoStories from './BrandLogo.stories'
+
+<Meta of={BrandLogoStories} />
+
+# Brand Logo
+
+## Intro
+
+`BrandLogo` traduce el componente **Brand Logo** de Figma (`node 58073:6883`, página "🏷️ Brand Assets", 2 variantes: `Horizontal=Yes`/`Horizontal=No`). Igual que Aspect Ratio e Icons, vive fuera de la página "📦 Components" pero se trata como componente fundacional del sistema — es la marca de la compañía.
+
+**Nota importante detectada durante la construcción**: en la misma página existe otro frame llamado "Logo Grid" (`node 51027:8208`, variantes `Type=Horizontal`/`Type=Square`) con un nombre casi idéntico al esperado, pero que **no contiene el logo real** — son solo guías de retícula y clearspace (líneas de construcción azules), sin ningún trazo de marca. Se detectó exportando ambos nodos como SVG y comprobando que "Logo Grid" no tiene ningún `path`/`fill` con contenido real. El master correcto usado aquí es el frame "Brand Logo" dentro de "Icons › Logo" (`node 58073:6883`), con las variantes `Horizontal=Yes` (`51027:4369`, logotipo completo) y `Horizontal=No` (`51027:4368`, marca circular).
+
+## Demo
+
+<Canvas of={BrandLogoStories.Default} />
+
+## Comportamiento
+
+Es puramente presentacional — un SVG estático, sin lógica de tema ni de interacción. Figma no define ninguna variable de Semantic-Color enlazada a los fills de este componente (verificado con `use_figma`: `boundVariables` vacío) — es una marca monocroma fija, no reactiva a los 5 temas del sistema. El SVG fuente usa `fill="currentColor"` (transformado desde el `fill="black"` que exporta Figma por defecto) para permitir invertir el color por CSS si hiciera falta (p. ej. sobre un fondo oscuro), aunque Figma no define explícitamente esa variante.
+
+<Story of={BrandLogoStories.CustomSize} />
+
+## Variantes y tamaños
+
+| Prop `variant` | Contenido |
+|---|---|
+| `horizontal` (por defecto) | Logotipo completo (wordmark), 300×200 en Figma |
+| `square` | Marca circular sin texto, 200×200 en Figma |
+
+<Canvas of={BrandLogoStories.AllVariants} />
+
+Sin escala de tamaños en Figma (un único frame por variante) — el logo escala libremente por `height`/`width` (CSS o props nativas del SVG), manteniendo su `viewBox` original.
+
+## Tokens
+
+Ningún token — es un asset de marca con proporciones y color fijos, no ligado al sistema de tokens de espaciado/color.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `variant` | `'horizontal'` \| `'square'` | `'horizontal'` | radio |
+| `title` | Texto accesible (`aria-label`) | `'Joselito'` | text |
+| `className` | Clases CSS adicionales | — | text |
+
+## Accesibilidad
+
+Con `title` (por defecto `"Joselito"`) se renderiza como `role="img"` + `aria-label`. Si se pasa `title={null}`/`title=""`, se trata como decorativo (`aria-hidden="true"` + `focusable="false"`) — útil si el logo ya está acompañado de texto visible equivalente en el mismo contexto (p. ej. dentro de un enlace "Ir a inicio").
+
+## Componentes relacionados
+
+- **Icon** — mismo pipeline SVGR y misma página de Figma ("🏷️ Brand Assets").
+- Pendiente de uso en **Navigation (header principal)** y **Navigation / Footer** (módulos aún no construidos).
