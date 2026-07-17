@@ -1,0 +1,128 @@
+/**
+ * Content / Title — paddings de sección (120px/60px desktop, 60px/20px
+ * mobile) y ancho fijo de la columna de título (652px, solo verificado en
+ * el breakpoint desktop de Figma) sin variable — literales de este módulo.
+ *
+ * Simplificación deliberada: Figma añade un `padding-left: 111px` como
+ * "relleno" antes del grupo descripción+botón+enlace en desktop — se
+ * verificó que es un artefacto del ancho fijo de la instancia de ejemplo
+ * (texto de la descripción concreto), no un valor de diseño intencional, así
+ * que se sustituyó por `flex: 1` + `justify-content: flex-end`, que da el
+ * mismo resultado visual (grupo pegado a la derecha) sin depender de un
+ * offset arbitrario.
+ */
+.content-title {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  padding: 60px 20px 0;
+  background: var(--color-surface-base);
+}
+
+.content-title__label {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-6);
+  line-height: var(--text-body-6--line-height);
+  color: var(--color-content-base);
+}
+
+.content-title__row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.content-title__title {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: var(--text-title-4);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-title);
+  color: var(--color-content-base);
+}
+
+.content-title__aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.content-title__description {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-5);
+  line-height: var(--text-body-5--line-height);
+  color: var(--color-content-base);
+}
+
+.content-title__button {
+  display: none;
+}
+
+.content-title__link {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.content-title__link-text {
+  font-family: var(--font-body);
+  font-size: var(--text-body-5);
+  line-height: var(--text-body-5--line-height);
+  color: var(--color-content-accent-base);
+  white-space: nowrap;
+}
+
+.content-title__link-icon {
+  color: var(--color-content-accent-base);
+  flex-shrink: 0;
+}
+
+.content-title__link:focus-visible {
+  outline: 2px solid var(--color-icon-accent-1);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (min-width: 768px) {
+  .content-title {
+    gap: 16px;
+    padding: 120px 60px 0;
+  }
+
+  .content-title__row {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .content-title__title {
+    width: 652px;
+    flex-shrink: 0;
+  }
+
+  .content-title__aside {
+    flex: 1 0 0;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 32px;
+  }
+
+  .content-title__description {
+    flex: 1 0 0;
+  }
+
+  .content-title__button {
+    display: inline-flex;
+  }
+}

@@ -1,0 +1,74 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as ContentTitleStories from './ContentTitle.stories'
+
+<Meta of={ContentTitleStories} />
+
+# Content / Title
+
+## Intro
+
+`ContentTitle` traduce el módulo **Content / Title** de Figma (`node 58163:40029`, COMPONENT_SET: Device=desktop/mobile). Cabecera de sección a todo el ancho: label opcional + título grande a la izquierda, y descripción/botón/enlace opcionales a la derecha (desktop) o apilados debajo (mobile).
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport. No confundir con el componente **Title** (`src/components/Title/`) ya existente — ese es una cabecera pequeña de "título + enlace Ver todos" para módulos de listado (Cards); este es un módulo de sección independiente con más contenido (label, descripción, botón).
+
+## Demo
+
+<Canvas of={ContentTitleStories.Default} />
+
+## Anatomía
+
+1. **Label** opcional, arriba del todo.
+2. **Título** (titular grande, `--text-title-4`).
+3. **Aside**: descripción opcional + botón opcional (reutiliza `Button`) + enlace opcional con icono (`Icon` `CaretRight`).
+
+En desktop (≥768px), título y aside van en fila (título en columna fija de 652px, aside pegado a la derecha). En mobile, todo se apila en columna.
+
+<Story of={ContentTitleStories.WithButton} />
+<Story of={ContentTitleStories.NoDescription} />
+<Story of={ContentTitleStories.NoLabel} />
+
+## Comportamiento
+
+La propiedad "Device" de Figma es responsive real (media query en `768px`, mismo criterio que el resto de módulos "Content") — no una prop. `label`, `description`, `button` y `link` sí son props reales (`showLabel`/`showDescription`/`showButton`/`showLink`).
+
+**Detectado en Figma**: el master mobile no expone ninguna propiedad "button" (solo label/description/link) — a diferencia del master desktop, que sí la tiene. Se respetó esa diferencia: el botón, si se activa con `showButton`, solo se muestra a partir de `768px` (oculto por CSS en mobile), en vez de asumir que es un descuido y mostrarlo igualmente en ambos breakpoints.
+
+**Simplificación deliberada**: Figma incluye un `padding-left: 111px` como relleno antes del grupo descripción+botón+enlace en desktop, que resultó ser un artefacto del ancho fijo de la instancia de ejemplo (dependiente del texto concreto de la descripción) y no un valor de diseño intencional — se sustituyó por `flex: 1` + `justify-content: flex-end` en `.content-title__aside`, que logra el mismo resultado visual (grupo pegado a la derecha) sin depender de un offset arbitrario ligado a un contenido específico.
+
+**Botón no conectado al design system**: igual que en Content / Text only y Content / Text + Image, la instancia de botón en Figma usa un color de relleno azul genérico (`interactive/color-interactive-default`, `#0045FF`) y tipografía `static/font/brand`, ajenos a los tokens `Button/*` del resto del sistema — se sustituyó por el componente `Button` ya construido (`type="secondary"` `size="m"`, mismo criterio usado en los módulos hermanos).
+
+## Variantes y tamaños
+
+<Canvas of={ContentTitleStories.AllVariants} />
+
+## Tokens
+
+Ningún token nuevo — reutiliza globales ya existentes: fondo `--color-surface-base`, label `--text-body-6`, título `--font-title`/`--text-title-4`/`--tracking-title`, descripción y enlace `--text-body-5`, color de enlace `--color-content-accent-base`, foco `--color-icon-accent-1`. Paddings de sección (120/60px desktop, 60/20px mobile) y el ancho fijo de 652px de la columna de título son literales sin variable en Figma.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `label` | Texto del label superior | `'This is a label'` | text |
+| `showLabel` | Muestra/oculta el label | `true` | boolean |
+| `title` | Título del módulo | — | text |
+| `description` | Texto de la descripción | — | text |
+| `showDescription` | Muestra/oculta la descripción | `true` | boolean |
+| `showButton` | Muestra/oculta el botón (solo visible ≥768px) | `false` | boolean |
+| `buttonText` | Texto del botón | `'Lorem ipsum'` | text |
+| `buttonHref` / `onButtonClick` | Destino/handler del botón | — | — |
+| `showLink` | Muestra/oculta el enlace | `true` | boolean |
+| `linkText` | Texto del enlace | `'Link text'` | text |
+| `linkHref` / `onLinkClick` | Destino/handler del enlace | — | — |
+
+## Accesibilidad
+
+- Usa `<section>` como raíz — landmark semántico correcto para un bloque de contenido de página.
+- El botón reutiliza `Button`, ya accesible (foco, teclado, `:focus-visible`).
+- El enlace renderiza `<a href>` o `<button>` según se pase `linkHref` (mismo criterio que Button/ActionLink), con estado de foco visible propio.
+
+## Componentes relacionados
+
+- **UI02 · Button** — botón opcional del módulo.
+- **Icon** (`CaretRight`) — icono del enlace.
+- **Title** — componente hermano más pequeño, usado como cabecera de módulos de listado (no confundir con este módulo).
