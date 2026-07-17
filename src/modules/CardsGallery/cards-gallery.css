@@ -1,0 +1,174 @@
+/**
+ * Cards / Gallery — node 58163:40311 en Figma (COMPONENT_SET:
+ * Device=desktop/mobile × State=default/expanded, 4 variantes confirmadas
+ * inspeccionando el COMPONENT_SET con `use_figma`).
+ *
+ * Cabecera: `ContentTitle` con `titleSize="title-1"` (cuarta confirmación
+ * de este patrón, tras List / Numbers, List / Timeline y List / Archive
+ * table).
+ *
+ * **Estado "default"** ("cards slider"): fila de tarjetas `CardProduct`
+ * (componente ya construido, reutilizado sin cambios). En desktop, ancho
+ * fijo 312px por tarjeta, gap 24px — 4 tarjetas visibles exactas
+ * (312×4+24×3=1320, coincide con el ancho de contenido a 1440px) con
+ * scroll horizontal si hay más ("slider"). En mobile, en vez de scroll
+ * horizontal Figma muestra las tarjetas envueltas en filas de 2
+ * (`flex-wrap`, 169px cada una) — se respetó tal cual, sin slider en ese
+ * breakpoint.
+ *
+ * **Estado "expanded"**: un visor tipo lightbox (imagen grande + pie de
+ * página "N/M" + texto, flechas prev/next reutilizando `ButtonIcon`
+ * `type="secondary"` `size="l"`, y botón de cierre) — presentacional,
+ * igual criterio que List / Timeline: la app controla `lightboxOpen`/
+ * `lightboxIndex` vía props, el módulo no gestiona su propio estado. La
+ * flecha "siguiente" usa el token `Button/Secondary/Selected` (rojo) en la
+ * instancia de Figma — se respetó tal cual (`selected` en `ButtonIcon`) en
+ * vez de asumir que es un error, ya que aparece igual en desktop y mobile.
+ *
+ * Grid de 12 columnas: `padding-inline: var(--grid-margin-default)` en la
+ * fila de tarjetas. El gap desktop (24px) coincide con `--grid-gutter` a
+ * 1440px. Paddings verticales (60/80px desktop, 40px mobile) y el gap
+ * mobile (12px) son literales sin variable en Figma.
+ */
+.cards-gallery {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: var(--color-surface-base);
+}
+
+.cards-gallery__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  width: 100%;
+  padding: 40px var(--grid-margin-default);
+}
+
+.cards-gallery__row > * {
+  width: 169px;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .cards-gallery__row {
+    flex-wrap: nowrap;
+    gap: 24px;
+    padding: 60px var(--grid-margin-default) 80px;
+    overflow-x: auto;
+  }
+
+  .cards-gallery__row > * {
+    width: 312px;
+  }
+}
+
+/* --- Lightbox (estado "expanded") --- */
+
+.cards-gallery__lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  height: 100%;
+  padding: 60px 20px 20px;
+  background: var(--color-surface-base);
+}
+
+.cards-gallery__lightbox-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 457px;
+}
+
+.cards-gallery__lightbox-image {
+  width: 100%;
+}
+
+.cards-gallery__lightbox-caption {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-3);
+  line-height: var(--text-body-3--line-height);
+  color: var(--color-content-base);
+}
+
+.cards-gallery__lightbox-count {
+  display: block;
+}
+
+.cards-gallery__lightbox-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.cards-gallery__lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--color-content-base);
+}
+
+@media (min-width: 768px) {
+  /* Reordenado con `order`: en el DOM el bloque de figura va primero y el
+     de navegación (prev+next) después, para que en mobile (sin
+     reordenar) las flechas queden agrupadas en su propia fila debajo de
+     la figura. En desktop, `display: contents` disuelve el wrapper de
+     navegación para que ambas flechas sean hijas directas del flex row
+     principal, y `order` las coloca a los lados de la figura
+     (prev/figure/next), reproduciendo el layout exacto de Figma sin
+     duplicar marcado por breakpoint.
+   */
+  .cards-gallery__lightbox {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 60px;
+  }
+
+  .cards-gallery__lightbox-figure {
+    order: 2;
+  }
+
+  .cards-gallery__lightbox-nav {
+    display: contents;
+  }
+
+  .cards-gallery__lightbox-nav > *:first-child {
+    order: 1;
+  }
+
+  .cards-gallery__lightbox-nav > *:last-child {
+    order: 3;
+  }
+
+  .cards-gallery__lightbox-close {
+    top: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+  }
+}

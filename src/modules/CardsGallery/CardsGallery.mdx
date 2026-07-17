@@ -1,0 +1,66 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as CardsGalleryStories from './CardsGallery.stories'
+
+<Meta of={CardsGalleryStories} />
+
+# Cards / Gallery
+
+## Intro
+
+`CardsGallery` traduce el módulo **Cards / Gallery** de Figma (`node 58163:40311`, COMPONENT_SET: Device=desktop/mobile × State=default/expanded — 4 variantes confirmadas inspeccionando el COMPONENT_SET). Cabecera + fila/slider de tarjetas `CardProduct`, con un visor tipo lightbox opcional.
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport.
+
+## Demo
+
+<Canvas of={CardsGalleryStories.Default} />
+
+## Anatomía
+
+1. **Cabecera** — `ContentTitle` con `titleSize="title-1"` (cuarta confirmación de este patrón, tras List / Numbers, List / Timeline y List / Archive table).
+2. **Fila de tarjetas** ("cards slider") — instancias de `CardProduct` ya construido, sin tags/estrellas ni badge en esta instancia.
+3. **Lightbox** (estado "expanded" de Figma) — imagen grande + pie "N/M" + flechas prev/next (`ButtonIcon`) + botón de cierre.
+
+<Story of={CardsGalleryStories.WithLightbox} />
+
+## Comportamiento
+
+**Estado "default"**: en desktop, tarjetas de 312px con scroll horizontal si hay más de las que caben (`overflow-x: auto`, de ahí el nombre "cards slider" en Figma). En mobile, Figma no usa scroll horizontal sino que envuelve las tarjetas en filas de 2 (`flex-wrap`, 169px cada una) — se respetó tal cual.
+
+**Lightbox presentacional**: igual criterio que List / Timeline — el módulo no gestiona qué imagen está activa. La app controla `lightboxOpen`/`lightboxIndex`/`lightboxTotal` y pasa `onLightboxPrev`/`onLightboxNext`/`onLightboxClose`. El story "WithLightbox" demuestra el patrón con `useState`.
+
+**Reordenado con `order` en vez de duplicar marcado**: en el DOM, la figura va antes que el grupo de flechas (para que en mobile, sin reordenar, las flechas queden agrupadas en su propia fila debajo de la imagen). En desktop, el wrapper de flechas se disuelve con `display: contents` y `order` las coloca a ambos lados de la figura (prev/figura/next) — mismo layout exacto que Figma, sin necesitar dos estructuras de marcado distintas por breakpoint.
+
+**Flecha "siguiente" en rojo**: la instancia de Figma usa el token `Button/Secondary/Selected` (fondo rojo) para la flecha de avanzar, igual en desktop y mobile — se respetó tal cual (`selected` en `ButtonIcon`) en vez de asumir que es un error de la instancia, al aparecer consistentemente en ambos breakpoints.
+
+**Grid de 12 columnas**: `padding-inline: var(--grid-margin-default)` en la fila de tarjetas. El gap desktop (24px) coincide con `--grid-gutter` a 1440px. Paddings verticales y el gap mobile (12px) son literales sin variable en Figma.
+
+## Tokens
+
+Ningún token nuevo — reutiliza los ya existentes de `ContentTitle`, `CardProduct` y `ButtonIcon`, más `--grid-gutter`/`--grid-margin-default`, `--text-body-3`, `--color-content-base`, `--color-surface-base`.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `title` | Título de la cabecera | `'Ullamcorper tellus'` | text |
+| `cards` | Array de tarjetas (props de `CardProduct`) | 4 tarjetas de ejemplo | — |
+| `lightboxOpen` | Muestra el visor lightbox | `false` | boolean |
+| `lightboxImage` / `lightboxImageAlt` | Imagen grande del lightbox | — | — |
+| `lightboxCaption` | Texto del pie de imagen | text | text |
+| `lightboxIndex` / `lightboxTotal` | Contador "N/M" | `1` / `3` | number |
+| `onLightboxPrev` / `onLightboxNext` / `onLightboxClose` | Handlers de navegación/cierre | — | — |
+
+## Accesibilidad
+
+- La cabecera usa `<section>` (heredado de `ContentTitle`).
+- El lightbox usa `role="dialog"` + `aria-modal="true"` + `aria-label`.
+- Las flechas reutilizan `ButtonIcon`, ya accesible (`aria-label` obligatorio, foco visible).
+- El botón de cierre es un `<button>` real con `aria-label="Cerrar galería"`.
+
+## Componentes relacionados
+
+- **Content / Title** — reutilizado (vía `titleSize="title-1"`) para la cabecera.
+- **Card Product** — tarjeta de la fila/slider.
+- **UI03 · Button Icon** — flechas del lightbox.
+- **Icon** (`ArrowLeft`/`ArrowRight`/`X`) — iconos del lightbox.
