@@ -1,0 +1,46 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as HeroSectionHeroStories from './HeroSectionHero.stories'
+
+<Meta of={HeroSectionHeroStories} />
+
+# Hero / Section hero
+
+## Intro
+
+`HeroSectionHero` traduce el módulo **Hero / Section hero** de Figma (`node 58163:39435`, COMPONENT_SET: Device=desktop/mobile, sin más variantes). Hero de sección sin imagen: fondo de color sólido con label + título centrados.
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport.
+
+## Demo
+
+<Canvas of={HeroSectionHeroStories.Default} />
+
+## Anatomía
+
+Un bloque centrado (label pequeño + título grande) sobre un fondo de color sólido, sin imagen.
+
+## Comportamiento
+
+**Hallazgo importante**: el fondo rojo y el texto blanco no son colores hardcodeados de este módulo — la instancia de Figma fuerza el modo "Dark - Red - Primary" de Semantic-Color (verificado con `use_figma`: `Backgrounds/Base` resuelve a `#e23f36` y `Texts/Base` a blanco, coincidiendo exactamente con los valores de ese tema en `semantic.css`). Se implementó con `data-theme="dark-red-primary"` en la raíz del módulo — mismo patrón "un hijo puede sobreescribir el tema heredado" ya usado en Card Link.
+
+La propiedad "Device" de Figma es responsive real (media query en `768px`, mismo criterio que el resto de módulos) — no una prop. Sin más variantes de layout: es un único diseño, capturado en dos anchos.
+
+## Tokens
+
+Ningún token nuevo — reutiliza `--color-surface-base` y `--color-content-base` (que resuelven a rojo/blanco gracias al `data-theme="dark-red-primary"`), `--text-body-6`, `--font-title`/`--text-title-4`/`--tracking-title`. La altura fija (742px, igual en ambos breakpoints) y el ancho máximo del bloque de texto (540px desktop/350px mobile) son literales sin variable en Figma.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `label` | Texto del label superior | `'Section title'` | text |
+| `title` | Título del módulo | — | text |
+
+## Accesibilidad
+
+Usa `<section>` como raíz — landmark semántico correcto para un bloque de contenido de página. El contraste texto blanco/fondo rojo (`dark-red-primary`) ya está validado como tema del sistema.
+
+## Componentes relacionados
+
+- **Card Link** — mismo patrón de override de tema (`data-theme="dark-red-primary"`).
+- **Hero / Section header** / **Hero / Homepage hero** — módulos hermanos de la familia "Hero" (pendientes).

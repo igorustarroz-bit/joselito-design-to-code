@@ -1,0 +1,48 @@
+/**
+ * Hero / Section hero — altura fija de 742px en ambos breakpoints (sin
+ * variable en Figma, literal de este módulo) y ancho máximo del bloque de
+ * texto (540px desktop / 350px mobile), también literales.
+ */
+.hero-section-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 742px;
+  background: var(--color-surface-base);
+  overflow: hidden;
+}
+
+.hero-section-hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 350px;
+  text-align: center;
+}
+
+.hero-section-hero__label {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-6);
+  line-height: var(--text-body-6--line-height);
+  color: var(--color-content-base);
+}
+
+.hero-section-hero__title {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: var(--text-title-4);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-title);
+  color: var(--color-content-base);
+}
+
+@media (min-width: 768px) {
+  .hero-section-hero__content {
+    gap: 16px;
+    width: 540px;
+  }
+}
