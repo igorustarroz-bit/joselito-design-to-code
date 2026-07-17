@@ -20,6 +20,16 @@
  * La caja de imagen (antes `.card-link__image-wrap`/`__image` propios) se
  * sustituyó por el componente base `AspectRatio` (`ratio="3:4"`, 300:400
  * en Figma).
+ *
+ * **Retrofit responsive (detectado en Cards / Links)**: este componente se
+ * construyó y verificó originalmente solo en el breakpoint desktop. Al
+ * instanciarlo en el módulo Cards / Links a tamaño mobile (168px de ancho),
+ * se detectó que el padding del overlay es realmente responsive (16px
+ * mobile / 32px desktop en Figma), no constante como se había asumido —
+ * `--text-title-2` ya era responsive de por sí (28px/32px, coincide
+ * automáticamente en ambos breakpoints) pero el padding no. Se añadió el
+ * breakpoint `768px` para pasar de `--spacing-fx-4` (16px) a
+ * `--spacing-fx-8` (32px).
  */
 .card-link {
   position: relative;
@@ -49,7 +59,13 @@ button.card-link {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-fx-2, 8px);
-  padding: 0 var(--spacing-fx-8, 32px) var(--spacing-fx-8, 32px);
+  padding: 0 var(--spacing-fx-4, 16px) var(--spacing-fx-4, 16px);
+}
+
+@media (min-width: 768px) {
+  .card-link__overlay {
+    padding: 0 var(--spacing-fx-8, 32px) var(--spacing-fx-8, 32px);
+  }
 }
 
 .card-link__title {

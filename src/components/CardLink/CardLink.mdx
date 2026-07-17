@@ -32,10 +32,12 @@ Ningún token nuevo — reutiliza globales ya existentes:
 | Elemento | Token |
 |---|---|
 | Color de texto | `--color-content-base` (resuelto a blanco por el `data-theme` local) |
-| Título | `--font-title`, `--text-title-2`, `--tracking-title` |
+| Título | `--font-title`, `--text-title-2` (ya responsive: 28px mobile/32px desktop), `--tracking-title` |
 | Precio | `--text-body-2` / `--text-body-2--line-height` |
-| Padding del overlay | `--spacing-fx-8` (32px) |
+| Padding del overlay | `--spacing-fx-4` (16px) mobile / `--spacing-fx-8` (32px) desktop |
 | Gap título/precio | `--spacing-fx-2` (8px) |
+
+**Retrofit responsive (detectado al construir Cards / Links)**: este componente se verificó originalmente solo en el breakpoint desktop. Al instanciarlo en el módulo Cards / Links a tamaño mobile (168px de ancho) se detectó que el padding del overlay también es responsive en Figma (16px mobile / 32px desktop), a diferencia de `--text-title-2`, que ya era responsive de por sí y no necesitó cambios. Se añadió el breakpoint `768px` al padding del overlay.
 
 ## Propiedades
 
@@ -57,4 +59,4 @@ Ningún token nuevo — reutiliza globales ya existentes:
 
 - **Aspect Ratio** — caja de imagen (`ratio="3:4"`).
 
-Usado dentro de módulos de listado de tarjetas (p. ej. "Cards / Links", pendiente).
+- **Cards / Links** — módulo que instancia esta tarjeta en filas de N columnas.

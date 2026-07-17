@@ -1,0 +1,52 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as CardsLinksStories from './CardsLinks.stories'
+
+<Meta of={CardsLinksStories} />
+
+# Cards / Links
+
+## Intro
+
+`CardsLinks` traduce el módulo **Cards / Links** de Figma (`node 58163:40143`, COMPONENT_SET: Device=desktop/mobile, State=default — confirmado que solo existen esas 2 variantes inspeccionando el COMPONENT_SET). Cabecera + fila de tarjetas-enlace (`CardLink`).
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport.
+
+## Demo
+
+<Canvas of={CardsLinksStories.Default} />
+
+## Anatomía
+
+1. **Cabecera** — `ContentTitle` con su tamaño de título por defecto (`titleSize="title-4"`, el estándar del componente).
+2. **Fila de tarjetas** — instancias de `CardLink` (imagen + título + precio), 2 por fila en ambos breakpoints.
+
+<Story of={CardsLinksStories.FourCards} />
+
+## Comportamiento
+
+**Reutilización de `CardLink`**: este módulo instancia el componente ya construido, sin reimplementar la tarjeta. Precisamente al instanciarlo aquí a tamaño mobile (168px de ancho) se detectó que su padding interno también es responsive en Figma — ver el retrofit documentado en `CardLink.mdx`.
+
+**Grid de 12 columnas real en desktop**: el ancho de cada tarjeta (648px) es exactamente `(1320 − 24) / 2 = 648px` — la mitad del ancho de contenido a 1440px menos el gap, confirmando que es una fila real de 2 columnas del grid de 12 (6+6). Se implementó con `display: grid; grid-template-columns: repeat(var(--grid-columns), minmax(0,1fr))` y cada tarjeta en `grid-column: span 6`, en vez de fijar anchos en píxeles — así el módulo soporta cualquier número de tarjetas vía la prop `cards` (se envuelven automáticamente en filas de 2). El gap desktop (24px) coincide exactamente con `--grid-gutter` a 1440px.
+
+En mobile, Figma también muestra 2 tarjetas por fila (no 1) — se respetó tal cual, con un grid simple de 2 columnas iguales (el gap mobile, 12px, no coincide con `--grid-gutter` en ese breakpoint y se deja como literal).
+
+## Tokens
+
+Ningún token nuevo — reutiliza `--grid-columns`, `--grid-gutter`, `--grid-margin-default`, y los tokens ya existentes de `ContentTitle`/`CardLink`. Paddings verticales de la fila (76/80px desktop, 40/60px mobile) son literales sin variable en Figma.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `title` | Título de la cabecera | `'Lorem ipsum accumsan eleifend'` | text |
+| `cards` | Array de tarjetas (`{ title, price, image, imageAlt, href, onClick }`) | 2 tarjetas de ejemplo | — |
+
+## Accesibilidad
+
+- La cabecera usa `<section>` (heredado de `ContentTitle`).
+- Cada tarjeta reutiliza `CardLink`, ya accesible (`<a>`/`<button>` real, foco visible).
+
+## Componentes relacionados
+
+- **Content / Title** — cabecera del módulo.
+- **Card Link** — tarjeta reutilizada en la fila.

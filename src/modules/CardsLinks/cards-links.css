@@ -1,0 +1,61 @@
+/**
+ * Cards / Links — node 58163:40143 en Figma (COMPONENT_SET:
+ * Device=desktop/mobile, State=default; solo 2 variantes, confirmado
+ * inspeccionando los hijos del COMPONENT_SET con `use_figma`).
+ *
+ * Cabecera: `ContentTitle` con su `titleSize` por defecto (`'title-4'`) — a
+ * diferencia de List / Numbers, List / Timeline y List / Archive table,
+ * aquí el texto por defecto de Figma ("Lorem ipsum accumsan eleifend")
+ * coincide literalmente con el default del propio `ContentTitle`, y su
+ * tamaño (48px desktop/34px mobile) es el `Title/04` estándar — no hace
+ * falta `titleSize="title-1"` aquí.
+ *
+ * Fila de tarjetas: reutiliza el componente `CardLink` ya construido (ver
+ * su retrofit responsive, detectado precisamente al instanciarlo aquí a
+ * tamaño mobile). Ancho de cada tarjeta (648px desktop) = exactamente
+ * (1320 − 24)/2 = 648px — la mitad del ancho de contenido a 1440px menos el
+ * gap, confirmando que es una fila real de 2 columnas dentro del grid de 12
+ * (2 tarjetas de 6 columnas cada una). Se implementó con grid real de 12
+ * columnas (`grid-template-columns: repeat(var(--grid-columns),
+ * minmax(0,1fr))`, cada tarjeta `grid-column: span 6`) en vez de fijar el
+ * ancho en píxeles, para que el módulo soporte de forma fluida cualquier
+ * número de tarjetas — ver prop `columns`.
+ *
+ * En mobile, Figma también muestra 2 tarjetas por fila (no 1) — se
+ * respetó: 2 columnas en mobile también.
+ *
+ * Grid de 12 columnas: `padding-inline: var(--grid-margin-default)` en la
+ * fila de tarjetas. El gap (24px desktop) coincide exactamente con
+ * `--grid-gutter` a 1440px — mismo valor reutilizado. El padding vertical
+ * de la fila (76/80px desktop, 40/60px mobile) y el gap mobile (12px, no
+ * coincide con `--grid-gutter` en ese breakpoint) son literales sin
+ * variable en Figma.
+ */
+.cards-links {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: var(--color-surface-base);
+}
+
+.cards-links__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+  padding: 40px 0 60px;
+  padding-inline: var(--grid-margin-default);
+}
+
+@media (min-width: 768px) {
+  .cards-links__row {
+    grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+    column-gap: var(--grid-gutter);
+    row-gap: 40px;
+    padding: 76px 0 80px;
+  }
+
+  .cards-links__row > * {
+    grid-column: span 6;
+  }
+}
