@@ -1,0 +1,58 @@
+/**
+ * Navigation / Breadcrumb — altura fija (80px desktop / 60px mobile) sin
+ * variable en Figma — literal de este módulo. Margen lateral vía
+ * `padding-inline: var(--grid-margin-default)` (grid de 12 columnas, no
+ * hace falta columna explícita: es un único bloque a la izquierda).
+ *
+ * Color de texto (`#373f41`, estilo "Light / Black" en Figma): NO está
+ * enlazado a ninguna variable de Semantic-Color (verificado con
+ * `use_figma`) y no coincide con ningún token existente (`--color-content-base`
+ * es `#000000` puro) — se mantiene como literal documentado, no se inventa
+ * un token nuevo para un único uso.
+ *
+ * Fondo: cambia realmente entre breakpoints (no solo el tamaño) —
+ * `--color-surface-neutral-1` en desktop, `--color-surface-base` en mobile.
+ */
+.navigation-breadcrumb {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  padding-inline: var(--grid-margin-default);
+  background: var(--color-surface-base);
+}
+
+.navigation-breadcrumb__link {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.navigation-breadcrumb__icon {
+  color: #373f41;
+  flex-shrink: 0;
+}
+
+.navigation-breadcrumb__text {
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-3);
+  line-height: var(--text-body-3--line-height);
+  color: #373f41;
+}
+
+.navigation-breadcrumb__link:focus-visible {
+  outline: 2px solid var(--color-icon-accent-1);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (min-width: 768px) {
+  .navigation-breadcrumb {
+    height: 80px;
+    background: var(--color-surface-neutral-1);
+  }
+}

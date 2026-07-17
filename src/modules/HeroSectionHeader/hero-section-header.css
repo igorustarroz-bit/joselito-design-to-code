@@ -1,0 +1,83 @@
+/**
+ * Hero / Section header — paddings de sección (120/80px desktop, 60/80px
+ * mobile) sin variable en Figma — literales de este módulo. Margen lateral
+ * vía `padding-inline: var(--grid-margin-default)` (grid de 12 columnas).
+ *
+ * Grid de 12 columnas: el ancho de `.hero-section-header__title` (652px en
+ * Figma) ≈ exactamente 6 columnas a 1440px (6×88+5×24=648px, 4px de
+ * diferencia, mismo redondeo aceptado en Content / Title). El gap de la fila
+ * (24px) coincide literalmente con `--grid-gutter` a 1440px, confirmando
+ * 6+6 columnas — igual patrón que Content / Title, aplicado aquí desde el
+ * principio en vez de retrofiteado.
+ */
+.hero-section-header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.hero-section-header__content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  padding: 60px 0 80px;
+  padding-inline: var(--grid-margin-default);
+  background: var(--color-surface-neutral-1);
+}
+
+.hero-section-header__label {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-6);
+  line-height: var(--text-body-6--line-height);
+  color: var(--color-content-base);
+}
+
+.hero-section-header__row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.hero-section-header__title {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: var(--text-title-5);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-title);
+  color: var(--color-content-base);
+}
+
+.hero-section-header__description {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-5);
+  line-height: var(--text-body-5--line-height);
+  color: var(--color-content-base);
+}
+
+@media (min-width: 768px) {
+  .hero-section-header__content {
+    gap: 16px;
+    padding: 120px 0 80px;
+  }
+
+  .hero-section-header__row {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+    column-gap: var(--grid-gutter);
+    align-items: start;
+  }
+
+  .hero-section-header__title {
+    grid-column: span 6;
+  }
+
+  .hero-section-header__description {
+    grid-column: span 6;
+  }
+}

@@ -1,0 +1,56 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as HeroSectionHeaderStories from './HeroSectionHeader.stories'
+
+<Meta of={HeroSectionHeaderStories} />
+
+# Hero / Section header
+
+## Intro
+
+`HeroSectionHeader` traduce el módulo **Hero / Section header** de Figma (`node 58163:39446`, COMPONENT_SET: Device=desktop/mobile). Compone `NavigationBreadcrumb` (barra "volver a la sección anterior") + un bloque label/título/descripción sobre fondo neutro.
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport.
+
+## Demo
+
+<Canvas of={HeroSectionHeaderStories.Default} />
+
+## Anatomía
+
+1. **`NavigationBreadcrumb`** — barra superior "volver", componente ya construido.
+2. **Bloque de contenido**: label + título grande (`--text-title-5`) + descripción, sobre fondo `--color-surface-neutral-1`.
+
+En desktop (≥768px), título y descripción van en fila (6 columnas cada uno, grid de 12). En mobile se apilan.
+
+<Story of={HeroSectionHeaderStories.NoDescription} />
+
+## Comportamiento
+
+La propiedad "Device" es responsive real (media query en `768px`, mismo criterio que el resto de módulos) — no una prop. A diferencia de **Content / Title**, este módulo no tiene botón ni enlace en su bloque de contenido — solo label, título y descripción.
+
+**Grid de 12 columnas, aplicado desde el principio** (este módulo se construyó ya después de la auditoría del punto 15, no necesitó retrofit): el ancho de `.hero-section-header__title` (652px en Figma) ≈ exactamente 6 columnas a 1440px (6×88+5×24=648px), y el gap de la fila (24px) coincide literalmente con `--grid-gutter` a ese ancho — mismo patrón exacto ya verificado en Content / Title. Implementado con `display:grid; grid-template-columns: repeat(12, minmax(0,1fr)); column-gap: var(--grid-gutter)` y `grid-column: span 6` en ambos hijos, solo activo en el breakpoint desktop (en mobile es un stack simple).
+
+## Tokens
+
+Ningún token nuevo — reutiliza `--color-surface-neutral-1`, `--text-body-6`, `--font-title`/`--text-title-5`/`--tracking-title`, `--text-body-5`. Márgenes laterales vía `padding-inline: var(--grid-margin-default)`. Los paddings verticales (120/80px desktop, 60/80px mobile) son literales sin variable en Figma.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `breadcrumbText` | Texto del breadcrumb | `'Previous section'` | text |
+| `breadcrumbHref` / `onBreadcrumbClick` | Destino/handler del breadcrumb | — | — |
+| `label` | Texto del label superior | `'Section title'` | text |
+| `title` | Título del módulo | — | text |
+| `description` | Texto de la descripción | — | text |
+| `showDescription` | Muestra/oculta la descripción | `true` | boolean |
+
+## Accesibilidad
+
+- El bloque de contenido usa `<section>` — landmark semántico correcto.
+- `NavigationBreadcrumb` ya aporta su propio `<nav aria-label>`.
+
+## Componentes relacionados
+
+- **Navigation / Breadcrumb** — barra superior compuesta por este módulo.
+- **Content / Title** — mismo patrón de grid (6+6 columnas), sin botón/enlace aquí.

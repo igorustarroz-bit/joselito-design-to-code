@@ -1,0 +1,49 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as NavigationBreadcrumbStories from './NavigationBreadcrumb.stories'
+
+<Meta of={NavigationBreadcrumbStories} />
+
+# Navigation / Breadcrumb
+
+## Intro
+
+`NavigationBreadcrumb` traduce el módulo **Navigation / Breadcrumb** de Figma (`node 58084:30166`, COMPONENT_SET: Device=desktop/mobile). Barra "volver a la sección anterior" a todo el ancho: flecha izquierda + texto.
+
+Construido antes de lo previsto en el orden del plan porque es una dependencia real de **Hero / Section header** (lo compone directamente en Figma) — mismo criterio del proyecto de "construir antes lo que es base de otros, para no rehacer trabajo".
+
+## Demo
+
+<Canvas of={NavigationBreadcrumbStories.Default} />
+
+## Anatomía
+
+Icono (`Icon` `ArrowLeft`) + texto, dentro de un `<a>`/`<button>` (según se pase `href`), envueltos en un `<nav>` con `aria-label` propio.
+
+## Comportamiento
+
+La propiedad "Device" es responsive real (media query en `768px`, mismo criterio que el resto de módulos) — no una prop.
+
+**Detectado en Figma**: el fondo cambia de verdad entre breakpoints, no solo el tamaño — `--color-surface-neutral-1` (gris claro) en desktop, `--color-surface-base` (blanco) en mobile. Respetado tal cual.
+
+## Tokens
+
+El texto usa `#373f41` (estilo "Light / Black" en Figma) — verificado con `use_figma` que NO está enlazado a ninguna variable de Semantic-Color y no coincide con ningún token existente (`--color-content-base` es negro puro `#000000`, distinto) — se mantiene como literal documentado en vez de crear un token nuevo para un único uso. El resto reutiliza tokens ya existentes: `--text-body-3`, `--color-surface-neutral-1`/`--color-surface-base`.
+
+**Grid de 12 columnas**: margen lateral vía `padding-inline: var(--grid-margin-default)` — no hace falta expresar columnas explícitas, es un único bloque alineado a la izquierda. Altura fija (80px/60px) sin variable en Figma, literal de este módulo.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `text` | Texto del enlace | `'Previous section'` | text |
+| `href` / `onClick` | Destino/handler | — | — |
+
+## Accesibilidad
+
+- Usa `<nav aria-label="Volver a la sección anterior">` como raíz — landmark semántico con nombre accesible propio, para no confundirse con la navegación principal.
+- El enlace/botón tiene estado de foco visible propio (`:focus-visible`).
+
+## Componentes relacionados
+
+- **Icon** (`ArrowLeft`) — icono del enlace.
+- **Hero / Section header** — módulo que compone este breadcrumb.

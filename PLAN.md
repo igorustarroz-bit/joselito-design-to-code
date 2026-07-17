@@ -56,7 +56,8 @@ Contenedores 100% ancho de viewport.
 | Content / Title | completado |
 | Content / Intro text | completado |
 | Hero / Section hero | completado |
-| Hero / Section header | pendiente |
+| Hero / Section header | completado |
+| Navigation / Breadcrumb (adelantado, dependencia de Section header) | completado |
 | Hero / Homepage hero | pendiente |
 | List / Characteristics | pendiente |
 | List / Numbers | pendiente |
@@ -70,7 +71,6 @@ Contenedores 100% ancho de viewport.
 | Cards / Accordion | pendiente |
 | Navigation / Secondary menu | pendiente |
 | Navigation / PreviousNext | pendiente |
-| Navigation / Breadcrumb | pendiente |
 | Navigation / Footer | pendiente |
 | Navigation (header principal) | pendiente |
 | Menu | pendiente |
@@ -80,7 +80,7 @@ Contenedores 100% ancho de viewport.
 
 ## Siguiente paso
 
-Con **Hero / Section hero** completado, seguir con **Hero / Section header**, y continuar en el orden listado arriba.
+Con **Hero / Section header** completado (y **Navigation / Breadcrumb** adelantado como su dependencia), seguir con **Hero / Homepage hero**, y continuar en el orden listado arriba.
 
 ## Notas de implementación
 
@@ -124,3 +124,5 @@ Con **Hero / Section hero** completado, seguir con **Hero / Section header**, y 
   - **Dejados como literales documentados, sin franja de grid limpia**: el gap editorial de 60px de Content/Text+Image y el de 144px de Content/Text only (`2-column`) no coinciden con `--grid-gutter` ni con un hueco de columna vacía dentro de la tolerancia habitual del proyecto (~0.5-0.7%); el ancho máximo de texto de 1058px de Content/Intro text (col-span-10 da 1096px, 38px de diferencia, sin match limpio); y todo Hero/Section hero, exento del retrofit por ser full-bleed (sin `padding-inline`) con el bloque de texto centrado por flexbox (540px ≈ col-span-5, pero 5 columnas es un número impar que no se puede centrar simétricamente con `grid-column` sin un offset asimétrico).
   - En todos los módulos tocados, el padding horizontal de sección que antes era un literal (20px/60px, 24px, etc.) se centralizó a `padding-inline: var(--grid-margin-default)`, salvo donde el propio diseño exige edge-to-edge (Content/Image only variante de 1 imagen, Hero/Section hero completo).
   - **Corrección de `--grid-margin-default`**: el valor que se había tomado inicialmente de responsive.css (32px/16px en los breakpoints base) no coincidía con las instancias reales medidas en Figma en los módulos de esta auditoría; se confirmó con el usuario que las instancias visuales tienen prioridad sobre el nombre de la variable en Figma, y se corrigió el token a 60px (desktop `m`) / 20px (mobile), valores con los que sí cuadran todos los módulos revisados.
+- **Navigation / Breadcrumb**: `src/modules/NavigationBreadcrumb/` (node 58084:30166, COMPONENT_SET: Device=desktop/mobile). Construido antes de lo previsto en el orden del plan porque es una dependencia real de Hero / Section header (lo compone directamente en Figma). Barra "volver" a todo el ancho: icono `Icon` (`ArrowLeft`) + texto, envueltos en `<nav aria-label>`. **Detectado**: el fondo cambia de verdad entre breakpoints (`--color-surface-neutral-1` desktop, `--color-surface-base` mobile), no solo el tamaño. El color de texto (`#373f41`, "Light / Black" en Figma) no está enlazado a ninguna variable y no coincide con `--color-content-base` (negro puro) — se mantiene como literal documentado. Construido ya con `padding-inline: var(--grid-margin-default)` desde el principio (no necesitó retrofit). Documentación completa en `NavigationBreadcrumb.mdx`.
+- **Hero / Section header**: `src/modules/HeroSectionHeader/` (node 58163:39446, COMPONENT_SET: Device=desktop/mobile). Compone `NavigationBreadcrumb` + un bloque label/título (`--text-title-5`)/descripción sobre `--color-surface-neutral-1`. Construido ya con el grid de 12 columnas desde el principio (primer módulo posterior a la auditoría del punto 15): mismo patrón exacto de Content / Title (título y descripción `span 6` cada uno en desktop, gap de fila 24px = `--grid-gutter` a 1440px), sin necesitar retrofit posterior. A diferencia de Content / Title, no tiene botón ni enlace. Documentación completa en `HeroSectionHeader.mdx`.
