@@ -1,0 +1,78 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as ContentTextOnlyStories from './ContentTextOnly.stories'
+
+<Meta of={ContentTextOnlyStories} />
+
+# Content / Text only
+
+## Intro
+
+`ContentTextOnly` traduce el módulo **Content / Text only** de Figma (`node 58163:39972`, COMPONENT_SET: Variant=split/2-column/1-column × Device=desktop, y Device=mobile sin variante de columnas). Módulo de solo texto — sin imagen — con tres disposiciones de escritorio.
+
+## Demo
+
+<Canvas of={ContentTextOnlyStories.Split} />
+
+## Anatomía
+
+- **`split`**: label a ancho completo (opcional) + fila con el título (ancho fijo) a un lado y el cuerpo (párrafo + botón opcional) al otro.
+- **`2-column`** / **`1-column`**: label+título agrupados arriba, seguidos de 1 o 2 columnas de párrafos.
+
+En mobile (por debajo de 768px) las tres variantes colapsan al mismo layout apilado de una sola columna — la propiedad "Device" de Figma se tradujo como responsive real (media query en `768px`), no como prop.
+
+<Story of={ContentTextOnlyStories.TwoColumn} />
+<Story of={ContentTextOnlyStories.OneColumn} />
+
+## Comportamiento
+
+`columns` es un array de columnas (cada una, a su vez, un array de párrafos) — permite cubrir tanto 1 columna (`split`/`1-column`) como 2 (`2-column`) con una única prop, sin necesitar props distintas por variante. Los párrafos dentro de una misma columna no llevan separación extra entre sí en Figma (se apoyan solo en el `line-height`) — se respetó tal cual.
+
+<Story of={ContentTextOnlyStories.SplitWithButton} />
+<Story of={ContentTextOnlyStories.NoLabel} />
+
+## Variantes y tamaños
+
+| `variant` | Layout en desktop (≥768px) |
+|---|---|
+| `split` (por defecto) | Título (537px) + cuerpo en fila, gap 136px, botón opcional |
+| `2-column` | 2 columnas de párrafos en fila, gap 144px |
+| `1-column` | 1 columna de párrafos, centrada, máx. 647px |
+
+## Tokens
+
+Ningún token nuevo — reutiliza globales ya existentes, verificado literalmente en `get_design_context` de las 4 variantes:
+
+| Elemento | Token |
+|---|---|
+| Fondo | `--color-surface-base` |
+| Label | `--text-body-6` / `--text-body-6--line-height` |
+| Título | `--font-title`, `--text-title-4`, `--tracking-title` |
+| Párrafos | `--font-body`, `--text-body-5` / `--text-body-5--line-height` |
+| Gaps | `--spacing-fx-8` (32px) / `--spacing-fx-6` (24px) / `--spacing-fx-4` (16px) / `--spacing-fx-2` (8px) |
+
+Los gaps título/cuerpo (136px en `split`, 144px en `2-column`) y los paddings de sección (60/120px desktop, 20/80px mobile) no están enlazados a ninguna variable en Figma y se implementaron como literales de este módulo.
+
+**Sobre el botón de `split`**: la instancia de Figma usa un estilo genérico placeholder ("button", borde azul `interactive/color-interactive-default`, tipografía `static/font/brand`) completamente ajeno a los tokens `Button/*` del resto del sistema — se identificó como un marcador de posición no conectado al design system real (a diferencia del botón de Content / Text + Image, que sí era una instancia real de `UI02-Button`) y se sustituyó por el componente `Button` ya construido, para mantener consistencia visual entre módulos.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `variant` | `'split'` \| `'2-column'` \| `'1-column'` | `'split'` | radio |
+| `label` | Texto del label superior | `'This is a label'` | text |
+| `showLabel` | Muestra/oculta el label | `true` | boolean |
+| `title` | Título del módulo | — | text |
+| `columns` | Array de columnas (cada una, array de párrafos) | 1 columna con 1 párrafo | — |
+| `showButton` | Muestra/oculta el botón (solo relevante en `split`) | `false` | boolean |
+| `buttonText` | Texto del botón | `'Lorem ipsum'` | text |
+| `href` / `onClick` | Destino/handler del botón | — | — |
+
+## Accesibilidad
+
+- Usa `<section>` como raíz — landmark semántico correcto para un bloque de contenido de página.
+- El botón (variante `split`) reutiliza `Button`, ya accesible (foco, teclado, `:focus-visible`).
+
+## Componentes relacionados
+
+- **UI02 · Button** — botón opcional de la variante `split`.
+- **Content / Text + Image** — módulo hermano con la misma tipografía de título/párrafo, con imagen añadida.

@@ -1,0 +1,150 @@
+/**
+ * Content / Text only — node 58163:39972 en Figma (COMPONENT_SET, 4
+ * variantes: Variant=split/2-column/1-column × Device=desktop, y
+ * Device=mobile sin variante de columnas — en mobile todas colapsan al
+ * mismo layout apilado de una columna, independientemente de `variant`).
+ *
+ * Tokens reutilizados (ya existentes, ninguno nuevo):
+ *   - Fondo: --color-surface-base
+ *   - Label: --text-body-6 / --text-body-6--line-height
+ *   - Título: --font-title, --text-title-4, --tracking-title
+ *   - Párrafos: --font-body, --text-body-5 / --text-body-5--line-height
+ *   - Gaps: --spacing-fx-8 (32px), --spacing-fx-6 (24px), --spacing-fx-4 (16px),
+ *     --spacing-fx-2 (8px)
+ *
+ * Los gaps entre título y contenido (136px en `split`, 144px en
+ * `2-column`) y los paddings de sección (60/120px desktop, 20/80px mobile)
+ * no están enlazados a ninguna variable en Figma (literales sin `var()`)
+ * y se implementan igual, como literales de este módulo.
+ *
+ * Los párrafos dentro de una misma columna no llevan gap entre sí en
+ * Figma (se apilan sin separación extra, apoyándose solo en el
+ * line-height) — se respeta tal cual con `margin: 0` en los `<p>`.
+ *
+ * El botón de la variante `split` en Figma usa un estilo genérico
+ * placeholder ("button" con borde azul `interactive/color-interactive-default`
+ * y tipografía `static/font/brand`, ajeno a los tokens `Button/*` del
+ * resto del sistema) — se identificó como un marcador de posición no
+ * conectado al design system real y se sustituyó por el componente
+ * `Button` (UI02) ya construido, igual que se hizo en Content / Text + Image.
+ */
+.content-text-only {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 80px 20px;
+  background: var(--color-surface-base);
+  color: var(--color-content-base);
+  gap: var(--spacing-fx-6, 24px);
+}
+
+.content-text-only__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-fx-2, 8px);
+  width: 100%;
+}
+
+.content-text-only__label {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-6);
+  line-height: var(--text-body-6--line-height);
+}
+
+.content-text-only__title {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: var(--text-title-4);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-title);
+}
+
+.content-text-only__columns {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-fx-6, 24px);
+  width: 100%;
+}
+
+.content-text-only__column {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.content-text-only__paragraph {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-5);
+  line-height: var(--text-body-5--line-height);
+}
+
+/* split (desktop): título + primera columna en fila */
+.content-text-only--split .content-text-only__row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-fx-6, 24px);
+  width: 100%;
+}
+
+.content-text-only__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-fx-8, 32px);
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .content-text-only {
+    padding: 120px 60px;
+    gap: var(--spacing-fx-4, 16px);
+  }
+
+  .content-text-only--2-column,
+  .content-text-only--1-column {
+    gap: var(--spacing-fx-8, 32px);
+  }
+
+  .content-text-only__header {
+    gap: var(--spacing-fx-4, 16px);
+  }
+
+  .content-text-only__columns {
+    flex-direction: row;
+    gap: 144px;
+  }
+
+  .content-text-only__column {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .content-text-only--1-column .content-text-only__columns {
+    justify-content: center;
+  }
+
+  .content-text-only--1-column .content-text-only__column {
+    flex: 0 1 647px;
+  }
+
+  /* split: layout título+cuerpo en fila, con el propio label por encima
+     a ancho completo (estructura distinta a 2-column/1-column: en Figma
+     el label NO está agrupado con el título, es hermano directo de la
+     fila título+cuerpo — el gap general de 16px de `.content-text-only`
+     ya cubre la separación label/fila) */
+  .content-text-only--split .content-text-only__row {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 136px;
+  }
+
+  .content-text-only--split .content-text-only__title {
+    flex: 0 0 537px;
+  }
+
+  .content-text-only--split .content-text-only__body {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}

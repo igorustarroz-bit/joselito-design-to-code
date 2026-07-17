@@ -46,7 +46,7 @@ Contenedores 100% ancho de viewport.
 | Módulo | Estado |
 |---|---|
 | Content / Text + Image ⭐ (referencia de calidad, usar como base) | completado |
-| Content / Text only | pendiente |
+| Content / Text only | completado |
 | Content / Image only | pendiente |
 | Content / Title | pendiente |
 | Content / Intro text | pendiente |
@@ -75,7 +75,7 @@ Contenedores 100% ancho de viewport.
 
 ## Siguiente paso
 
-Con **Content / Text + Image** completado (primer módulo, usado como base de comparación de calidad), seguir con **Content / Text only**, y continuar en el orden listado arriba.
+Con **Content / Text only** completado, seguir con **Content / Image only**, y continuar en el orden listado arriba.
 
 ## Notas de implementación
 
@@ -104,3 +104,4 @@ Con **Content / Text + Image** completado (primer módulo, usado como base de co
 **Módulos** (`src/modules/`, contenedores 100% ancho de viewport):
 
 - **Content / Text + Image** ⭐: `src/modules/ContentTextImage/` (node 58163:39941, COMPONENT_SET: Device=desktop×Layout=text-right/text-left, Device=mobile×Layout=text-all). Primer módulo del plan, marcado en las instrucciones del proyecto como referencia de calidad. La propiedad "Device" de Figma se tradujo como responsive real (media query en `768px`, el mismo breakpoint "m" en el que ya cambia `--grid-margin-default`), no como prop — no son componentes distintos por dispositivo. La propiedad "Layout" (text-left/text-right) sí es una prop real (`layout`), resuelta con `order` de flexbox (el orden en el DOM no cambia). Compone `Button` (UI02, tipo secondary/m) para el botón opcional. Ningún token nuevo: fondo `--color-surface-base`, label `--text-body-6`, título `--font-title`/`--text-title-4`/`--tracking-title`, párrafo `--font-body`/`--text-body-5`, gaps `--spacing-fx-8/6/4/2` — todos ya existentes y confirmados idénticos entre mobile/desktop. Los paddings de sección (60/120px desktop, 20/40/60px mobile) no están enlazados a ninguna variable en Figma (valores literales sin `var()` en el propio archivo) y se implementaron igual, como literales de este módulo. **Inconsistencia detectada**: la variante mobile enlaza su párrafo a un estilo huérfano ("Title/medium", familia `static/font/brand` = "Neue Haas Grotesk Display Pro") distinto del resto del sistema — se ignoró en favor de `--font-body`/`--text-body-5`, ya usados consistentemente en el resto del módulo y del sistema. También se detectó que el botón de Figma mezcla altura de tamaño L (64px) con padding de tamaño M (24px) — probable anulación manual de instancia, no una variante sistemática; se usó `Button` con `size="m"` tal cual. Documentación completa en `ContentTextImage.mdx`.
+- **Content / Text only**: `src/modules/ContentTextOnly/` (node 58163:39972, COMPONENT_SET: Variant=split/2-column/1-column × Device=desktop, y Device=mobile sin variante de columnas — colapsa siempre a un layout apilado de una columna). Igual criterio que Content / Text + Image para "Device" (responsive real en 768px, no prop) — la única prop de layout real es `variant`. Prop `columns` (array de columnas, cada una array de párrafos) cubre 1 o 2 columnas sin necesitar props distintas por variante. Se verificó que en Figma los párrafos de una misma columna no llevan gap entre sí (se apoyan solo en `line-height`) — respetado igual. Ningún token nuevo: mismos `--text-body-6`/`--font-title`+`--text-title-4`/`--font-body`+`--text-body-5` que Content / Text + Image, gaps `--spacing-fx-8/6/4/2`. Los gaps título/cuerpo (136px `split`, 144px `2-column`) y paddings de sección (60/120 desktop, 20/80 mobile) son literales sin variable en Figma. **Detectado y corregido**: el botón de la variante `split` en Figma usa un estilo genérico placeholder (borde azul `interactive/color-interactive-default`, tipografía `static/font/brand`) completamente ajeno a los tokens `Button/*` del resto del sistema, a diferencia del botón de Content / Text + Image que sí era una instancia real de `UI02-Button` — se identificó como marcador de posición no conectado al design system y se sustituyó por el componente `Button` ya construido. Se confirmó además que el párrafo mobile de este módulo SÍ usa correctamente Body/05 (a diferencia de la inconsistencia detectada en el módulo anterior), confirmando que aquella fue un error puntual de esa instancia y no un patrón sistemático de las variantes mobile. Documentación completa en `ContentTextOnly.mdx`.
