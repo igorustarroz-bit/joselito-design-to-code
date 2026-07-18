@@ -1,0 +1,45 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks'
+import * as ToastStories from './Toast.stories'
+
+<Meta of={ToastStories} />
+
+# Toast
+
+## Intro
+
+`Toast` traduce el módulo **Toast** de Figma (`node 58182:23548`, COMPONENT único, sin variantes ni Device desktop/mobile). Tarjeta flotante de imagen + título + descripción.
+
+**Observación**: pese a estar listado en la sección "Módulos" del plan (vive en la página "- Modules" de Figma), su contenido real es una tarjeta pequeña (343×104px), no un contenedor a 100% del ancho del viewport como el resto de módulos — se mantiene en `src/modules/Toast/` por consistencia con la categorización ya hecha en `PLAN.md`.
+
+## Demo
+
+<Canvas of={ToastStories.Default} />
+
+## Anatomía
+
+Imagen cuadrada (`AspectRatio` `1:1`) + título + descripción, en una tarjeta blanca de tamaño fijo.
+
+## Comportamiento
+
+Sin `Device` responsive: Figma no define variantes por breakpoint para esta pieza — se usa al mismo tamaño fijo en cualquier contexto. Quien lo envuelve (p. ej. Hero / Homepage hero) decide su posición/anclaje vía `className`, mismo criterio que `CardProduct`/`CardLink`.
+
+## Tokens
+
+`--text-body-2` (título y descripción), `--color-content-base` (título), `--color-content-neutral-2` (descripción, `#999`), `--color-surface-base` (fondo). `data-theme="light-white"` fijo en la raíz, pensado para anclarse sobre fondos oscuros. Padding/gap (14px) y dimensiones (343×104px, imagen 76×76px) son literales sin variable en Figma.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `image` / `imageAlt` | Imagen cuadrada | — | — |
+| `title` | Título | `'Título'` | text |
+| `description` | Descripción | `'Descripción'` | text |
+
+## Accesibilidad
+
+Texto plano, sin controles interactivos propios (no es un enlace ni botón).
+
+## Componentes relacionados
+
+- **AspectRatio** — imagen cuadrada (`1:1`).
+- **Hero / Homepage hero** — primer uso real, sustituyendo el stand-in interno simplificado que existía antes de que este módulo se completara.

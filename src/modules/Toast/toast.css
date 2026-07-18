@@ -1,0 +1,64 @@
+/**
+ * Toast — node 58182:23548 en Figma (COMPONENT único, sin variantes ni
+ * Device desktop/mobile). **Observación**: pese a estar listado en la
+ * sección "Módulos" del plan (vive en la página "- Modules" de Figma), su
+ * contenido real es una tarjeta pequeña (343×104px), no un contenedor a
+ * 100% del ancho del viewport como el resto de módulos — se mantiene en
+ * `src/modules/Toast/` por consistencia con la categorización ya hecha en
+ * `PLAN.md`, documentando aquí la observación.
+ *
+ * **Tokens verificados con `get_design_context`**: texto `Typography/Body 2`
+ * (14/22) → `--text-body-2` para título y descripción; color de título
+ * `Texts/Base` → `--color-content-base`, descripción `Texts/Neutral-2`
+ * (`#999`) → `--color-content-neutral-2`. Imagen `AspectRatio` `ratio="1:1"`
+ * (76×76px, coincide exacto). Fondo `--color-surface-base`.
+ *
+ * Padding (14px) y gap (14px) son literales sin variable enlazada en Figma
+ * ni match limpio con ninguna primitiva (`fx-3`=12, `fx-4`=16) — se dejan
+ * tal cual. Ancho (343px) y alto (104px) también son literales fijos: el
+ * propio master de Figma no define ninguna variante responsive para esta
+ * pieza.
+ *
+ * `data-theme="light-white"` fijo en la raíz — pensado para anclarse sobre
+ * fondos oscuros (hero, imagen) garantizando contraste, igual criterio que
+ * el resto de componentes que fuerzan un tema local (Card Link, Hero /
+ * Section hero).
+ */
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  width: 343px;
+  height: 104px;
+  padding: 14px;
+  background: var(--color-surface-base);
+}
+
+.toast__image {
+  flex-shrink: 0;
+  width: 76px;
+  height: 76px;
+}
+
+.toast__text {
+  display: flex;
+  flex: 1 0 0;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-2);
+  line-height: var(--text-body-2--line-height);
+}
+
+.toast__title {
+  margin: 0;
+  color: var(--color-content-base);
+}
+
+.toast__description {
+  margin: 0;
+  color: var(--color-content-neutral-2);
+}

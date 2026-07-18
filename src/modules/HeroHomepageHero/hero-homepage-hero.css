@@ -4,14 +4,12 @@
  *
  * ALCANCE: este master de Figma incrusta, dentro de su propia anatomía, una
  * barra de navegación completa ("Navigation", node 58163:33790/58163:33792)
- * y una tarjeta "Toast" (node 58182:23555/58182:23562). El módulo
- * "Navigation (header principal)" ya está construido (`src/modules/
- * Navigation/`) y se reutiliza aquí directamente (`variant="transparent"`),
- * sustituyendo el stand-in interno simplificado que existía antes. "Toast"
- * sigue `pendiente` en PLAN.md — `HeroHomepageHero` mantiene para esa pieza
- * una versión simplificada e INTERNA (no exportada, `HomepageHeroToast` más
- * abajo en `HeroHomepageHero.jsx`), a sustituir cuando se construya el
- * módulo dedicado "Toast".
+ * y una tarjeta "Toast" (node 58182:23555/58182:23562). Ambos módulos ya
+ * están construidos (`src/modules/Navigation/`, `src/modules/Toast/`) y se
+ * reutilizan aquí directamente (`Navigation` con `variant="transparent"`,
+ * `Toast` tal cual con solo un override de posición/ancho) — sustituyendo
+ * los stand-ins internos simplificados que existían antes de que ambos
+ * módulos se completaran.
  *
  * Altura: 800px mobile / 860px desktop — literales sin variable en Figma.
  * Ancho del bloque de contenido: 350px mobile / 664px desktop — literal (a
@@ -134,21 +132,21 @@
   color: var(--color-content-base);
 }
 
-/* --- Toast (stand-in temporal, ver comentario superior) --- */
+/* --- Toast ---
+ * Reutiliza el módulo real `Toast`, que ya trae su propio padding/gap/
+ * tipografía/color (ver toast.css) — aquí solo se sobreescribe su ancho
+ * fijo (343px) para que sea fluido en mobile, y se posiciona por encima de
+ * la imagen de fondo, anclado a la esquina inferior (derecha en desktop,
+ * a todo el ancho con margen en mobile).
+ */
 
 .hero-homepage-hero__toast {
   position: absolute;
   z-index: 2;
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
   width: calc(100% - 48px);
-  height: 104px;
   left: 24px;
   right: 24px;
   bottom: 16px;
-  padding: 14px;
-  background: var(--color-surface-base);
 }
 
 @media (min-width: 768px) {
@@ -158,32 +156,4 @@
     right: 40px;
     bottom: 40px;
   }
-}
-
-.hero-homepage-hero__toast-image {
-  flex-shrink: 0;
-  width: 76px;
-  height: 76px;
-}
-
-.hero-homepage-hero__toast-text {
-  display: flex;
-  flex: 1 0 0;
-  min-width: 0;
-  flex-direction: column;
-  justify-content: center;
-  font-family: var(--font-body);
-  font-weight: normal;
-  font-size: var(--text-body-2);
-  line-height: var(--text-body-2--line-height);
-}
-
-.hero-homepage-hero__toast-title {
-  margin: 0;
-  color: var(--color-content-base);
-}
-
-.hero-homepage-hero__toast-description {
-  margin: 0;
-  color: var(--color-content-neutral-2);
 }

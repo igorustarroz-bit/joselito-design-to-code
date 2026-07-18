@@ -26,7 +26,7 @@ Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100%
 
 ## Comportamiento
 
-**Actualización de alcance:** el master de Figma de este módulo incrusta, dentro de su propia anatomía, una barra de navegación completa y una tarjeta "Toast". El módulo "Navigation (header principal)" ya está construido (`src/modules/Navigation/`) y se reutiliza aquí directamente (`variant="transparent"`), sustituyendo el stand-in interno simplificado que existía antes de que ese módulo se completara. "Toast" sigue `pendiente` en `PLAN.md` — se mantiene para esa pieza una versión **simplificada e interna** (`HomepageHeroToast`, función no exportada dentro de `HeroHomepageHero.jsx`), a sustituir cuando le llegue su turno en el plan.
+**Actualización de alcance:** el master de Figma de este módulo incrusta, dentro de su propia anatomía, una barra de navegación completa y una tarjeta "Toast". Ambos módulos ya están construidos (`src/modules/Navigation/`, `src/modules/Toast/`) y se reutilizan aquí directamente — `Navigation` con `variant="transparent"`, `Toast` tal cual con solo un override de posición/ancho vía `className` — sustituyendo los stand-ins internos simplificados que existían antes de que ambos módulos se completaran. Con esto se completa todo el plan de trabajo.
 
 La propiedad "Property1" (desktop/mobile) es responsive real (media query en `768px`), igual criterio que el resto de módulos.
 
@@ -59,7 +59,6 @@ La propiedad "Property1" (desktop/mobile) es responsive real (media query en `76
 ## Componentes relacionados
 
 - **Navigation (header principal)** — barra de navegación reutilizada tal cual (`variant="transparent"`).
+- **Toast** — tarjeta flotante reutilizada tal cual.
 - **UI02-Button** — botón primario del contenido.
-- **Aspect Ratio** — imagen de la tarjeta Toast.
 - **Hero / Section hero** — mismo criterio de centrado por flexbox sobre fondo full-bleed.
-- **Toast** — módulo pendiente que sustituirá a la pieza interna simplificada `HomepageHeroToast` (ver "Comportamiento").
