@@ -1,0 +1,62 @@
+import { Meta, Canvas, Story } from '@storybook/addon-docs/blocks'
+import * as MenuStories from './Menu.stories'
+
+<Meta of={MenuStories} />
+
+# Menu
+
+## Intro
+
+`Menu` traduce el módulo **Menu** de Figma (`node 58182:4350`, COMPONENT_SET con 2 variantes de nombre roto/genérico, ambas capturadas solo a 1440px, sin variante mobile). Mega-menú de escritorio desplegado bajo `Navigation`.
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport.
+
+## Demo
+
+<Canvas of={MenuStories.Categories} />
+
+### Variante galería
+
+<Story of={MenuStories.Gallery} />
+
+## Anatomía
+
+Reutiliza `Navigation` (`variant="default"`) tal cual como cabecera, con un panel desplegable debajo. Dos composiciones reales verificadas con `get_design_context`, correspondientes a submenús de distintos enlaces de `Navigation`:
+
+1. **`variant="categories"`** (submenú "Tienda"): columna de enlaces de categoría (uno activo, en negro con icono) + imagen + tarjeta promo (título + descripción + `ActionLink`).
+2. **`variant="gallery"`** (submenú de otro enlace, p. ej. "Origen"): fila de 4 imagen+leyenda.
+
+## Comportamiento
+
+**Alcance**: sin captura mobile en Figma — se documenta como un patrón exclusivamente de escritorio (un mega-menú desplegable no tiene sentido a anchos mobile; ahí el icono `List` de `Navigation` abriría en su lugar una pantalla de menú a toda página, fuera del alcance de este módulo).
+
+## Tokens
+
+- `--text-body-2` (enlaces de categoría, promo), `--text-body-3` (leyendas de galería).
+- `--color-content-base` (activo), `--color-content-neutral-3` (`#ccc`, inactivo), `--color-content-neutral-2` (`#999`, descripción promo).
+- `--color-surface-neutral-1` (`#f7f7f7`, imagen placeholder).
+- `--spacing-fx-9` (padding del panel, igual criterio que `Navigation`), `--spacing-fx-8` (gap galería), `--spacing-fx-1` (gap entre enlaces de categoría). El gap entre lista de categorías e imagen (34px) no coincide con ninguna primitiva — literal bespoke.
+- Imagen de categorías: `AspectRatio` `ratio="3:4"` (315×420px, coincide exacto). Imagen de galería: proporción literal `1440/933.33` (misma bespoke ya usada en `CardCarrusel` horizontal).
+- `ActionLink` `size="s"` (instancia real de `UI04-Button-Action-Link`, tamaño verificado exacto).
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `variant` | `'categories'` / `'gallery'` | `'categories'` | select |
+| `categoryItems` | Enlaces de categoría (`{ label, href, active }`) | 10 categorías de ejemplo | — |
+| `image` / `imageAlt` | Imagen del submenú de categorías | — | — |
+| `promoTitle` / `promoDescription` / `promoLinkLabel` / `promoLinkHref` | Tarjeta promo | Textos de ejemplo | text |
+| `galleryItems` | Items de galería (`{ image, imageAlt, caption }`) | 4 items de ejemplo | — |
+
+## Accesibilidad
+
+- Los enlaces de categoría son `<a>` reales dentro de una lista `<ul>`.
+- El icono del enlace activo es puramente decorativo (sin `title`, `aria-hidden`).
+
+## Componentes relacionados
+
+- **Navigation (header principal)** — cabecera reutilizada tal cual.
+- **AspectRatio** — imagen del submenú de categorías (`3:4`).
+- **UI04 · Button Action Link** — enlace promo, reutilizado tal cual.
+- **Icon** — `CaretRight` (categoría activa).

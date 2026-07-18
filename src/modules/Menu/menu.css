@@ -1,0 +1,160 @@
+/**
+ * Menu — node 58182:4350 en Figma (COMPONENT_SET, 2 variantes de nombre
+ * roto/genérico: "Property 1=Frame 2087332158" / "Property 1=Frame
+ * 2087332161", ambas capturadas solo a 1440px, sin variante mobile).
+ * Mega-menú de escritorio: reutiliza `Navigation` (`variant="default"`) tal
+ * cual como cabecera, con un panel desplegable debajo.
+ *
+ * **Alcance**: sin captura mobile en Figma, se documenta como un patrón
+ * exclusivamente de escritorio (un mega-menú desplegable no tiene sentido a
+ * anchos mobile de todos modos — ahí el icono `List` de `Navigation` abriría
+ * en su lugar una pantalla de menú a toda página, fuera del alcance de este
+ * módulo).
+ *
+ * **Dos composiciones reales verificadas con `get_design_context`**,
+ * correspondientes a submenús de distintos enlaces de `Navigation`:
+ * - **`variant="categories"`** (submenú "Tienda"): columna de enlaces de
+ *   categoría (activo en negro con icono `CaretRight` — sustituye el vector
+ *   suelto de Figma, mismo criterio que otros iconos ajenos al sistema —,
+ *   inactivos en `Texts/Neutral-3` `#ccc`) + imagen (`AspectRatio` `3:4`,
+ *   315×420px coincide exactamente) + tarjeta promo (título + descripción +
+ *   `ActionLink` `size="s"`, instancia real de `UI04-Button-Action-Link`
+ *   verificada con `Typography/CTA-XS`+`CTA-S/LH` — coincide exactamente con
+ *   el tamaño `s` ya construido, sin CSS propio).
+ * - **`variant="gallery"`** (submenú de otro enlace, ej. "Origen"): fila de
+ *   4 imagen+leyenda, proporción `1440/933.33` literal (misma proporción
+ *   bespoke ya usada en `CardCarrusel` horizontal, no una de las 7 fijas de
+ *   `AspectRatio` — implementada con `aspect-ratio` inline, sin componente).
+ *
+ * **Tokens verificados**: `--text-body-2` (enlaces de categoría, promo),
+ * color activo `--color-content-base`, inactivo `--color-content-neutral-3`
+ * (`#ccc`), descripción promo `--color-content-neutral-2` (`#999`), imagen
+ * placeholder `--color-surface-neutral-1` (`#f7f7f7`). Padding del panel
+ * `40px` = primitiva fija `--spacing-fx-9` (no `--grid-margin-default`,
+ * igual criterio que `Navigation`). Gap `32px` entre columnas del panel de
+ * galería = `--spacing-fx-8`. El gap entre la lista de categorías y su
+ * imagen (`34px`) no coincide con ninguna primitiva (`fx-8`=32, `fx-9`=40)
+ * — se deja como literal bespoke, documentado aquí.
+ */
+
+.menu {
+  width: 100%;
+  background: var(--color-surface-base);
+}
+
+.menu__panel {
+  padding: var(--spacing-fx-9);
+}
+
+.menu__panel--categories {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-fx-9);
+}
+
+.menu__categories {
+  display: flex;
+  align-items: flex-start;
+  gap: 34px;
+  flex: 1 0 0;
+}
+
+.menu__category-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-fx-1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1 0 0;
+}
+
+.menu__category-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-fx-1);
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-2);
+  line-height: var(--text-body-2--line-height);
+  color: var(--color-content-neutral-3);
+  text-decoration: none;
+}
+
+.menu__category-link[data-active] {
+  color: var(--color-content-base);
+}
+
+.menu__category-icon {
+  flex-shrink: 0;
+}
+
+.menu__categories-image {
+  width: 315px;
+  flex-shrink: 0;
+}
+
+.menu__promo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-fx-6);
+  width: 316px;
+  flex-shrink: 0;
+}
+
+.menu__promo-title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-2);
+  line-height: var(--text-body-2--line-height);
+  color: var(--color-content-base);
+}
+
+.menu__promo-description {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-2);
+  line-height: var(--text-body-2--line-height);
+  color: var(--color-content-neutral-2);
+}
+
+.menu__panel--gallery {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-fx-8);
+}
+
+.menu__gallery-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-fx-5);
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+.menu__gallery-image {
+  width: 100%;
+  aspect-ratio: 1440 / 933.33;
+  background: var(--color-surface-neutral-1);
+}
+
+.menu__gallery-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.menu__gallery-caption {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-3);
+  line-height: var(--text-body-3--line-height);
+  color: var(--color-content-base);
+  white-space: nowrap;
+}
