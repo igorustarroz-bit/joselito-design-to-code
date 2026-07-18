@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as HeroHomepageHeroStories from './HeroHomepageHero.stories'
 
 <Meta of={HeroHomepageHeroStories} />
@@ -22,7 +22,7 @@ Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100%
 3. **Contenido central** — label + título (`--text-title-5`) + botón primario, centrados sobre la imagen.
 4. **Toast** — tarjeta flotante (imagen + título + descripción) anclada a la esquina inferior.
 
-<Story of={HeroHomepageHeroStories.NoToast} />
+<Canvas of={HeroHomepageHeroStories.NoToast} />
 
 ## Comportamiento
 

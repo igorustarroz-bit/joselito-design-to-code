@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as CardCarruselStories from './CardCarrusel.stories'
 
 <Meta of={CardCarruselStories} />
@@ -20,13 +20,13 @@ Una imagen + un bloque de título, tags y enlace de acción:
 - **`layout="vertical"`** (por defecto): imagen arriba, texto abajo — pensada como item estrecho dentro de un carrusel horizontal de varias tarjetas.
 - **`layout="horizontal"`**: imagen a la izquierda (ocupa el espacio disponible), texto a la derecha con el enlace anclado abajo — pensada como pieza destacada única.
 
-<Story of={CardCarruselStories.Horizontal} />
+<Canvas of={CardCarruselStories.Horizontal} />
 
 ## Comportamiento
 
 Es puramente presentacional: no gestiona el desplazamiento del carrusel en sí (eso corresponde al módulo que use varias `CardCarrusel`, p. ej. "Cards / Product carousel", pendiente) — solo recibe `onClick`/`href` para el enlace de acción.
 
-<Story of={CardCarruselStories.NoTags} />
+<Canvas of={CardCarruselStories.NoTags} />
 
 ## Tokens
 

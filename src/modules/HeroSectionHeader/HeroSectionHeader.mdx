@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as HeroSectionHeaderStories from './HeroSectionHeader.stories'
 
 <Meta of={HeroSectionHeaderStories} />
@@ -22,7 +22,7 @@ Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100%
 
 En desktop (≥768px), título y descripción van en fila (6 columnas cada uno, grid de 12). En mobile se apilan.
 
-<Story of={HeroSectionHeaderStories.NoDescription} />
+<Canvas of={HeroSectionHeaderStories.NoDescription} />
 
 ## Comportamiento
 

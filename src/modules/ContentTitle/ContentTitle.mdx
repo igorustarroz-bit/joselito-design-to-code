@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as ContentTitleStories from './ContentTitle.stories'
 
 <Meta of={ContentTitleStories} />
@@ -23,9 +23,9 @@ Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100%
 
 En desktop (≥768px), título y aside van en fila (título en columna fija de 652px, aside pegado a la derecha). En mobile, todo se apila en columna.
 
-<Story of={ContentTitleStories.WithButton} />
-<Story of={ContentTitleStories.NoDescription} />
-<Story of={ContentTitleStories.NoLabel} />
+<Canvas of={ContentTitleStories.WithButton} />
+<Canvas of={ContentTitleStories.NoDescription} />
+<Canvas of={ContentTitleStories.NoLabel} />
 
 ## Comportamiento
 

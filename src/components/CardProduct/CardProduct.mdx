@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as CardProductStories from './CardProduct.stories'
 
 <Meta of={CardProductStories} />
@@ -26,9 +26,9 @@ import * as CardProductStories from './CardProduct.stories'
 
 Es puramente presentacional: no gestiona favoritos, carrito ni ningún estado propio — solo recibe `onClick`/`href` para el enlace de acción, igual criterio que el resto del sistema.
 
-<Story of={CardProductStories.NoTag} />
-<Story of={CardProductStories.NoTagsStars} />
-<Story of={CardProductStories.Minimal} />
+<Canvas of={CardProductStories.NoTag} />
+<Canvas of={CardProductStories.NoTagsStars} />
+<Canvas of={CardProductStories.Minimal} />
 
 ## Tokens
 

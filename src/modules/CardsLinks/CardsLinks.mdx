@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as CardsLinksStories from './CardsLinks.stories'
 
 <Meta of={CardsLinksStories} />
@@ -20,7 +20,7 @@ Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100%
 1. **Cabecera** — `ContentTitle` con su tamaño de título por defecto (`titleSize="title-4"`, el estándar del componente).
 2. **Fila de tarjetas** — instancias de `CardLink` (imagen + título + precio), 2 por fila en ambos breakpoints.
 
-<Story of={CardsLinksStories.FourCards} />
+<Canvas of={CardsLinksStories.FourCards} />
 
 ## Comportamiento
 

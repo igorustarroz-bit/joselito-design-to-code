@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as CardsProductCarouselStories from './CardsProductCarousel.stories'
 
 <Meta of={CardsProductCarouselStories} />
@@ -20,7 +20,7 @@ Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100%
 1. **Cabecera** — reutiliza el componente `Title` ("Arrow+title" + "Main_Secondary-Link" en Figma) — primer uso real de `Title` en un módulo.
 2. **Fila de tarjetas** — instancias de `CardProduct` con badge ("Top ventas"), tags de ubicación y valoración por estrellas activos.
 
-<Story of={CardsProductCarouselStories.MobileStack} />
+<Canvas of={CardsProductCarouselStories.MobileStack} />
 
 ## Comportamiento
 

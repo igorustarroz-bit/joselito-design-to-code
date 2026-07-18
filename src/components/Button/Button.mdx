@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as ButtonStories from './Button.stories'
 
 <Meta of={ButtonStories} />
@@ -43,10 +43,10 @@ Tres tipos — **Primary** (acción principal, fondo sólido), **Secondary** (ac
 <Canvas of={ButtonStories.AllTypes} />
 <Canvas of={ButtonStories.AllSizes} />
 
-<Story of={ButtonStories.WithIcons} />
-<Story of={ButtonStories.Selected} />
-<Story of={ButtonStories.Disabled} />
-<Story of={ButtonStories.AsLink} />
+<Canvas of={ButtonStories.WithIcons} />
+<Canvas of={ButtonStories.Selected} />
+<Canvas of={ButtonStories.Disabled} />
+<Canvas of={ButtonStories.AsLink} />
 
 ## Tokens
 

@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as CardsCategoriesStories from './CardsCategories.stories'
 
 <Meta of={CardsCategoriesStories} />
@@ -22,7 +22,7 @@ Dos variantes de composición, identificadas cruzando las 4 variantes de Figma (
 1. **`variant="header"`** — título + iconos de redes sociales (`XLogo`/`FacebookLogo`/`InstagramLogo`/`LinkedinLogo`/`TiktokLogo`) + fila de miniaturas con leyenda "@handle" bajo cada una.
 2. **`variant="footer"`** — sin título ni iconos; fila de miniaturas centrada + leyenda final centrada ("SÍGUENOS" / "@HANDLE").
 
-<Story of={CardsCategoriesStories.Footer} />
+<Canvas of={CardsCategoriesStories.Footer} />
 
 ## Comportamiento
 

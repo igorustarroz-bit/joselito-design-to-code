@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as ListTimelineStories from './ListTimeline.stories'
 
 <Meta of={ListTimelineStories} />
@@ -21,7 +21,7 @@ Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100%
 2. **Selector de años** — lista de años, uno activo (negro) y el resto en gris, con una marca ("tick") junto al año activo.
 3. **Contenido** — título + texto + imagen (`AspectRatio` `ratio="2:3"`) del año seleccionado.
 
-<Story of={ListTimelineStories.Interactive} />
+<Canvas of={ListTimelineStories.Interactive} />
 
 ## Comportamiento
 

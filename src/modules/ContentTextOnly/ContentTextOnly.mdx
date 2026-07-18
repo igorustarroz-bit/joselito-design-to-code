@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as ContentTextOnlyStories from './ContentTextOnly.stories'
 
 <Meta of={ContentTextOnlyStories} />
@@ -20,15 +20,15 @@ import * as ContentTextOnlyStories from './ContentTextOnly.stories'
 
 En mobile (por debajo de 768px) las tres variantes colapsan al mismo layout apilado de una sola columna — la propiedad "Device" de Figma se tradujo como responsive real (media query en `768px`), no como prop.
 
-<Story of={ContentTextOnlyStories.TwoColumn} />
-<Story of={ContentTextOnlyStories.OneColumn} />
+<Canvas of={ContentTextOnlyStories.TwoColumn} />
+<Canvas of={ContentTextOnlyStories.OneColumn} />
 
 ## Comportamiento
 
 `columns` es un array de columnas (cada una, a su vez, un array de párrafos) — permite cubrir tanto 1 columna (`split`/`1-column`) como 2 (`2-column`) con una única prop, sin necesitar props distintas por variante. Los párrafos dentro de una misma columna no llevan separación extra entre sí en Figma (se apoyan solo en el `line-height`) — se respetó tal cual.
 
-<Story of={ContentTextOnlyStories.SplitWithButton} />
-<Story of={ContentTextOnlyStories.NoLabel} />
+<Canvas of={ContentTextOnlyStories.SplitWithButton} />
+<Canvas of={ContentTextOnlyStories.NoLabel} />
 
 ## Variantes y tamaños
 

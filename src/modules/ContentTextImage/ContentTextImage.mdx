@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as ContentTextImageStories from './ContentTextImage.stories'
 
 <Meta of={ContentTextImageStories} />
@@ -26,9 +26,9 @@ En mobile (por debajo de 768px de ancho) se apila siempre en columna, con la ima
 
 La propiedad "Device" de Figma (desktop/mobile) **no se tradujo como prop**: es responsive real, resuelto con una media query en `768px` (el mismo breakpoint "m" en el que ya cambia `--grid-margin-default` en `responsive.css`) — no son dos componentes distintos. La propiedad "Layout" (text-left/text-right) sí es una decisión de diseño real y se tradujo como la prop `layout`: decide en qué lado aparece la imagen a partir de 768px, resuelto con `order` de flexbox (el orden en el DOM no cambia).
 
-<Story of={ContentTextImageStories.TextLeft} />
-<Story of={ContentTextImageStories.WithButton} />
-<Story of={ContentTextImageStories.NoLabel} />
+<Canvas of={ContentTextImageStories.TextLeft} />
+<Canvas of={ContentTextImageStories.WithButton} />
+<Canvas of={ContentTextImageStories.NoLabel} />
 
 ## Variantes y tamaños
 

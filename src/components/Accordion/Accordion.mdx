@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as AccordionStories from './Accordion.stories'
 
 <Meta of={AccordionStories} />
@@ -26,8 +26,8 @@ Cada `AccordionItem` es una caja con fondo (`Backgrounds/Neutral-1`) y esquinas 
 
 Igual criterio presentacional que `Tabs` y `CheckboxList`: ni `Accordion` ni `AccordionItem` gestionan qué panel está abierto — la app controla cada `AccordionItem` con su propia prop `open` y el handler `onToggle`. Esto permite tanto un acordeón "solo un panel abierto a la vez" (ver Demo) como varios paneles abiertos simultáneamente, según decida quien lo use.
 
-<Story of={AccordionStories.ItemClosed} />
-<Story of={AccordionStories.ItemOpen} />
+<Canvas of={AccordionStories.ItemClosed} />
+<Canvas of={AccordionStories.ItemOpen} />
 
 ## Tokens
 

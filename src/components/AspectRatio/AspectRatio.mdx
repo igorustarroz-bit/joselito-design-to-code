@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as AspectRatioStories from './AspectRatio.stories'
 
 <Meta of={AspectRatioStories} />
@@ -21,7 +21,7 @@ Un `<div>` con `aspect-ratio` CSS fijo y `overflow: hidden`, que contiene una `<
 
 Es puramente presentacional: no recorta ni redimensiona la imagen en JavaScript, solo aplica la relación de aspecto vía CSS nativo (`aspect-ratio`) — sin librerías externas.
 
-<Story of={AspectRatioStories.Placeholder} />
+<Canvas of={AspectRatioStories.Placeholder} />
 
 ## Variantes y tamaños
 

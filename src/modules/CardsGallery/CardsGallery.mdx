@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as CardsGalleryStories from './CardsGallery.stories'
 
 <Meta of={CardsGalleryStories} />
@@ -21,7 +21,7 @@ Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100%
 2. **Fila de tarjetas** ("cards slider") — instancias de `CardProduct` ya construido, sin tags/estrellas ni badge en esta instancia.
 3. **Lightbox** (estado "expanded" de Figma) — imagen grande + pie "N/M" + flechas prev/next (`ButtonIcon`) + botón de cierre.
 
-<Story of={CardsGalleryStories.WithLightbox} />
+<Canvas of={CardsGalleryStories.WithLightbox} />
 
 ## Comportamiento
 

@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as ContentImageOnlyStories from './ContentImageOnly.stories'
 
 <Meta of={ContentImageOnlyStories} />
@@ -20,7 +20,7 @@ Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100%
 - **1 imagen**: una única `AspectRatio` (`ratio="16:9"`) a todo el ancho del módulo.
 - **2 imágenes**: dos `AspectRatio` (`ratio="3:4"` cada una) en fila, con anchos asimétricos fijos (una más estrecha que la otra, replicando las instancias de ejemplo de Figma).
 
-<Story of={ContentImageOnlyStories.TwoImages} />
+<Canvas of={ContentImageOnlyStories.TwoImages} />
 
 ## Comportamiento
 

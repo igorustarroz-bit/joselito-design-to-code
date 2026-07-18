@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as ListCharacteristicsStories from './ListCharacteristics.stories'
 
 <Meta of={ListCharacteristicsStories} />
@@ -20,7 +20,7 @@ Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100%
 1. **Cabecera** — reutiliza el módulo `ContentTitle` ya construido (mismo master "Content / Title" de Figma, instanciado aquí sin label/descripción/botón/enlace: la instancia original de Figma deja ese bloque derecho vacío).
 2. **Fila de características** (`z_fragment_list_characteristic`) — número, título y texto, repetidos N veces vía el array `items`.
 
-<Story of={ListCharacteristicsStories.TwoItems} />
+<Canvas of={ListCharacteristicsStories.TwoItems} />
 
 ## Comportamiento
 

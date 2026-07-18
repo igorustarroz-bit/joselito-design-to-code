@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as ContentIntroTextStories from './ContentIntroText.stories'
 
 <Meta of={ContentIntroTextStories} />
@@ -23,7 +23,7 @@ Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100%
 
 En desktop (≥768px) todo el bloque está centrado (texto y botón), con el texto limitado a un ancho máximo de 1058px. En mobile se alinea a la izquierda, sin límite de ancho, y el bloque entero queda enmarcado por un borde de 1px.
 
-<Story of={ContentIntroTextStories.NoButton} />
+<Canvas of={ContentIntroTextStories.NoButton} />
 
 ## Comportamiento
 

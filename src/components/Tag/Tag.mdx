@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as TagStories from './Tag.stories'
 
 <Meta of={TagStories} />
@@ -17,8 +17,8 @@ import * as TagStories from './Tag.stories'
 
 Un único `<span>` con fondo de color sólido, esquinas redondeadas y texto en mayúsculas centrado — sin icono, sin borde, sin estados de interacción (Figma no define Hover/Focus/Disabled para este componente).
 
-<Story of={TagStories.New} />
-<Story of={TagStories.Aseptic} />
+<Canvas of={TagStories.New} />
+<Canvas of={TagStories.Aseptic} />
 
 ## Comportamiento
 
@@ -40,7 +40,7 @@ Un único `<span>` con fondo de color sólido, esquinas redondeadas y texto en m
 <Canvas of={TagStories.AllTypes} />
 <Canvas of={TagStories.AllSizes} />
 
-<Story of={TagStories.CustomText} />
+<Canvas of={TagStories.CustomText} />
 
 ## Tokens
 

@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as TitleStories from './Title.stories'
 
 <Meta of={TitleStories} />
@@ -24,8 +24,8 @@ Una fila (`justify-content: space-between`) con:
 
 El enlace renderiza `<a href>` si se pasa `href`, o `<button>` si no — mismo criterio que `Button`/`ActionLink`. Si `showLink` es `false`, solo se muestra el título.
 
-<Story of={TitleStories.NoLink} />
-<Story of={TitleStories.CustomLinkText} />
+<Canvas of={TitleStories.NoLink} />
+<Canvas of={TitleStories.CustomLinkText} />
 
 **Retrofit (detectado en su primer uso real, Cards / Product carousel)**: este componente se había verificado originalmente de forma estática, sin instanciarlo en un módulo real. Al usarlo por primera vez se detectaron, verificadas con `use_figma` (`boundVariables` de dos instancias reales, desktop y mobile, no asumidas):
 

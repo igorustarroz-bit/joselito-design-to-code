@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as CheckboxListStories from './CheckboxList.stories'
 
 <Meta of={CheckboxListStories} />
@@ -21,7 +21,7 @@ Un `<div role="group">` en flex que distribuye sus hijos (`CheckboxLabel`) en co
 
 `CheckboxList` no gestiona selección ni estado: cada `CheckboxLabel` hijo recibe su propio `checked`/`onChange` desde la aplicación — mismo criterio presentacional que el resto del sistema (Tabs, Listbox, etc.).
 
-<Story of={CheckboxListStories.WithDisabled} />
+<Canvas of={CheckboxListStories.WithDisabled} />
 
 ## Variantes y tamaños
 

@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as CheckboxRadioStories from './CheckboxRadio.stories'
 
 <Meta of={CheckboxRadioStories} />
@@ -33,12 +33,12 @@ Cambia el selector **"Tema"** en la barra de herramientas de Storybook — todos
 - **Focus** usa el `:focus-visible` nativo con un anillo de color con contraste suficiente.
 - **Disabled** usa el atributo nativo `disabled`; combinado con `checked` muestra el relleno atenuado (`Backgrounds/Neutral-3`) en vez del color de acento.
 
-<Story of={CheckboxRadioStories.CheckboxChecked} />
-<Story of={CheckboxRadioStories.CheckboxDisabled} />
-<Story of={CheckboxRadioStories.CheckboxCheckedDisabled} />
-<Story of={CheckboxRadioStories.RadioGroup} />
-<Story of={CheckboxRadioStories.RadioDisabled} />
-<Story of={CheckboxRadioStories.RadioCheckedDisabled} />
+<Canvas of={CheckboxRadioStories.CheckboxChecked} />
+<Canvas of={CheckboxRadioStories.CheckboxDisabled} />
+<Canvas of={CheckboxRadioStories.CheckboxCheckedDisabled} />
+<Canvas of={CheckboxRadioStories.RadioGroup} />
+<Canvas of={CheckboxRadioStories.RadioDisabled} />
+<Canvas of={CheckboxRadioStories.RadioCheckedDisabled} />
 
 ## Tokens
 

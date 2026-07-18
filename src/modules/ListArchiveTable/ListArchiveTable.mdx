@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as ListArchiveTableStories from './ListArchiveTable.stories'
 
 <Meta of={ListArchiveTableStories} />
@@ -21,7 +21,7 @@ Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100%
 2. **Filas** — fecha (`--text-body-5`) + texto (`--text-body-6`), separadas por un borde superior fuerte (`--color-icon-base`, negro).
 3. **Miniatura hover** — imagen (`AspectRatio` `ratio="2:3"`, 190×285) que aparece flotando sobre la fila al pasar el ratón o al enfocarla por teclado.
 
-<Story of={ListArchiveTableStories.TwoItems} />
+<Canvas of={ListArchiveTableStories.TwoItems} />
 
 ## Comportamiento
 

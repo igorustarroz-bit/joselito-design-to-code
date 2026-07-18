@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as ListNumbersStories from './ListNumbers.stories'
 
 <Meta of={ListNumbersStories} />
@@ -20,7 +20,7 @@ Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100%
 1. **Cabecera** — reutiliza `ContentTitle` con `titleSize="title-1"` (sin label/descripción/botón/enlace).
 2. **Filas de "big numbers"** (`z_fragment_list_BigNumbers`) — número/dato grande (`--text-title-5`) + texto (`--text-body-5`), cada una con borde superior.
 
-<Story of={ListNumbersStories.TwoItems} />
+<Canvas of={ListNumbersStories.TwoItems} />
 
 ## Comportamiento
 

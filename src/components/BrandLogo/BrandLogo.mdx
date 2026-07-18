@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as BrandLogoStories from './BrandLogo.stories'
 
 <Meta of={BrandLogoStories} />
@@ -19,7 +19,7 @@ import * as BrandLogoStories from './BrandLogo.stories'
 
 Es puramente presentacional — un SVG estático, sin lógica de tema ni de interacción. Figma no define ninguna variable de Semantic-Color enlazada a los fills de este componente (verificado con `use_figma`: `boundVariables` vacío) — es una marca monocroma fija, no reactiva a los 5 temas del sistema. El SVG fuente usa `fill="currentColor"` (transformado desde el `fill="black"` que exporta Figma por defecto) para permitir invertir el color por CSS si hiciera falta (p. ej. sobre un fondo oscuro), aunque Figma no define explícitamente esa variante.
 
-<Story of={BrandLogoStories.CustomSize} />
+<Canvas of={BrandLogoStories.CustomSize} />
 
 ## Variantes y tamaños
 

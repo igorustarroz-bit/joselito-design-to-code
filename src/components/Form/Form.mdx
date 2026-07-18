@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as FormStories from './Form.stories'
 
 <Meta of={FormStories} />
@@ -26,10 +26,10 @@ Un `<form>` en columna (`gap: 24px`) con hasta cuatro bloques, todos opcionales 
 
 `Form` es puramente estructural: no valida ni gestiona el estado de sus campos — la aplicación controla cada `Input`/`CheckboxLabel` hijo y recibe `onCancel`/`onAccept` en los botones. Mismo criterio presentacional que el resto del sistema (Tabs, Listbox, CheckboxList).
 
-<Story of={FormStories.NoHeader} />
-<Story of={FormStories.NoDescription} />
-<Story of={FormStories.OnlyAcceptButton} />
-<Story of={FormStories.NoButtonRow} />
+<Canvas of={FormStories.NoHeader} />
+<Canvas of={FormStories.NoDescription} />
+<Canvas of={FormStories.OnlyAcceptButton} />
+<Canvas of={FormStories.NoButtonRow} />
 
 ## Variantes y tamaños
 
@@ -37,8 +37,8 @@ Figma define dos fragmentos de layout para agrupar inputs en una fila de igual a
 
 <Canvas of={FormStories.AllRowVariants} />
 
-<Story of={FormStories.TwoInputRow} />
-<Story of={FormStories.ThreeInputRow} />
+<Canvas of={FormStories.TwoInputRow} />
+<Canvas of={FormStories.ThreeInputRow} />
 
 ## Tokens
 

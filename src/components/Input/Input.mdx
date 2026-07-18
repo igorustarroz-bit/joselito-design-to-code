@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as InputStories from './Input.stories'
 
 <Meta of={InputStories} />
@@ -45,10 +45,10 @@ Dos tamaños — **Big** (72px de alto) y **Small** (56px) — y dos tipos: **De
 <Canvas of={InputStories.AllSizes} />
 <Canvas of={InputStories.AllTypes} />
 
-<Story of={InputStories.Error} />
-<Story of={InputStories.Validated} />
-<Story of={InputStories.Disabled} />
-<Story of={InputStories.NoIcon} />
+<Canvas of={InputStories.Error} />
+<Canvas of={InputStories.Validated} />
+<Canvas of={InputStories.Disabled} />
+<Canvas of={InputStories.NoIcon} />
 
 ## Tokens
 

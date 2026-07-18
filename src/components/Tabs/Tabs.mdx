@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as TabsStories from './Tabs.stories'
 
 <Meta of={TabsStories} />
@@ -40,9 +40,9 @@ Dos variantes de tamaño — **Primary** (40px de alto, más prominente) y **Sec
 
 <Canvas of={TabsStories.AllVariants} />
 
-<Story of={TabsStories.SingleTabSelected} />
-<Story of={TabsStories.SingleTabDisabled} />
-<Story of={TabsStories.NoIcons} />
+<Canvas of={TabsStories.SingleTabSelected} />
+<Canvas of={TabsStories.SingleTabDisabled} />
+<Canvas of={TabsStories.NoIcons} />
 
 ## Tokens
 

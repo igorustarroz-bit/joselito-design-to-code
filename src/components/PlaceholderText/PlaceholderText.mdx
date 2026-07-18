@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as PlaceholderTextStories from './PlaceholderText.stories'
 
 <Meta of={PlaceholderTextStories} />
@@ -17,13 +17,13 @@ import * as PlaceholderTextStories from './PlaceholderText.stories'
 
 Un único `<p>` (o el elemento indicado en `as`) con tipografía Body/02 y color de texto base — sin icono, sin caja, sin estados.
 
-<Story of={PlaceholderTextStories.CustomText} />
+<Canvas of={PlaceholderTextStories.CustomText} />
 
 ## Comportamiento
 
 Es puramente presentacional: no tiene lógica ni estados. Sirve como bloque de texto genérico dentro de módulos más grandes (p. ej. una introducción o descripción corta) cuando no hace falta un componente de texto más específico (título, mensaje de campo, etc.).
 
-<Story of={PlaceholderTextStories.AsSpan} />
+<Canvas of={PlaceholderTextStories.AsSpan} />
 
 ## Tokens
 

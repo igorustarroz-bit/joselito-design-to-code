@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as CardLinkStories from './CardLink.stories'
 
 <Meta of={CardLinkStories} />
@@ -21,7 +21,7 @@ Una imagen a pantalla completa (ratio 300:400) con un bloque de texto (título +
 
 Renderiza `<a href>` si se pasa `href`, o `<button>` si no (mismo criterio que `Button`/`ActionLink`) — toda la tarjeta es el elemento clicable, no solo el texto.
 
-<Story of={CardLinkStories.AsButton} />
+<Canvas of={CardLinkStories.AsButton} />
 
 ## Tokens
 

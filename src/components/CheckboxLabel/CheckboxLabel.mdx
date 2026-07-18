@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as CheckboxLabelStories from './CheckboxLabel.stories'
 
 <Meta of={CheckboxLabelStories} />
@@ -29,9 +29,9 @@ Al usar un `<label for="...">` real asociado al `id` del `<input>`, clicar el te
 - **Disabled** (marcado o no): el texto pasa de `Texts/Neutral-1` a `Texts/Neutral-2` (más tenue) y el cursor cambia a `not-allowed`.
 - La variante Figma "Estado=Undefined" (`node 43246:12108`) es visualmente idéntica a "Selected" — se trata como un duplicado/placeholder de Figma, no como un estado real, y no tiene equivalente como prop.
 
-<Story of={CheckboxLabelStories.Selected} />
-<Story of={CheckboxLabelStories.Disabled} />
-<Story of={CheckboxLabelStories.DisabledSelected} />
+<Canvas of={CheckboxLabelStories.Selected} />
+<Canvas of={CheckboxLabelStories.Disabled} />
+<Canvas of={CheckboxLabelStories.DisabledSelected} />
 
 ## Tamaños
 
@@ -40,8 +40,8 @@ Al usar un `<label for="...">` real asociado al `id` del `<input>`, clicar el te
 | Medium (por defecto) | 20×20px | Body/03 — 16px/24px |
 | Small | 16×16px | Body/02 — 14px/22px |
 
-<Story of={CheckboxLabelStories.Small} />
-<Story of={CheckboxLabelStories.SmallSelected} />
+<Canvas of={CheckboxLabelStories.Small} />
+<Canvas of={CheckboxLabelStories.SmallSelected} />
 
 ## Temas
 

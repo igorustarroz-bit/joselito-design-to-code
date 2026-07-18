@@ -1,4 +1,4 @@
-import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
 import * as CardsShowcaseStories from './CardsShowcase.stories'
 
 <Meta of={CardsShowcaseStories} />
@@ -20,7 +20,7 @@ Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100%
 1. **Cabecera** — reutiliza `Title` (mismos tokens ya corregidos en Cards / Product carousel).
 2. **Tarjetas** — 1 o 2 instancias de `CardCarrusel` ya construido, en su variante `layout="horizontal"` (desktop) o `layout="vertical"` (mobile).
 
-<Story of={CardsShowcaseStories.SingleCardNoBorder} />
+<Canvas of={CardsShowcaseStories.SingleCardNoBorder} />
 
 ## Comportamiento
 
