@@ -1,0 +1,57 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as CardsProductCarouselStories from './CardsProductCarousel.stories'
+
+<Meta of={CardsProductCarouselStories} />
+
+# Cards / Product carousel
+
+## Intro
+
+`CardsProductCarousel` traduce el módulo **Cards / Product carousel** de Figma (`node 58163:83548`, COMPONENT_SET: Property1=Desktop/Mobile/Mobile 2 — 3 variantes confirmadas inspeccionando el COMPONENT_SET). Cabecera + fila de tarjetas `CardProduct`.
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport.
+
+## Demo
+
+<Canvas of={CardsProductCarouselStories.Default} />
+
+## Anatomía
+
+1. **Cabecera** — reutiliza el componente `Title` ("Arrow+title" + "Main_Secondary-Link" en Figma) — primer uso real de `Title` en un módulo.
+2. **Fila de tarjetas** — instancias de `CardProduct` con badge ("Top ventas"), tags de ubicación y valoración por estrellas activos.
+
+<Story of={CardsProductCarouselStories.MobileStack} />
+
+## Comportamiento
+
+**Retrofit de `Title` detectado aquí**: al instanciar `Title` por primera vez en un módulo real (verificado con `use_figma` en dos instancias, desktop y mobile) se detectaron dos correcciones ya aplicadas directamente en el componente compartido (ver `Title.mdx`): el título usa un tamaño discreto distinto por breakpoint (Body/03 mobile, Body/04 desktop, no solo el escalado fluido de un token) y el color del enlace es realmente `Texts/Neutral 2` (no Neutral 1 como se había asumido).
+
+**Dos variantes mobile en Figma** ("Mobile" y "Mobile 2"): la primera es un carrusel horizontal con scroll, la segunda una lista vertical de una columna. Se modelan con la prop `mobileLayout` (`'carousel'` por defecto / `'stack'`) en vez de crear dos módulos separados, ya que solo cambia el layout de la fila de tarjetas, no la cabecera ni el contenido de cada tarjeta.
+
+**Reutilización de `CardProduct` con sus props completas**: a diferencia de Cards / Gallery (que oculta tags/estrellas), este módulo es la primera instancia real que activa `tag`, `locationTags` y `rating` de `CardProduct`, confirmando que esas props ya construidas encajan tal cual con esta nueva instancia de Figma sin necesitar cambios.
+
+**Grid de 12 columnas**: los paddings horizontales (80px desktop/24px mobile) no coinciden con `--grid-margin-default` (60px/20px) — literales propios de este módulo, verificados en ambas instancias de Figma. El gap de la fila desktop (148px) y el ancho de tarjeta (329px desktop/281px mobile) tampoco cuadran limpiamente con el grid de 12 columnas — se dejan como literales bespoke.
+
+## Tokens
+
+Ningún token nuevo — reutiliza los ya existentes de `Title` y `CardProduct`, más `--color-surface-base`.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `title` | Título de la cabecera | `'Nuestra selección'` | text |
+| `linkText` / `href` / `onClick` | Texto y destino del enlace de la cabecera | `'Ver todos'` | text |
+| `mobileLayout` | Layout de la fila en mobile (`'carousel'`/`'stack'`) | `'carousel'` | select |
+| `cards` | Array de tarjetas (props de `CardProduct`) | 3 tarjetas de ejemplo | — |
+
+## Accesibilidad
+
+- La cabecera reutiliza `Title`, ya accesible (`<h2>`, enlace nativo con foco visible).
+- Cada tarjeta reutiliza `CardProduct`, ya accesible (enlace de acción real, valoración con `aria-label`).
+
+## Componentes relacionados
+
+- **Title** — cabecera del módulo (primer uso real, disparó su propio retrofit).
+- **Card Product** — tarjeta de la fila.
+- **Cards / Gallery** — mismo patrón de fila de `CardProduct`, sin tags/estrellas.

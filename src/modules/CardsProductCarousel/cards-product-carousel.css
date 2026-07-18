@@ -1,0 +1,76 @@
+/**
+ * Cards / Product carousel — node 58163:83548 en Figma (COMPONENT_SET:
+ * Property1=Desktop/Mobile/Mobile 2, 3 variantes confirmadas
+ * inspeccionando el COMPONENT_SET).
+ *
+ * Cabecera: reutiliza el componente `Title` ya construido ("Arrow+title" +
+ * "Main_Secondary-Link" en Figma) — primer uso real de `Title` en un
+ * módulo, que reveló dos correcciones ya aplicadas directamente en
+ * `Title`/`title.css` (ver su documentación): tamaño discreto por
+ * breakpoint (Body/03 mobile, Body/04 desktop) y color de enlace real
+ * `Texts/Neutral 2` (no Neutral 1 como se había asumido).
+ *
+ * Fila de tarjetas: reutiliza `CardProduct` ya construido, con `tag`,
+ * `locationTags` y `rating` activos (a diferencia de Cards / Gallery, que
+ * los oculta) — primera instancia real de esas props en un módulo.
+ *
+ * **Dos variantes mobile en Figma** ("Mobile" y "Mobile 2"): la primera es
+ * un carrusel horizontal (scroll), la segunda una lista vertical de una
+ * columna (`list_elements`, gap 48px). Se modelan con la prop
+ * `mobileLayout` (`'carousel'` por defecto / `'stack'`) en vez de crear dos
+ * módulos distintos, ya que solo cambia el layout de la fila, no el
+ * contenido ni la cabecera.
+ *
+ * Grid de 12 columnas: los paddings horizontales (80px desktop/24px
+ * mobile) no coinciden con `--grid-margin-default` (60px/20px) — literales
+ * propios de este módulo, verificados en ambas instancias de Figma. El gap
+ * de la fila desktop (148px) y el ancho de tarjeta (329px desktop/281px
+ * mobile) tampoco cuadran limpiamente con el grid de 12 columnas — se
+ * dejan como literales bespoke.
+ */
+.cards-product-carousel {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  padding: 40px 24px 64px;
+  background: var(--color-surface-base);
+}
+
+.cards-product-carousel__row {
+  display: flex;
+  gap: 32px;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.cards-product-carousel__row > * {
+  width: 281px;
+  flex-shrink: 0;
+}
+
+.cards-product-carousel--stack .cards-product-carousel__row {
+  flex-direction: column;
+  overflow-x: visible;
+  gap: 48px;
+}
+
+.cards-product-carousel--stack .cards-product-carousel__row > * {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .cards-product-carousel {
+    gap: 48px;
+    padding: 68px 80px;
+  }
+
+  .cards-product-carousel__row {
+    gap: 148px;
+    justify-content: center;
+  }
+
+  .cards-product-carousel__row > * {
+    width: 329px;
+  }
+}

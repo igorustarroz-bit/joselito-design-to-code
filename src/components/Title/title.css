@@ -3,10 +3,24 @@
  * Cabecera de sección: título a la izquierda + enlace "Ver todos" con
  * chevron opcional a la derecha.
  *
- * Ningún token nuevo — reutiliza globales ya existentes, verificado
- * literalmente en `get_design_context`:
- *   - Título: --text-body-4 / --text-body-4--line-height, --color-content-base
- *   - Enlace: --text-body-3 / --text-body-3--line-height, --color-content-neutral-1
+ * **Retrofit (detectado en su primer uso real, Cards / Product carousel)**:
+ * este componente se había verificado originalmente solo de forma estática
+ * (un tamaño fijo). Al instanciarlo por primera vez en un módulo real se
+ * detectaron dos correcciones, ambas verificadas con `use_figma`
+ * (`boundVariables`, no asumidas):
+ *   1. El título usa un estilo tipográfico DISCRETO distinto por
+ *      breakpoint, no solo el escalado fluido de un mismo token: Body/03
+ *      (16px) en mobile, Body/04 (20px) en desktop — mismo patrón ya visto
+ *      en botones de tamaño discreto (Content / Title, Content / Intro
+ *      text).
+ *   2. El color del enlace es realmente `Texts/Neutral 2` (`--color-content-
+ *      neutral-2`, #999999), no `Texts/Neutral 1` (#666666) — confirmado
+ *      real y conectado a la colección Semantic-Color (no huérfano) en dos
+ *      instancias (desktop y mobile) del mismo módulo.
+ *
+ * Ningún token nuevo — reutiliza globales ya existentes:
+ *   - Título: --text-body-3 (mobile) / --text-body-4 (desktop, ≥768px), color --color-content-base
+ *   - Enlace: --text-body-3 / --text-body-3--line-height, color --color-content-neutral-2
  * Sin gap entre el texto del enlace y el icono (verificado con `get_metadata`:
  * el icono empieza exactamente donde termina el texto, 0px de separación).
  */
@@ -22,9 +36,16 @@
   margin: 0;
   font-family: var(--font-body);
   font-weight: normal;
-  font-size: var(--text-body-4);
-  line-height: var(--text-body-4--line-height);
+  font-size: var(--text-body-3);
+  line-height: var(--text-body-3--line-height);
   color: var(--color-content-base);
+}
+
+@media (min-width: 768px) {
+  .title-row__title {
+    font-size: var(--text-body-4);
+    line-height: var(--text-body-4--line-height);
+  }
 }
 
 .title-row__link {
@@ -40,14 +61,14 @@
   font-family: var(--font-body);
   font-size: var(--text-body-3);
   line-height: var(--text-body-3--line-height);
-  color: var(--color-content-neutral-1);
+  color: var(--color-content-neutral-2);
   white-space: nowrap;
 }
 
 .title-row__link-icon {
   width: 24px;
   height: 24px;
-  color: var(--color-content-neutral-1);
+  color: var(--color-content-neutral-2);
   flex-shrink: 0;
 }
 

@@ -17,7 +17,7 @@ import * as TitleStories from './Title.stories'
 
 Una fila (`justify-content: space-between`) con:
 
-1. Un `<h2>` con el título de la sección (Body/04)
+1. Un `<h2>` con el título de la sección (Body/03 mobile, Body/04 desktop)
 2. Un enlace opcional "Ver todos" (Body/03, color atenuado) + icono chevron a la derecha — sin separación entre texto e icono (verificado en Figma: el icono empieza exactamente donde termina el texto)
 
 ## Comportamiento
@@ -27,14 +27,19 @@ El enlace renderiza `<a href>` si se pasa `href`, o `<button>` si no — mismo c
 <Story of={TitleStories.NoLink} />
 <Story of={TitleStories.CustomLinkText} />
 
+**Retrofit (detectado en su primer uso real, Cards / Product carousel)**: este componente se había verificado originalmente de forma estática, sin instanciarlo en un módulo real. Al usarlo por primera vez se detectaron, verificadas con `use_figma` (`boundVariables` de dos instancias reales, desktop y mobile, no asumidas):
+
+1. El título usa un estilo discreto distinto por breakpoint (no solo el escalado fluido de un mismo token): Body/03 (16px) en mobile, Body/04 (20px) en desktop — mismo patrón de "tamaño discreto por breakpoint" ya visto en Content / Title y Content / Intro text.
+2. El color del enlace (texto e icono) es realmente `Texts/Neutral 2` (`--color-content-neutral-2`, `#999999`), no `Texts/Neutral 1` (`#666666`) como se había asumido inicialmente — confirmado real y conectado a la colección Semantic-Color (no un estilo huérfano) en ambas instancias.
+
 ## Tokens
 
-Ningún token nuevo — reutiliza globales ya existentes en `responsive.css`/`semantic.css` (verificado literalmente en `get_design_context`):
+Ningún token nuevo — reutiliza globales ya existentes en `responsive.css`/`semantic.css`:
 
 | Elemento | Token |
 |---|---|
-| Título | `--text-body-4` / `--text-body-4--line-height`, color `--color-content-base` |
-| Enlace | `--text-body-3` / `--text-body-3--line-height`, color `--color-content-neutral-1` |
+| Título | `--text-body-3`/`--text-body-3--line-height` (mobile) → `--text-body-4`/`--text-body-4--line-height` (≥768px), color `--color-content-base` |
+| Enlace | `--text-body-3` / `--text-body-3--line-height`, color `--color-content-neutral-2` |
 
 ## Propiedades
 
@@ -55,4 +60,4 @@ Acepta además cualquier prop nativa adicional del `<div>` contenedor (`id`, etc
 
 ## Componentes relacionados
 
-Ninguno directo — es un componente de cabecera reutilizado por módulos de listado (Cards/Gallery, Cards/Product carousel, etc., pendientes).
+- **Cards / Product carousel** — primer módulo que instancia esta cabecera.
