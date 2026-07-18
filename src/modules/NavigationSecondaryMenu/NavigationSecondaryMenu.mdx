@@ -1,0 +1,51 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks'
+import * as NavigationSecondaryMenuStories from './NavigationSecondaryMenu.stories'
+
+<Meta of={NavigationSecondaryMenuStories} />
+
+# Navigation / Secondary menu
+
+## Intro
+
+`NavigationSecondaryMenu` traduce el módulo **Navigation / Secondary menu** de Figma (`node 58084:30030`, COMPONENT_SET: Device=Desktop/Mobile). Fila de enlaces de categoría a todo el ancho, con subrayado bajo el elemento activo.
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport.
+
+## Demo
+
+<Canvas of={NavigationSecondaryMenuStories.Default} />
+
+## Anatomía
+
+`<nav>` con una lista de enlaces (`items`); el elemento activo (`activeIndex`) muestra un subrayado bajo el texto.
+
+## Comportamiento
+
+**Device responsive real** (no prop), igual criterio que el resto del plan: en mobile la fila se recorta a 390px en Figma (`overflow-clip`, sin scroll real); se sustituye por `overflow-x: auto` para que todos los items sean alcanzables — mismo criterio ya aplicado en Cards / Categories, Cards / Gallery y Cards / Product carousel.
+
+**Presentacional**: la app controla `activeIndex` y recibe `onSelect(index, event)` — mismo criterio que Tabs/Listbox/List / Timeline (la story `Default` mantiene estado local para la demo).
+
+## Tokens
+
+- `--text-body-3` / `--color-content-base` (texto de cada item).
+- `--color-icon-base` (subrayado del item activo, mismo token que el borde de fila de List / Archive table).
+- `--spacing-fx-6` (padding superior), `--spacing-fx-3` (padding inferior de cada item), `--spacing-fx-8`/`--spacing-fx-4` (gap desktop/mobile) — primitivas fijas verificadas exactas contra `get_design_context`, no responsive.
+- `--grid-margin-default` (padding horizontal).
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `items` | Array de enlaces (`{ label, href }`) | 9 categorías de ejemplo | — |
+| `activeIndex` | Índice del item activo | `2` | number |
+| `onSelect` | `(index, event) => void`, invocado al pulsar un item | — | — |
+
+## Accesibilidad
+
+- `<nav aria-label="Categorías">` envolviendo una lista `<ul>`/`<li>` real.
+- El item activo usa `aria-current="page"` (mismo criterio que NavButton/Button/ActionLink).
+
+## Componentes relacionados
+
+- **List / Archive table** — mismo token `--color-icon-base` para el subrayado/borde.
+- **Cards / Gallery**, **Cards / Categories**, **Cards / Product carousel** — mismo criterio `overflow-x: auto` para tiras de contenido más anchas que el viewport.

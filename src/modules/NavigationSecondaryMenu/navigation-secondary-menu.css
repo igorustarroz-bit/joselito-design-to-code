@@ -1,0 +1,87 @@
+/**
+ * Navigation / Secondary menu — node 58084:30030 en Figma (COMPONENT_SET,
+ * 2 variantes: Device=Desktop/Mobile). Fila de enlaces de categoría con
+ * subrayado bajo el elemento activo, en vez de "pills" con fondo como
+ * UI05-Tabs — es un patrón visual distinto (texto + línea), no una reutilización
+ * de ese componente.
+ *
+ * **Grid/tokens verificados con `get_design_context`** (ambas variantes,
+ * mismos valores de Body/03 y Strokes-Icons/Base en desktop y mobile):
+ * - Fuente/color de cada item: `Typography/Body 3` (16/24) → `--text-body-3`,
+ *   color `Texts/Base` → `--color-content-base`.
+ * - Subrayado del item activo: `Strokes-Icons/Base` → `--color-icon-base`
+ *   (mismo token ya usado en el borde de fila de List / Archive table).
+ * - Padding superior (24px ambos breakpoints) = `--spacing-fx-6` (primitiva
+ *   fija, no responsive). Padding inferior de cada item (12px) =
+ *   `--spacing-fx-3`. Gap entre items: 32px desktop = `--spacing-fx-8`,
+ *   16px mobile = `--spacing-fx-4` — las 3 coinciden exactamente con
+ *   primitivas ya existentes, no responsive (Figma las mantiene constantes
+ *   dentro de cada breakpoint, no varían de forma fluida).
+ * - Padding horizontal: `pl-[20px]` mobile / `px-[60px]` desktop coincide
+ *   exactamente con `--grid-margin-default` (20px base / 60px ≥768px).
+ *
+ * **Comportamiento**: la variante mobile de Figma recorta la fila a 390px
+ * con `overflow-clip` (el resto de items queda fuera de vista, sin scroll
+ * real) — se sustituye por `overflow-x: auto` para que todos los items sean
+ * alcanzables, mismo criterio ya aplicado en Cards / Categories, Cards /
+ * Gallery y Cards / Product carousel para tiras de contenido más anchas que
+ * el viewport. En mobile solo se aplica `padding-left` (el borde derecho
+ * queda a sangre para permitir el scroll); en desktop se aplica el margen a
+ * ambos lados y la fila se centra.
+ *
+ * **Presentacional**: la app controla qué item está activo vía `activeIndex`
+ * y recibe `onSelect(index, event)` — mismo criterio que Tabs/Listbox/List /
+ * Timeline.
+ */
+
+.navigation-secondary-menu {
+  display: block;
+  width: 100%;
+  background: var(--color-surface-base);
+  padding-top: var(--spacing-fx-6);
+  padding-left: var(--grid-margin-default);
+  overflow-x: auto;
+}
+
+.navigation-secondary-menu__list {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-fx-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: max-content;
+}
+
+.navigation-secondary-menu__item {
+  flex-shrink: 0;
+}
+
+.navigation-secondary-menu__link {
+  display: inline-flex;
+  padding-bottom: var(--spacing-fx-3);
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-3);
+  line-height: var(--text-body-3--line-height);
+  color: var(--color-content-base);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 1px solid transparent;
+}
+
+.navigation-secondary-menu__link[aria-current='page'] {
+  border-bottom-color: var(--color-icon-base);
+}
+
+@media (min-width: 768px) {
+  .navigation-secondary-menu {
+    padding-right: var(--grid-margin-default);
+    display: flex;
+    justify-content: center;
+  }
+
+  .navigation-secondary-menu__list {
+    gap: var(--spacing-fx-8);
+  }
+}
