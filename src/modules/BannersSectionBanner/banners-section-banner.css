@@ -1,0 +1,147 @@
+/**
+ * Banners / Section banner — node 58182:4380 en Figma (COMPONENT_SET,
+ * Property1=desktop/mobile, nombre de la propiedad roto pero contenido
+ * claramente identificable en ambas variantes).
+ *
+ * **Diferencia estructural real entre breakpoints** (verificada con
+ * `get_design_context`, no solo un reescalado visual): en mobile la imagen
+ * (`AspectRatio` `ratio="4:3"`, 1920/1440 verificado exacto) va a ancho
+ * completo y el texto/botón van apilados debajo, sin superposición. En
+ * desktop la imagen (`ratio="16:9"`, 1280/720 verificado exacto) ocupa toda
+ * la altura de la sección y una tarjeta blanca de texto se superpone en la
+ * esquina inferior derecha. Se renderizan ambas estructuras completas y se
+ * alternan por media query (mismo criterio ya usado en Content / Intro
+ * text, Cards / Gallery, Cards / Showcase y Cards / Categories), en vez de
+ * intentar una única estructura que sirva a los dos casos.
+ *
+ * **Cabecera reutilizada tal cual**: el bloque "título + Ver todos" es
+ * exactamente el componente `Title` ya construido (mismo patrón "Body/03→
+ * Body/04 responsive" ya verificado en esa retrofit) — no se reimplementa
+ * aquí.
+ *
+ * **Botón con tamaño discreto por breakpoint** (`size="s"` mobile / `"m"`
+ * desktop, no un mismo tamaño escalado) — mismo criterio ya usado en
+ * Content / Intro text para el tamaño del botón.
+ *
+ * **Tokens verificados**: título de tarjeta `Title/02` → `--font-title`/
+ * `--text-title-2`/`--tracking-title` (28px mobile/32px desktop — coincide
+ * exactamente con la escala responsive ya existente). Texto de tarjeta y
+ * cabecera `Body/03` → `--text-body-3`, color `Texts/Neutral-2` (`#999`) →
+ * `--color-content-neutral-2`.
+ *
+ * **Padding de sección**: mobile `24px`/`40px`/`52px` = `--spacing-fx-6`
+ * (horizontal) + `--spacing-fx-9` (superior) + literal (52px inferior, sin
+ * match limpio); desktop `80px`/`48px` = `--spacing-r-13` (80px a 1440px) +
+ * `--spacing-r-9` (48px a 1440px) — ambos responsive reales, no primitivas
+ * fijas, verificados exactos en este breakpoint. Ancho de tarjeta desktop
+ * (372px) y su padding (32px = `--spacing-fx-8`) son literales/primitivas ya
+ * usadas en otros módulos.
+ */
+
+.banners-section-banner {
+  width: 100%;
+  background: var(--color-surface-base);
+  border-bottom: 1px solid var(--color-icon-neutral-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-fx-9);
+  padding: var(--spacing-fx-9) var(--spacing-fx-6) 52px;
+}
+
+.banners-section-banner__header {
+  width: 100%;
+}
+
+.banners-section-banner__card-title {
+  margin: 0;
+  font-family: var(--font-title);
+  font-weight: normal;
+  font-size: var(--text-title-2);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-title);
+  color: var(--color-content-base);
+  white-space: pre-line;
+}
+
+.banners-section-banner__card-text {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-3);
+  line-height: var(--text-body-3--line-height);
+  color: var(--color-content-neutral-2);
+}
+
+/* --- Mobile: imagen ancho completo + texto/botón apilados debajo --- */
+
+.banners-section-banner__mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.banners-section-banner__mobile-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-fx-9);
+}
+
+.banners-section-banner__mobile-content .banners-section-banner__card-title,
+.banners-section-banner__mobile-content .banners-section-banner__card-text {
+  max-width: 327px;
+}
+
+.banners-section-banner__mobile-content .banners-section-banner__card-title {
+  margin-bottom: 12px;
+}
+
+.banners-section-banner__desktop {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .banners-section-banner {
+    gap: var(--spacing-r-9);
+    padding: var(--spacing-r-9) var(--spacing-r-13) var(--spacing-r-13);
+  }
+
+  .banners-section-banner__mobile {
+    display: none;
+  }
+
+  .banners-section-banner__desktop {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    position: relative;
+    height: 720px;
+    padding: var(--spacing-fx-9);
+  }
+
+  .banners-section-banner__desktop-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .banners-section-banner__card {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 372px;
+    height: 100%;
+    padding: var(--spacing-fx-8);
+    background: var(--color-surface-base);
+  }
+
+  .banners-section-banner__card-text-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-fx-6);
+  }
+}
