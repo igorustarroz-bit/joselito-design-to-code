@@ -1,0 +1,53 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks'
+import * as FormSectionStories from './FormSection.stories'
+
+<Meta of={FormSectionStories} />
+
+# Form (módulo)
+
+## Intro
+
+`FormSection` traduce el módulo **Form** de Figma (`node 58195:43756`, COMPONENT_SET: Layout=text-left, Device=desktop/mobile — bien nombrado, a diferencia de otros módulos recientes). No confundir con el componente `Form` (UI11) ya construido en `src/components/Form/` — este módulo lo instancia directamente en su columna derecha.
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport.
+
+## Demo
+
+<Canvas of={FormSectionStories.Default} />
+
+## Anatomía
+
+Columna de texto editorial (label + título + párrafo + botón opcional) a la izquierda, instancia real del componente `Form` (UI11: cabecera, fila de 2 inputs + 2 inputs individuales, lista de checkboxes, fila Cancelar/Aceptar) a la derecha — mismo patrón de composición que Content / Text + Image.
+
+## Comportamiento
+
+**Device responsive real** (no prop), igual criterio que el resto del plan: columnas lado a lado en desktop, apiladas en mobile.
+
+**Grid de 12 columnas real, verificado**: columna de texto (648px a 1440px) = `grid-column: span 6`; columna de formulario (536px) = `grid-column: 8 / span 5` — 11 columnas ocupadas de 12, dejando una de respiro entre ambas, coincidiendo exactamente con el `justify-between` de la instancia de Figma.
+
+**Inconsistencia ya conocida** (misma que Content / Text + Image): el párrafo de la variante mobile enlaza a un estilo huérfano ("Title/medium") — se ignora en favor de `--font-body`/`--text-body-5`. El botón de texto es un placeholder no conectado al design system en Figma (mismo patrón ya detectado en otros módulos) — sustituido por `Button` (`terciary`/`s`).
+
+## Tokens
+
+`--text-body-6` (label), `--font-title`/`--text-title-4`/`--tracking-title` (título), `--text-body-5` (párrafo), `--grid-margin-default` (padding horizontal), `--spacing-fx-8` (gap mobile entre columnas). El componente `Form` (UI11) y sus hijos (`FormRow`, `Input` `size="big"`, `CheckboxList`, `CheckboxLabel`) se reutilizan tal cual, sin CSS propio.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `label` / `showLabel` | Label superior | `'This is a label'` | text / boolean |
+| `title` | Título editorial | Texto de ejemplo | text |
+| `text` | Párrafo | Texto de ejemplo | text |
+| `showButton` / `buttonText` / `buttonHref` / `onButtonClick` | Botón opcional | `false` | boolean / text |
+| `formTitle` / `formDescription` | Cabecera del formulario | `'Title Form'` / `'Description'` | text |
+| `onCancel` / `onAccept` | Callbacks de los botones del formulario | — | — |
+
+## Accesibilidad
+
+Reutiliza la accesibilidad ya documentada de `Form`/`Input`/`CheckboxLabel` (labels reales, `<form>` semántico).
+
+## Componentes relacionados
+
+- **UI11 · Form**, **FormRow**, **UI06 · Input**, **UI08 · Checkbox List**, **UI09 · Checkbox + Label** — reutilizados tal cual.
+- **UI02 · Button** — botón terciario del texto editorial.
+- **Content / Text + Image** — mismo patrón de columnas de grid (span 6 + span 5).

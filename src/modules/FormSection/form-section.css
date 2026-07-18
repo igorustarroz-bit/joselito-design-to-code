@@ -1,0 +1,101 @@
+/**
+ * Form (módulo) — node 58195:43756 en Figma (COMPONENT_SET: Layout=text-left,
+ * Device=desktop/mobile — a diferencia de otros módulos con nombres rotos,
+ * este master sí está bien nombrado). Columna de texto editorial a la
+ * izquierda + instancia real del componente `Form` (UI11) a la derecha —
+ * mismo patrón de composición que Content / Text + Image, reutilizando
+ * además `FormRow`/`Input`/`CheckboxList`/`CheckboxLabel` ya construidos sin
+ * ningún CSS propio para ellos.
+ *
+ * **Grid de 12 columnas real, verificado** (`get_design_context`, desktop
+ * 1440px): columna de texto 648px = exactamente `grid-column: span 6`
+ * (6×88 + 5×24 = 648, con `--grid-gutter: 24px` a 1440px); columna de
+ * formulario 536px = exactamente `grid-column: span 5` (5×88 + 4×24 = 536).
+ * 6 + 5 = 11 columnas, dejando 1 columna de por medio como respiro — encaja
+ * con el `justify-between` de la instancia de Figma sin necesitar un valor
+ * de gap literal.
+ *
+ * **Tokens verificados**: label `Typography/Body 6` → `--text-body-6`,
+ * título `Title/04` → `--font-title`/`--text-title-4`/`--tracking-title`,
+ * párrafo `Typography/Body 5` → `--text-body-5`. **Inconsistencia ya
+ * conocida** (misma que Content / Text + Image): el párrafo de la variante
+ * mobile enlaza a un estilo huérfano ("Title/medium", familia
+ * `static/font/brand`) — se ignora en favor de `--font-body`/`--text-body-5`,
+ * consistente en ambos breakpoints. El botón de Figma es un placeholder no
+ * conectado al design system (borde azul `interactive/color-interactive-default`,
+ * mismo patrón ya detectado y corregido en Content / Text + Image y Content
+ * / Text only) — sustituido por `Button` (`terciary`/`s`).
+ *
+ * Padding de sección: `60px`/`120px` desktop = `--grid-margin-default` +
+ * literal (120px no coincide con ninguna primitiva ni responsive, se deja
+ * tal cual); `20px`/`40px`/`60px` mobile = `--grid-margin-default` +
+ * literales. Gap entre columna de texto y formulario en mobile (32px) =
+ * `--spacing-fx-8`.
+ */
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-fx-8);
+  width: 100%;
+  background: var(--color-surface-base);
+  padding: 40px var(--grid-margin-default) 60px;
+}
+
+.form-section__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.form-section__label {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-6);
+  line-height: var(--text-body-6--line-height);
+  color: var(--color-content-base);
+}
+
+.form-section__title {
+  margin: 0;
+  font-family: var(--font-title);
+  font-weight: normal;
+  font-size: var(--text-title-4);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-title);
+  color: var(--color-content-base);
+}
+
+.form-section__text {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-5);
+  line-height: var(--text-body-5--line-height);
+  color: var(--color-content-base);
+}
+
+.form-section__form {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .form-section {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+    column-gap: var(--grid-gutter);
+    align-items: start;
+    padding: 120px var(--grid-margin-default);
+  }
+
+  .form-section__content {
+    grid-column: span 6;
+    gap: 32px;
+  }
+
+  .form-section__form {
+    grid-column: 8 / span 5;
+  }
+}
