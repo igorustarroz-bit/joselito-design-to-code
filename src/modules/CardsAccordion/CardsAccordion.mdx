@@ -1,0 +1,66 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
+import * as CardsAccordionStories from './CardsAccordion.stories'
+
+<Meta of={CardsAccordionStories} />
+
+# Cards / Accordion
+
+## Intro
+
+`CardsAccordion` traduce el módulo **Cards / Accordion** de Figma (`node 58182:24099`, COMPONENT_SET con 2 variantes de nombre roto/genérico — `componentPropertyDefinitions` lanza `"component set has existing errors"` al inspeccionarlo, mismo tipo de incidencia ya señalada en las instrucciones del proyecto sobre módulos con "cosas sin terminar").
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport.
+
+## Demo
+
+<Canvas of={CardsAccordionStories.Default} />
+
+## Anatomía
+
+Lista de tarjetas-acordeón (`items`), cada una con dos estados:
+
+1. **Cabecera** (siempre visible): icono flecha (rota 180° al abrir) + título corto a la izquierda, enlace secundario con chevron a la derecha.
+2. **Contenido** (solo si `open`): label overline + título decorativo de 2-3 líneas (alternando color base/acento) + párrafo + fila de tags con separador "·" + línea de duración + botón terciario.
+
+En desktop (≥768px) se añade un fondo decorativo ambiental de toda la sección (3 imágenes semitransparentes + tipografía gigante), independiente del contenido de las tarjetas.
+
+## Comportamiento
+
+**Reconstrucción razonada** (este módulo requirió más interpretación que el resto, documentado en detalle en `cards-accordion.css`):
+
+- Verificado con `use_figma` inspeccionando el árbol completo del nodo (no visible en `get_design_context`, que omite nodos ocultos): la variante 390×731 contiene un frame `visible:false` con la cabecera "cerrada" real (icono flecha + "Años de curación" + enlace "Ver añadas") como hermano del contenido "abierto" visible.
+- **Desviación deliberada**: en Figma, la cabecera desaparece por completo al mostrarse el contenido (sin forma de volver a cerrarlo). Se implementa en su lugar el criterio ya establecido en `UI13-Accordion`: la cabecera permanece siempre visible con el icono rotando, para poder expandir/contraer — más usable y consistente con el resto del sistema.
+- La variante 1440×900 no contiene ningún elemento de acordeón, solo el fondo decorativo — implementado como capa `aria-hidden` independiente, sin interacción, visible solo ≥768px.
+- **Presentacional**, mismo criterio que `AccordionItem`/`List / Timeline`/`Cards / Gallery`: la app controla `items[].open` y recibe `onToggle(index)`, el módulo no gestiona estado propio (la story `Default` sí mantiene estado local para la demo interactiva).
+
+## Tokens
+
+Verificados con `use_figma` (`boundVariables` de cada nodo de texto):
+
+- `--text-body-2` (label overline), `--text-body-3` (título de cabecera, enlace, párrafo), `--text-body-1` (tags/duración).
+- `--color-content-base` (blanco: label, título de cabecera, línea "Millésime", puntos separadores).
+- `--color-content-neutral-2` (enlace "Ver añadas", `#cccccc` verificado exacto).
+- `--color-content-neutral-1` (párrafo y tags, `#e5e5e5` verificado exacto).
+- `--color-content-link` (líneas de título acentuadas, `#e23f36` — coincide exactamente con `Texts/Accent-Base` de Figma; no se usó `--color-content-accent-base` porque en el tema `dark-black-neutral` ese token es blanco, no rojo).
+- `--font-title` + tamaño literal 54px/110%/-1px (título decorativo de tarjeta, sin variable enlazada en Figma) y 180px/110%/-5px (fondo decorativo desktop, mismo criterio literal).
+- `--grid-margin-default` (padding horizontal desktop del contenedor de sección).
+- Botón: instancia real de `UI02-Button` (`Terciary`/`S`), reutilizado sin CSS propio.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `items` | Array de tarjetas (`{ collapsedTitle, linkLabel, linkHref, label, titleLines, body, tags, duration, buttonLabel, buttonHref, open }`) | 1 tarjeta de ejemplo | — |
+| `onToggle` | `(index) => void`, invocado al pulsar la cabecera de una tarjeta | — | — |
+
+## Accesibilidad
+
+- La cabecera de cada tarjeta es un `<button>` nativo con `aria-expanded`/`aria-controls`.
+- El contenido usa `role="region"` + `aria-labelledby` apuntando a la cabecera (mismo patrón que `AccordionItem`).
+- El fondo decorativo desktop lleva `aria-hidden="true"` y `pointer-events: none` (puramente ambiental, sin contenido informativo).
+
+## Componentes relacionados
+
+- **UI13 · Accordion** (`AccordionItem`) — mismo criterio de cabecera-siempre-visible con icono rotable.
+- **UI02 · Button** — botón terciario reutilizado tal cual.
+- **Icon** — `CaretDown` (toggle) y `CaretRight` (enlace secundario), sustituyendo el master "Arrow" de Figma (ajeno al sistema de 132 iconos).

@@ -1,0 +1,320 @@
+/**
+ * Cards / Accordion — node 58182:24099 en Figma (COMPONENT_SET con 2
+ * variantes, ambas con nombres rotos/genéricos, `componentPropertyDefinitions`
+ * lanza "component set has existing errors" al inspeccionarlo con
+ * `use_figma` — mismo tipo de incidencia ya señalada en las instrucciones
+ * del proyecto ("hay muchos nombres que estan mal o que tienen cosas sin
+ * terminar").
+ *
+ * **Reconstrucción razonada** (documentada en detalle porque este módulo
+ * requirió más interpretación que el resto):
+ * - La variante 390×731 ("Property 1=Frame 2087332150") contiene, verificado
+ *   con `use_figma` inspeccionando el árbol completo del nodo (no visible en
+ *   `get_design_context`, que omite nodos ocultos): un frame envoltorio
+ *   `visible:false` ("Frame 2087332130") con dos hijos reales — "Arrow+title"
+ *   (icono de flecha + texto "Años de curación") y "Main_Secondary-Link"
+ *   (texto "Ver añadas" + icono chevron) — y, a nivel hermano, el contenido
+ *   completo visible: label overline "AÑOS DE CURACIÓN", título decorativo de
+ *   3 líneas ("Reserva"/"Millésime"/"Vintage", tipografía SangBleu 54px
+ *   literal con colores alternos), párrafo, fila de tags con separador "·" y
+ *   línea de duración, y un botón `UI02-Button` real (`Type=Terciary,
+ *   Size=S`, iconos ocultos). Se interpreta como una tarjeta-acordeón: la
+ *   cabecera oculta es el estado "cerrado" (icono flecha + título corto +
+ *   enlace secundario) y el contenido visible es el estado "abierto".
+ * - **Desviación deliberada del comportamiento literal de Figma**: en la
+ *   instancia de Figma, la cabecera "cerrada" desaparece por completo al
+ *   mostrarse el contenido "abierto" (no hay forma de volver a cerrarlo). Se
+ *   implementa en su lugar el mismo criterio ya establecido en UI13-Accordion
+ *   (`AccordionItem`): la cabecera permanece siempre visible, con el icono de
+ *   flecha rotando 180° al abrir, para que el usuario pueda expandir y
+ *   contraer la tarjeta — más usable y consistente con el resto del sistema
+ *   de accordions del proyecto.
+ * - La variante 1440×900 ("Property 1=Cards, Property 2=Accordion") no
+ *   contiene NINGÚN elemento de acordeón (ni cabecera, ni label, ni botón) —
+ *   solo 3 imágenes decorativas semitransparentes (opacity 0.7) y un bloque
+ *   de texto gigante (180.43px, 5 líneas "Reserva/Vintage/Millésime/
+ *   Reserva/Vintage" con los mismos colores alternos) posicionados de forma
+ *   absoluta sobre un lienzo de 1440×900. Se interpreta como un fondo
+ *   decorativo/ambiental de la sección completa en desktop (≥768px), no como
+ *   contenido de una tarjeta — implementado como `.cards-accordion__backdrop`,
+ *   con las posiciones/tamaños/opacidad reales de Figma, oculto en mobile
+ *   (que no tiene esta capa) y sin ninguna interacción (`aria-hidden`,
+ *   `pointer-events: none`). Las 3 imágenes son bloques de color neutro en
+ *   vez de fotos reales (mismo criterio placeholder que `AspectRatio` sin
+ *   imagen) — no se pudieron descargar los assets de Figma (bloqueo de red
+ *   del sandbox a figma.com, misma limitación ya documentada en `Icon.mdx`).
+ * - El padding del contenedor de tarjeta en mobile (`padding: 32px 24px
+ *   48px`) y el gap entre bloques (112px) son literales verificados en la
+ *   instancia — 24px de margen horizontal es distinto (por poco) de
+ *   `--grid-margin-default` (20px en mobile), tratado como bespoke propio de
+ *   esta tarjeta centrada (mismo criterio que Content / Intro text). El
+ *   ancho máximo del bloque de contenido (326px/285px) tampoco tiene una
+ *   variante desktop capturada en Figma — se mantiene igual en todos los
+ *   breakpoints en vez de inventar un valor sin verificar.
+ *
+ * **Tokens verificados con `use_figma` (`boundVariables` de cada nodo de
+ * texto, no asumidos)**:
+ * - Label overline ("AÑOS DE CURACIÓN"): `Typography/Body 2` (14/22) →
+ *   `--text-body-2`, color `Texts/Base` → `--color-content-base`.
+ * - Título corto de cabecera ("Años de curación") y enlace ("Ver añadas"):
+ *   `Typography/Body 3` (16/24) → `--text-body-3`. El título usa
+ *   `Texts/Base` (blanco) → `--color-content-base`; el enlace usa un color
+ *   gris (`#cccccc`) que coincide exactamente con `--color-content-neutral-2`
+ *   del tema `dark-black-neutral` (no con `Texts/Base` ni `Neutral-1`).
+ * - Párrafo y fila de tags/duración: `Typography/Body 3` (párrafo) y
+ *   `Typography/Body 1` (12/18, tags/duración) → `--text-body-3` /
+ *   `--text-body-1`, color `Texts/Neutral-1` (`#e5e5e5`) → exactamente
+ *   `--color-content-neutral-1` del tema `dark-black-neutral`.
+ * - Título decorativo ("Reserva"/"Millésime"/"Vintage"): fuente SangBleu
+ *   Kingdom Regular 54px, line-height 110%, letter-spacing -1px — **valores
+ *   literales sin variable enlazada** (solo el color tiene `boundVariables`).
+ *   Color acento `Texts/Accent-Base` (`#e23f36`) — coincide exactamente con
+ *   `--color-content-link` del tema `dark-black-neutral` (no con
+ *   `--color-content-accent-base`, que en este tema es blanco) — se usa ese
+ *   token por ser el más próximo semánticamente con el mismo valor exacto.
+ * - Botón: instancia real de `UI02-Button` (`Type=Terciary, Size=S`, iconos
+ *   ocultos) — reutilizado tal cual, sin CSS propio.
+ * - Icono de flecha de la cabecera: el master real de Figma ("Arrow",
+ *   `Size/Shape=M, Direcction=Left`) no pertenece al sistema de 132 iconos ya
+ *   construido — se sustituye por `Icon` `CaretDown` (rotable con CSS),
+ *   mismo criterio de simplificación ya aplicado a otros iconos ajenos al
+ *   sistema (p. ej. el icono de menú de Hero / Homepage hero).
+ */
+
+.cards-accordion {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-surface-base);
+  padding: 32px 24px 48px;
+}
+
+.cards-accordion__backdrop {
+  display: none;
+}
+
+.cards-accordion__list {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 326px;
+  margin: 0 auto;
+}
+
+.cards-accordion__card {
+  display: flex;
+  flex-direction: column;
+}
+
+.cards-accordion__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+.cards-accordion__toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  color: var(--color-content-base);
+}
+
+.cards-accordion__toggle-icon {
+  flex-shrink: 0;
+  color: var(--color-content-base);
+  transition: transform 0.2s ease;
+}
+
+.cards-accordion__card[data-open] .cards-accordion__toggle-icon {
+  transform: rotate(180deg);
+}
+
+.cards-accordion__toggle-title {
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-3);
+  line-height: var(--text-body-3--line-height);
+  color: var(--color-content-base);
+}
+
+.cards-accordion__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-3);
+  line-height: var(--text-body-3--line-height);
+  color: var(--color-content-neutral-2);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cards-accordion__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding-top: 40px;
+  text-align: center;
+}
+
+.cards-accordion__label {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-2);
+  line-height: var(--text-body-2--line-height);
+  color: var(--color-content-base);
+}
+
+.cards-accordion__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cards-accordion__title-line {
+  margin: 0;
+  font-family: var(--font-title);
+  font-weight: normal;
+  font-size: 54px;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  color: var(--color-content-base);
+}
+
+.cards-accordion__title-line--accent {
+  color: var(--color-content-link);
+}
+
+.cards-accordion__body-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.cards-accordion__body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-3);
+  line-height: var(--text-body-3--line-height);
+  color: var(--color-content-neutral-1);
+  max-width: 326px;
+}
+
+.cards-accordion__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  max-width: 285px;
+}
+
+.cards-accordion__tags {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-1);
+  line-height: var(--text-body-1--line-height);
+  color: var(--color-content-neutral-1);
+}
+
+.cards-accordion__tag-dot {
+  color: var(--color-content-base);
+  margin-right: 8px;
+}
+
+.cards-accordion__duration {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-1);
+  line-height: var(--text-body-1--line-height);
+  color: var(--color-content-neutral-1);
+}
+
+@media (min-width: 768px) {
+  .cards-accordion {
+    padding: 120px var(--grid-margin-default);
+  }
+
+  .cards-accordion__backdrop {
+    display: block;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .cards-accordion__backdrop-image {
+    position: absolute;
+    opacity: 0.7;
+    background: var(--color-surface-neutral-1);
+  }
+
+  .cards-accordion__backdrop-image--1 {
+    left: calc(20.83% + 7.5px);
+    top: calc(50% - 417px);
+    width: 241px;
+    height: 362px;
+    transform: translate(-50%, -50%);
+  }
+
+  .cards-accordion__backdrop-image--2 {
+    left: calc(91.67% - 11px);
+    top: calc(50% - 39px);
+    width: 454px;
+    height: 310px;
+    transform: translate(-50%, -50%);
+  }
+
+  .cards-accordion__backdrop-image--3 {
+    left: calc(20.83% + 22.5px);
+    top: calc(50% + 472px);
+    width: 272px;
+    height: 408px;
+    transform: translate(-50%, -50%);
+  }
+
+  .cards-accordion__backdrop-title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .cards-accordion__backdrop-line {
+    margin: 0;
+    font-family: var(--font-title);
+    font-weight: normal;
+    font-size: 180px;
+    line-height: 1.1;
+    letter-spacing: -5px;
+    color: var(--color-content-base);
+  }
+
+  .cards-accordion__backdrop-line--accent {
+    color: var(--color-content-link);
+  }
+}
