@@ -1,0 +1,347 @@
+/**
+ * Navigation / Footer — node 58163:33397 en Figma (COMPONENT_SET, 2
+ * variantes de nombre roto/genérico: Property1="Frame 2087331936" (desktop,
+ * 1440×1230) / "Frame 2087331981" (mobile, 390×1495) — mismo tipo de
+ * incidencia de nombres rotos ya señalada en las instrucciones del proyecto.
+ *
+ * **Asimetría real verificada entre breakpoints** (confirmada comparando
+ * `get_design_context` de la variante desktop con el screenshot de la
+ * variante mobile, no asumida): el grupo "EMPRESA" vive en desktop dentro
+ * del bloque central (junto a "CONTACTO", a la derecha de la imagen/
+ * newsletter), pero en mobile se une como sexto item a la lista de acordeón
+ * superior (junto a Productos/Sobre Joselito/Restaurantes×2/Atención al
+ * cliente) — mientras que "CONTACTO" (teléfono/email) NUNCA es un item de
+ * acordeón en ninguna variante, siempre texto plano junto a la imagen. Se
+ * implementa renderizando el grupo "Empresa" DOS VECES en el JSX (una vez
+ * como último item de la lista superior, otra vez en el aside del bloque
+ * central) y alternando cuál se muestra por breakpoint con CSS — mismo
+ * criterio "renderizar ambas variantes, alternar por media query" ya usado
+ * en Content / Intro text, Cards / Gallery y Cards / Showcase.
+ *
+ * **Comportamiento de acordeón verificado solo en mobile**: el screenshot
+ * de la variante mobile muestra los 6 grupos de enlaces colapsados (título +
+ * icono `CaretDown`, sin enlaces visibles) — en desktop, `get_design_context`
+ * confirma que los mismos grupos están siempre expandidos, sin icono ni
+ * posibilidad de colapsar. Implementado con estado interno por grupo
+ * (`FooterGroup`, no presentacional vía props — a diferencia del resto del
+ * sistema, aquí no hay razón para que la aplicación controle qué grupo del
+ * footer está abierto) que por defecto es `false` (cerrado, igual que la
+ * captura mobile); en desktop (≥768px) se fuerza `display: block` en la
+ * lista de enlaces de cada grupo independientemente del estado, y se oculta
+ * el icono/botón de toggle (`pointer-events: none`), reproduciendo el
+ * "siempre expandido, sin acordeón" real de esa variante.
+ *
+ * **Tokens verificados con `get_design_context`** (ambas variantes usan los
+ * mismos, sin variar por breakpoint salvo donde se indica):
+ * - Título de cada grupo: `Typography/Body 2` (14/22) → `--text-body-2`,
+ *   `Texts/Base` → `--color-content-base`.
+ * - Enlaces de cada grupo, teléfono/email, "English", copyright y enlaces
+ *   legales: `Typography/Body 3` (párrafos) / `Body 2` (bottom bar) →
+ *   `--text-body-3` / `--text-body-2`; color `Texts/Neutral-1` (`#666`) →
+ *   `--color-content-neutral-1` (verificado exacto en el tema `light-white`
+ *   por defecto) para enlaces y copyright; "English" y enlaces legales usan
+ *   `Texts/Base` → `--color-content-base`.
+ * - Bordes horizontales (superior de todo el módulo, entre el bloque
+ *   superior y el central, y superior de la barra inferior):
+ *   `Strokes-Icons/Neutral-4` (`#f0f0f0`) → `--color-icon-neutral-4`
+ *   (verificado exacto en `light-white`).
+ * - Título editorial ("Historias, novedades..."): `Title/03` → `--text-title-3`
+ *   (42px a 1440px, coincide exactamente), `line-height: 1.2` literal (Figma
+ *   fija ese multiplicador, no el line-height responsive del token).
+ * - Input de newsletter: instancia real de `UI06-Input` (`size="small"`,
+ *   56px de alto) reutilizado tal cual, con icono `ArrowRight` en vez del
+ *   calendario por defecto.
+ * - Imagen decorativa: `AspectRatio` `ratio="3:4"` (201×268px en Figma,
+ *   proporción exacta).
+ * - Iconos sociales: `Icon` `XLogo`/`FacebookLogo`/`InstagramLogo`, tamaño
+ *   `l` (32px, mismo margen de redondeo ya aceptado en otros módulos frente
+ *   a los 28px de Figma).
+ *
+ * Los anchos fijos de columna de Figma (295-336px) se sustituyen por un
+ * grid de 4 columnas fluido en desktop; el ancho fijo del aside central
+ * (296px) y de la imagen se mantienen como referencia de proporción, no
+ * como límite estricto.
+ */
+
+.navigation-footer {
+  width: 100%;
+  background: var(--color-surface-base);
+  border-top: 1px solid var(--color-icon-neutral-4);
+}
+
+/* --- Grupos de enlaces (acordeón en mobile, columnas siempre abiertas en desktop) --- */
+
+.navigation-footer__top {
+  display: flex;
+  flex-direction: column;
+  padding: var(--grid-margin-default);
+  gap: 0;
+}
+
+.navigation-footer__column {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.navigation-footer__column--company-mobile {
+  display: block;
+}
+
+.navigation-footer__group {
+  border-top: 1px solid var(--color-icon-neutral-4);
+}
+
+.navigation-footer__group-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.navigation-footer__group-title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-2);
+  line-height: var(--text-body-2--line-height);
+  color: var(--color-content-base);
+}
+
+.navigation-footer__group-icon {
+  flex-shrink: 0;
+  color: var(--color-content-base);
+  transition: transform 0.2s ease;
+}
+
+.navigation-footer__group[data-open] .navigation-footer__group-icon {
+  transform: rotate(180deg);
+}
+
+.navigation-footer__group-links {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 24px;
+}
+
+.navigation-footer__group[data-open] .navigation-footer__group-links {
+  display: flex;
+}
+
+.navigation-footer__group-links a {
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-3);
+  line-height: var(--text-body-3--line-height);
+  color: var(--color-content-neutral-1);
+  text-decoration: none;
+}
+
+/* --- Iconos sociales --- */
+
+.navigation-footer__social {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 var(--grid-margin-default) 40px;
+}
+
+.navigation-footer__social-link {
+  display: inline-flex;
+  color: var(--color-content-base);
+}
+
+/* --- Bloque central (imagen + titular + newsletter + aside) --- */
+
+.navigation-footer__media {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 40px var(--grid-margin-default);
+  border-top: 1px solid var(--color-icon-neutral-4);
+}
+
+.navigation-footer__media-text {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.navigation-footer__heading {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-title);
+  font-weight: normal;
+  font-size: var(--text-title-3);
+  line-height: 1.2;
+  letter-spacing: -1.5px;
+  color: var(--color-content-base);
+}
+
+.navigation-footer__newsletter {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 336px;
+}
+
+.navigation-footer__newsletter-label {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-2);
+  line-height: var(--text-body-2--line-height);
+  color: var(--color-content-neutral-1);
+}
+
+.navigation-footer__media-image {
+  align-self: center;
+  width: 201px;
+}
+
+.navigation-footer__media-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.navigation-footer__aside-group--company-desktop {
+  display: none;
+}
+
+.navigation-footer__contact {
+  gap: 8px;
+}
+
+.navigation-footer__contact a {
+  text-decoration: none;
+}
+
+/* --- Barra inferior --- */
+
+.navigation-footer__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px var(--grid-margin-default);
+  border-top: 1px solid var(--color-icon-neutral-4);
+}
+
+.navigation-footer__copyright {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-2);
+  line-height: var(--text-body-2--line-height);
+  color: var(--color-content-neutral-1);
+}
+
+.navigation-footer__legal {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navigation-footer__legal a {
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-2);
+  line-height: var(--text-body-2--line-height);
+  color: var(--color-content-base);
+  text-decoration: none;
+}
+
+.navigation-footer__language {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-2);
+  line-height: var(--text-body-2--line-height);
+  color: var(--color-content-base);
+}
+
+@media (min-width: 768px) {
+  .navigation-footer__top {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 32px;
+  }
+
+  .navigation-footer__column {
+    flex: 1 0 0;
+    min-width: 0;
+  }
+
+  .navigation-footer__column--company-mobile {
+    display: none;
+  }
+
+  .navigation-footer__group {
+    border-top: none;
+  }
+
+  .navigation-footer__group-toggle {
+    padding: 0;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .navigation-footer__group-icon {
+    display: none;
+  }
+
+  .navigation-footer__group-links {
+    display: flex !important;
+    padding-bottom: 0;
+  }
+
+  .navigation-footer__media {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .navigation-footer__media-text {
+    max-width: 480px;
+  }
+
+  .navigation-footer__aside-group--company-desktop {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .navigation-footer__bottom {
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .navigation-footer__legal {
+    flex-direction: row;
+    gap: 32px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

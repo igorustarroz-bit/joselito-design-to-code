@@ -1,0 +1,68 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks'
+import * as NavigationFooterStories from './NavigationFooter.stories'
+
+<Meta of={NavigationFooterStories} />
+
+# Navigation / Footer
+
+## Intro
+
+`NavigationFooter` traduce el módulo **Navigation / Footer** de Figma (`node 58163:33397`, COMPONENT_SET con 2 variantes de nombre roto/genérico — mismo tipo de incidencia de "cosas sin terminar" ya señalada en las instrucciones del proyecto). Pie de página completo: grupos de enlaces, imagen editorial + titular + newsletter, y barra inferior legal.
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport.
+
+## Demo
+
+<Canvas of={NavigationFooterStories.Default} />
+
+## Anatomía
+
+1. **Grupos de enlaces** (Productos, Sobre Joselito, Restaurantes y Tiendas ×2, Atención al cliente): columnas siempre expandidas en desktop, acordeón colapsado por defecto en mobile.
+2. **Iconos sociales** (X, Facebook, Instagram).
+3. **Bloque central**: imagen editorial (`AspectRatio` `3:4`) + titular + formulario de newsletter (`Input`) + aside con "Empresa"/"Contacto".
+4. **Barra inferior**: copyright, enlaces legales, selector de idioma.
+
+## Comportamiento
+
+**Asimetría real verificada entre breakpoints** (comparando `get_design_context` de la variante desktop con el screenshot de la variante mobile, documentado en detalle en `navigation-footer.css`): el grupo "Empresa" vive en desktop dentro del bloque central junto a "Contacto", pero en mobile se une como sexto item a la lista de acordeón superior — mientras que "Contacto" nunca es un item de acordeón en ninguna variante. Se implementa renderizando el grupo "Empresa" dos veces y alternando cuál se muestra por breakpoint con CSS, mismo criterio ya usado en Content / Intro text, Cards / Gallery y Cards / Showcase.
+
+**Acordeón solo en mobile**: verificado que el screenshot mobile muestra los grupos colapsados (icono `CaretDown`, sin enlaces visibles) mientras que desktop los muestra siempre expandidos sin icono ni posibilidad de colapsar. Estado interno por grupo (no presentacional vía props, a diferencia del resto del sistema — no hay razón para que la aplicación controle qué grupo del footer está abierto), cerrado por defecto; en desktop se fuerza la visibilidad del contenido y se oculta el toggle vía CSS (`pointer-events: none`).
+
+## Tokens
+
+- `--text-body-2` (títulos de grupo, copyright, "English"), `--text-body-3` (enlaces).
+- `--color-content-base` (títulos, "English", enlaces legales), `--color-content-neutral-1` (enlaces de grupo, copyright — `#666` verificado exacto en el tema `light-white`).
+- `--color-icon-neutral-4` (bordes horizontales, `#f0f0f0` verificado exacto).
+- `--text-title-3` (titular editorial, 42px a 1440px — coincide exactamente), `line-height: 1.2` literal (fijado así en Figma, no el line-height responsive del token).
+- `--grid-margin-default` (padding horizontal de todas las secciones).
+- Newsletter: instancia real de `UI06-Input` (`size="small"`) reutilizada tal cual.
+- Imagen: `AspectRatio` `ratio="3:4"`.
+- Iconos: `Icon` `XLogo`/`FacebookLogo`/`InstagramLogo`/`CaretDown`/`ArrowRight`.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `topColumns` | Columnas de grupos de enlaces (`[{ title, links }]`) | 4 columnas de ejemplo | — |
+| `companyGroup` | Grupo "Empresa" (`{ title, links }`) | Grupo de ejemplo | — |
+| `contact` | `{ phone, email }` | Datos de ejemplo | — |
+| `socialLinks` | Array de redes sociales | 3 redes de ejemplo | — |
+| `heroImage` / `heroImageAlt` | Imagen editorial | — | text |
+| `heading` | Array de líneas del titular | 2 líneas de ejemplo | — |
+| `newsletterLabel` / `emailLabel` | Textos del formulario | Textos de ejemplo | text |
+| `onNewsletterSubmit` | Callback al enviar el formulario | — | — |
+| `copyright` | Texto de copyright | Texto de ejemplo | text |
+| `language` / `onLanguageClick` | Selector de idioma | `'English'` | text |
+| `legalLinks` | Array de enlaces legales | 4 enlaces de ejemplo | — |
+
+## Accesibilidad
+
+- Cada grupo de enlaces es un `<button aria-expanded>` + `<ul>` de enlaces reales.
+- Iconos sociales con `aria-label` individual.
+- El selector de idioma es un `<button>` nativo.
+
+## Componentes relacionados
+
+- **UI06 · Input** — formulario de newsletter, reutilizado tal cual.
+- **AspectRatio** — imagen editorial (`3:4`).
+- **Icon** — iconos sociales, chevrons y flecha de envío.
