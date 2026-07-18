@@ -1,0 +1,177 @@
+/**
+ * Cards / Categories — node 58182:4401 en Figma (COMPONENT_SET: 4
+ * variantes "Property 1=Default" sin nombre descriptivo, identificadas por
+ * contenido: 2 de escritorio y 2 de mobile, cruzando 2 ejes reales:
+ *
+ * - **`variant`**: `'header'` (título + iconos de redes sociales, fila de
+ *   miniaturas con leyenda "@handle" debajo de cada una) vs `'footer'`
+ *   (sin título, fila de miniaturas centrada + leyenda final
+ *   "SÍGUENOS"/"@HANDLE" centrada, sin iconos).
+ *
+ * A pesar del nombre "Cards / Categories" del master de Figma, el
+ * contenido real de las 4 variantes es un feed de miniaturas de redes
+ * sociales ("Social_media-Thumbnail") — se respeta el nombre del master
+ * para la carpeta/exportación, pero la documentación describe el
+ * contenido real.
+ *
+ * **Simplificaciones deliberadas** (widget decorativo/marketing, con
+ * mucho posicionamiento absoluto de un solo uso en Figma):
+ * - El desbordamiento por la izquierda de la fila de miniaturas
+ *   (`left: -119px` en la variante desktop `header`) se sustituye por
+ *   `overflow-x: auto` en la fila — mismo criterio ya usado en "cards
+ *   slider" (Cards / Gallery, Cards / Product carousel) para reproducir
+ *   una tira de contenido más ancha que el viewport sin depender de un
+ *   offset negativo fijo.
+ * - La variante mobile `header` de Figma coloca la fila de iconos DEBAJO
+ *   de las miniaturas (en vez de junto al título, como en desktop) y
+ *   omite las leyendas "@handle" bajo cada miniatura — se simplifica
+ *   manteniendo título+iconos siempre juntos en la cabecera y las
+ *   leyendas siempre presentes si se pasan, por consistencia y
+ *   mantenibilidad, documentado aquí como simplificación.
+ * - Las miniaturas alternan dos proporciones exactas de Figma (204×272,
+ *   gap 36px bajo la imagen / 268×173.7, gap 88px bajo la imagen) vía
+ *   `:nth-child(odd/even)` — anchos/altos fijos en píxeles, sin usar el
+ *   componente `AspectRatio` (las proporciones no coinciden con ninguna de
+ *   sus 7 variantes fijas).
+ *
+ * **Color de título verificado con `use_figma`**: la variante desktop
+ * `header` usa `Texts/Secondary-1` (`--color-content-secondary-1`,
+ * `#1f2019`), no `Texts/Base` — un token real distinto, aplicado aquí como
+ * override local (no se tocó el componente `Title` para un solo caso).
+ *
+ * Iconos de redes sociales: `Icon` (`XLogo`/`FacebookLogo`/`InstagramLogo`/
+ * `LinkedinLogo`/`TiktokLogo`), tamaño `l` (32px, 4px de diferencia
+ * aceptada frente a los 28px de Figma, mismo margen de redondeo que otros
+ * módulos).
+ *
+ * El gap entre cabecera y fila de miniaturas en desktop (48px) es un valor
+ * de flujo simplificado: la instancia de Figma posiciona ambos bloques con
+ * coordenadas absolutas (`top: 68` / `top: 209`) sobre un lienzo de altura
+ * fija, que no tiene sentido replicar en un layout de flujo (`flex`)
+ * pensado para contenido de longitud variable.
+ */
+.cards-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+  padding: 40px 24px 64px;
+  background: var(--color-surface-base);
+}
+
+.cards-categories__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+.cards-categories__title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-3);
+  line-height: var(--text-body-3--line-height);
+  color: var(--color-content-secondary-1);
+}
+
+.cards-categories__social {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.cards-categories__social-link {
+  display: inline-flex;
+  color: var(--color-content-base);
+}
+
+.cards-categories__row {
+  display: flex;
+  align-items: flex-end;
+  gap: 32px;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.cards-categories__thumb {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  flex-shrink: 0;
+}
+
+.cards-categories__thumb:nth-child(even) {
+  gap: 88px;
+}
+
+.cards-categories__thumb-image {
+  display: block;
+  width: 204px;
+  height: 272px;
+  object-fit: cover;
+  background: var(--color-surface-neutral-1);
+}
+
+.cards-categories__thumb:nth-child(even) .cards-categories__thumb-image {
+  width: 268px;
+  height: 173.7px;
+}
+
+.cards-categories__thumb-caption {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-3);
+  line-height: var(--text-body-3--line-height);
+  color: var(--color-content-neutral-2);
+  white-space: nowrap;
+}
+
+.cards-categories__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.cards-categories__footer-label,
+.cards-categories__footer-handle {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-3);
+  line-height: var(--text-body-3--line-height);
+}
+
+.cards-categories__footer-label {
+  color: var(--color-content-neutral-2);
+}
+
+.cards-categories__footer-handle {
+  color: var(--color-content-base);
+  text-decoration: none;
+}
+
+@media (min-width: 768px) {
+  .cards-categories {
+    gap: 131px;
+    padding: 112px 0 64px;
+    align-items: center;
+  }
+
+  .cards-categories[data-variant='header'] {
+    gap: 48px;
+    padding: 68px 80px 64px;
+    align-items: stretch;
+  }
+
+  .cards-categories__row {
+    width: auto;
+    gap: 132px;
+  }
+}

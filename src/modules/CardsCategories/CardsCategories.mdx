@@ -1,0 +1,61 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as CardsCategoriesStories from './CardsCategories.stories'
+
+<Meta of={CardsCategoriesStories} />
+
+# Cards / Categories
+
+## Intro
+
+`CardsCategories` traduce el módulo **Cards / Categories** de Figma (`node 58182:4401`, COMPONENT_SET con 4 variantes "Property 1=Default" sin nombre descriptivo, identificadas por su contenido). Pese al nombre del master, el contenido real de las 4 variantes es un feed de miniaturas de redes sociales, no tarjetas de categorías.
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport.
+
+## Demo
+
+<Canvas of={CardsCategoriesStories.Header} />
+
+## Anatomía
+
+Dos variantes de composición, identificadas cruzando las 4 variantes de Figma (2 desktop + 2 mobile):
+
+1. **`variant="header"`** — título + iconos de redes sociales (`XLogo`/`FacebookLogo`/`InstagramLogo`/`LinkedinLogo`/`TiktokLogo`) + fila de miniaturas con leyenda "@handle" bajo cada una.
+2. **`variant="footer"`** — sin título ni iconos; fila de miniaturas centrada + leyenda final centrada ("SÍGUENOS" / "@HANDLE").
+
+<Story of={CardsCategoriesStories.Footer} />
+
+## Comportamiento
+
+**Simplificaciones deliberadas** (widget decorativo/marketing con mucho posicionamiento absoluto de un solo uso en la instancia de Figma):
+
+- El desbordamiento por la izquierda de la fila de miniaturas (`left: -119px` en la instancia desktop `header`) se sustituye por `overflow-x: auto` en la fila — mismo criterio ya usado en "cards slider" (Cards / Gallery, Cards / Product carousel) para una tira de contenido más ancha que el viewport, sin depender de un offset negativo fijo.
+- La instancia mobile `header` de Figma coloca la fila de iconos debajo de las miniaturas (en vez de junto al título) y omite las leyendas "@handle" — se simplifica manteniendo título+iconos siempre juntos en la cabecera y las leyendas siempre presentes si se pasan, por consistencia entre breakpoints.
+- El gap entre cabecera y fila de miniaturas en desktop (48px) es un valor de flujo simplificado: la instancia de Figma posiciona ambos bloques con coordenadas absolutas sobre un lienzo de altura fija, que no tiene sentido replicar en un layout de flujo pensado para contenido de longitud variable.
+
+**Miniaturas alternadas**: cada miniatura alterna dos proporciones exactas de Figma vía `:nth-child(odd/even)` — 204×272px (gap 36px bajo la imagen) y 268×173.7px (gap 88px bajo la imagen). No usan el componente `AspectRatio` porque ninguna de sus 7 proporciones fijas coincide con estos valores.
+
+**Color de título verificado con `use_figma`**: la instancia desktop `header` usa `Texts/Secondary-1` (`--color-content-secondary-1`, `#1f2019`), no `Texts/Base` — un token real distinto, confirmado con `boundVariables`, aplicado aquí como color propio del módulo.
+
+## Tokens
+
+`--font-body`, `--text-body-3`, `--color-content-secondary-1` (título), `--color-content-base`, `--color-content-neutral-2` (leyendas), `--color-surface-base`/`--color-surface-neutral-1`. Iconos de redes sociales vía `Icon`, tamaño `l` (32px, 4px de diferencia aceptada frente a los 28px de Figma).
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `variant` | Composición (`'header'`/`'footer'`) | `'header'` | select |
+| `title` | Título de la cabecera (`variant="header"`) | `'Síguenos en redes sociales'` | text |
+| `socialLinks` | Array de redes sociales (`{ name, label, href }`) | 5 redes de ejemplo | — |
+| `items` | Array de miniaturas (`{ image, imageAlt, caption }`) | 5 miniaturas de ejemplo | — |
+| `footerLabel` / `footerHandle` / `footerHref` | Textos del pie (`variant="footer"`) | `'SÍGUENOS'` / `'@JAMONJOSELITO'` | text |
+
+## Accesibilidad
+
+- Cada icono de red social es un `<a>` con `aria-label` y el `title` del `Icon` para lector de pantalla.
+- Las leyendas de miniaturas son texto simple, sin controles interactivos.
+
+## Componentes relacionados
+
+- **Icon** — iconos de redes sociales.
+- **Cards / Gallery**, **Cards / Product carousel** — mismo criterio de `overflow-x: auto` para tiras de contenido más anchas que el viewport.
