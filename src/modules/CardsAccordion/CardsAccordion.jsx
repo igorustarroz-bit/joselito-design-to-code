@@ -108,6 +108,15 @@ function AccordionCard({ item, open, onToggle, id }) {
  * 1=Frame 2087332150" (390×731). Ver cards-accordion.css para el detalle
  * completo de la reconstrucción y las decisiones tomadas ante un master
  * incompleto.
+ *
+ * Mobile y desktop son composiciones MUTUAMENTE EXCLUYENTES (corregido tras
+ * detectar que la primera versión las mezclaba de forma incorrecta): en
+ * mobile se muestra `__list` (tarjeta-acordeón interactiva real); en desktop
+ * (≥768px) se oculta `__list` y se muestra solo `__backdrop` (fondo
+ * ambiental decorativo) — Figma no tiene ninguna composición de acordeón
+ * capturada para escritorio. Título decorativo tokenizado como
+ * `--text-title-8` (estilo Figma "Title/08", creado por diseño para este
+ * módulo).
  */
 export function CardsAccordion({ items = DEFAULT_ITEMS, onToggle, className, ...rest }) {
   const classes = ['cards-accordion', className].filter(Boolean).join(' ')

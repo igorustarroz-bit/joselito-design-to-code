@@ -6,6 +6,35 @@
  * del proyecto ("hay muchos nombres que estan mal o que tienen cosas sin
  * terminar").
  *
+ * **CORRECCIÓN (revisión posterior, reportada por el usuario)**: la primera
+ * implementación mezclaba de forma incorrecta mobile y desktop — la lista de
+ * tarjetas-acordeón (`__list`) se mostraba SIEMPRE, en todos los anchos, y el
+ * fondo decorativo (`__backdrop`) se superponía encima a partir de 768px, así
+ * que en desktop se veían a la vez la tarjeta pequeña (con su botón/tags) Y el
+ * texto ambiental gigante detrás — una combinación que no existe en ningún
+ * sitio de Figma. Re-verificado con `use_figma` recorriendo el árbol COMPLETO
+ * (incluidos nodos ocultos) de las dos variantes: la de escritorio
+ * (58182:24098, 1440×900) no contiene NINGÚN nodo de acordeón — ni cabecera,
+ * ni contenido, ni botón — solo las 3 imágenes y el bloque de texto gigante.
+ * Es decir, en Figma **mobile y desktop son dos composiciones mutuamente
+ * excluyentes**, no una superposición: mobile = tarjeta-acordeón interactiva
+ * completa; desktop = únicamente el fondo ambiental decorativo, sin ningún
+ * control interactivo. Corregido para que `__list` y `__backdrop` se
+ * alternen por media query (igual que el resto del sistema), nunca ambos a
+ * la vez. Queda documentado como una limitación real de este master de Figma
+ * (no hay ninguna composición de acordeón capturada para escritorio) — a
+ * revisar con diseño si el sitio necesita poder expandir el contenido también
+ * en pantallas grandes.
+ *
+ * **Nuevo token `--text-title-8`**: el título decorativo (tarjeta 54px /
+ * fondo 180px) no son dos literales sueltos — verificado con `use_figma` que
+ * ambos usan la MISMA variable de Figma (`Typography/Title 8/SZ`/`LH`,
+ * colección Responsive, estilo de texto "Title/08"), creada por diseño
+ * específicamente para este módulo. Se tokeniza en `responsive.css` como
+ * `--text-title-8`/`--text-title-8--line-height` (mismo patrón que el resto
+ * de `--text-title-N`), sustituyendo los tamaños/line-height/letter-spacing
+ * literales que tenía antes esta hoja de estilos.
+ *
  * **Reconstrucción razonada** (documentada en detalle porque este módulo
  * requirió más interpretación que el resto):
  * - La variante 390×731 ("Property 1=Frame 2087332150") contiene, verificado
@@ -66,8 +95,10 @@
  *   `--text-body-1`, color `Texts/Neutral-1` (`#e5e5e5`) → exactamente
  *   `--color-content-neutral-1` del tema `dark-black-neutral`.
  * - Título decorativo ("Reserva"/"Millésime"/"Vintage"): fuente SangBleu
- *   Kingdom Regular 54px, line-height 110%, letter-spacing -1px — **valores
- *   literales sin variable enlazada** (solo el color tiene `boundVariables`).
+ *   Kingdom Regular, estilo de texto Figma "Title/08" — ver corrección más
+ *   arriba, ahora tokenizado como `--text-title-8`/`--text-title-8--line-height`
+ *   + `--tracking-title` (antes se trataba como literal sin variable, lo cual
+ *   era incorrecto: sí tiene `boundVariables` reales de la colección Responsive).
  *   Color acento `Texts/Accent-Base` (`#e23f36`) — coincide exactamente con
  *   `--color-content-link` del tema `dark-black-neutral` (no con
  *   `--color-content-accent-base`, que en este tema es blanco) — se usa ese
@@ -93,9 +124,9 @@
   display: none;
 }
 
+/* Mobile (tarjeta-acordeón real) y desktop (fondo ambiental) son composiciones
+   mutuamente excluyentes en Figma — nunca se muestran a la vez. */
 .cards-accordion__list {
-  position: relative;
-  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -188,9 +219,9 @@
   margin: 0;
   font-family: var(--font-title);
   font-weight: normal;
-  font-size: 54px;
-  line-height: 1.1;
-  letter-spacing: -1px;
+  font-size: var(--text-title-8);
+  line-height: var(--text-title-8--line-height);
+  letter-spacing: var(--tracking-title);
   color: var(--color-content-base);
 }
 
@@ -253,7 +284,14 @@
 
 @media (min-width: 768px) {
   .cards-accordion {
-    padding: 120px var(--grid-margin-default);
+    padding: 0;
+    min-height: 900px;
+  }
+
+  /* Desktop no tiene ningún nodo de acordeón en Figma (verificado recorriendo
+     el árbol completo, incluidos ocultos) — solo el fondo ambiental. */
+  .cards-accordion__list {
+    display: none;
   }
 
   .cards-accordion__backdrop {
@@ -308,9 +346,9 @@
     margin: 0;
     font-family: var(--font-title);
     font-weight: normal;
-    font-size: 180px;
-    line-height: 1.1;
-    letter-spacing: -5px;
+    font-size: var(--text-title-8);
+    line-height: var(--text-title-8--line-height);
+    letter-spacing: var(--tracking-title);
     color: var(--color-content-base);
   }
 

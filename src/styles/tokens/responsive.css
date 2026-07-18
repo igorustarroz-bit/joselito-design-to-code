@@ -28,6 +28,17 @@
  * / 60px (≥768px). Los tramos 1620/1920 no tienen instancia real que los verifique — se
  * extrapolan con la misma proporción (×1.875) que tenía la curva original en esos tramos,
  * pendiente de confirmar cuando se construya un módulo que llegue a esos anchos.
+ *
+ * `--text-title-8` añadido a posteriori (estilo de texto Figma "Title/08", creado por
+ * diseño específicamente para Cards / Accordion): verificado con `use_figma` que el título
+ * decorativo de ese módulo (tarjeta mobile 54px / fondo ambiental desktop 180px) NO son dos
+ * literales sueltos como se había asumido al construir el módulo, sino la MISMA variable
+ * `Typography/Title 8/SZ`/`LH` de la colección Responsive leída en distintos modos —
+ * confirmado also con Title/07 (ya tokenizado) como control: sus valores por modo coinciden
+ * exactamente con los ya implementados. Valores por modo verificados: XS-375=54/64,
+ * SM-480=72/80, M-768=100/110, LG-1024=120/130, XL-1440=180/203 (XXL-1620 y XXXL-1920
+ * repiten el valor de XL-1440, sin declaración extra necesaria). Letter-spacing usa el
+ * primitivo ya existente `--tracking-title` (-1.5px, mismo valor en ambas instancias).
  */
 
 /* Breakpoints — sustituye por completo la escala por defecto de Tailwind */
@@ -117,6 +128,8 @@
   --text-title-6--line-height: 44px;
   --text-title-7: 40px;
   --text-title-7--line-height: 52px;
+  --text-title-8: 54px;
+  --text-title-8--line-height: 64px;
 }
 
 @media (min-width: 480px) {
@@ -126,6 +139,8 @@
     --text-title-6: 44px;
     --text-title-7: 64px;
     --text-title-7--line-height: 72px;
+    --text-title-8: 72px;
+    --text-title-8--line-height: 80px;
   }
 }
 
@@ -162,6 +177,8 @@
     --text-title-6--line-height: 68px;
     --text-title-7: 74px;
     --text-title-7--line-height: 84px;
+    --text-title-8: 100px;
+    --text-title-8--line-height: 110px;
   }
 }
 
@@ -169,6 +186,8 @@
   :root {
     --grid-margin-modal: 40px;
     --text-title-4--line-height: 48px;
+    --text-title-8: 120px;
+    --text-title-8--line-height: 130px;
   }
 }
 
@@ -209,6 +228,8 @@
     --text-title-6--line-height: 72px;
     --text-title-7: 104px;
     --text-title-7--line-height: 132px;
+    --text-title-8: 180px;
+    --text-title-8--line-height: 203px;
   }
 }
 
