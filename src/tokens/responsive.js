@@ -14,7 +14,7 @@ export const breakpoints = [
 ]
 
 export const typographyScale = [
-  { group: 'Title', tokens: ['title-7', 'title-6', 'title-5', 'title-4', 'title-3', 'title-2', 'title-1'] },
+  { group: 'Title', tokens: ['title-8', 'title-7', 'title-6', 'title-5', 'title-4', 'title-3', 'title-2', 'title-1'] },
   { group: 'Body', tokens: ['body-6', 'body-5', 'body-4', 'body-3', 'body-2', 'body-1'] },
   { group: 'Label', tokens: ['label-2', 'label-1'] },
   { group: 'CTA', tokens: ['cta-xl', 'cta-l', 'cta-m', 'cta-s', 'cta-xs'] },
