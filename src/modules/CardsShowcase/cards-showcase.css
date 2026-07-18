@@ -1,0 +1,87 @@
+/**
+ * Cards / Showcase — node 58182:4396 en Figma (COMPONENT_SET: Property1
+ * con 3 variantes sin nombre descriptivo, identificadas por su contenido:
+ * desktop 2 tarjetas con borde completo, desktop 1 tarjeta sin borde,
+ * mobile 2 tarjetas con borde inferior).
+ *
+ * Cabecera: reutiliza `Title` (mismos tokens ya corregidos en Cards /
+ * Product carousel: Body/03 mobile → Body/04 desktop, enlace
+ * `--color-content-neutral-2`).
+ *
+ * Tarjetas: reutiliza `CardCarrusel` ya construido, con su prop `layout`
+ * ('horizontal' en desktop, 'vertical' en mobile) — al ser un valor
+ * discreto (no fluido), se renderizan ambas variantes y se oculta la que
+ * no corresponde por breakpoint (mismo patrón ya usado en Content / Intro
+ * text para el tamaño de botón).
+ *
+ * Borde: dos tokens distintos por breakpoint, ambos verificados en Figma —
+ * `--color-icon-neutral-3` (#e5e5e5, borde completo) en desktop,
+ * `--color-icon-neutral-4` (#f0f0f0, solo borde inferior) en mobile. Se
+ * expone como prop `bordered` (una de las 3 variantes de Figma, la de 1
+ * sola tarjeta, no lo lleva).
+ *
+ * Paddings del contenedor (80/68/88px desktop, 24/40/64px mobile) y gap
+ * mobile de la fila (32px) coinciden exactamente con los ya usados en
+ * Cards / Product carousel — mismo patrón de contenedor "showcase" en
+ * ambos módulos. El gap desktop de la fila (93px) es literal propio de
+ * este módulo, sin match limpio de grid.
+ */
+.cards-showcase {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  padding: 40px 24px 64px;
+  background: var(--color-surface-base);
+}
+
+.cards-showcase[data-bordered='true'] {
+  border-bottom: 1px solid var(--color-icon-neutral-4);
+}
+
+.cards-showcase__row {
+  gap: 32px;
+  width: 100%;
+}
+
+.cards-showcase__row--desktop {
+  display: none;
+}
+
+.cards-showcase__row--mobile {
+  display: flex;
+}
+
+.cards-showcase__row--mobile > * {
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .cards-showcase {
+    gap: 48px;
+    padding: 68px 80px 88px;
+  }
+
+  .cards-showcase[data-bordered='true'] {
+    border: 1px solid var(--color-icon-neutral-3);
+  }
+
+  .cards-showcase__row {
+    gap: 93px;
+    align-items: center;
+  }
+
+  .cards-showcase__row--desktop {
+    display: flex;
+  }
+
+  .cards-showcase__row--desktop > * {
+    flex: 1 0 0;
+    min-width: 0;
+  }
+
+  .cards-showcase__row--mobile {
+    display: none;
+  }
+}

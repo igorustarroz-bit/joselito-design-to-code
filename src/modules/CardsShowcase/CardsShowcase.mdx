@@ -1,0 +1,56 @@
+import { Meta, Canvas, Controls, Story } from '@storybook/addon-docs/blocks'
+import * as CardsShowcaseStories from './CardsShowcase.stories'
+
+<Meta of={CardsShowcaseStories} />
+
+# Cards / Showcase
+
+## Intro
+
+`CardsShowcase` traduce el módulo **Cards / Showcase** de Figma (`node 58182:4396`, COMPONENT_SET con 3 variantes sin nombre descriptivo, identificadas por su contenido: desktop 2 tarjetas con borde, desktop 1 tarjeta sin borde, mobile 2 tarjetas con borde inferior). Cabecera + 1 o 2 tarjetas `CardCarrusel`.
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport.
+
+## Demo
+
+<Canvas of={CardsShowcaseStories.Default} />
+
+## Anatomía
+
+1. **Cabecera** — reutiliza `Title` (mismos tokens ya corregidos en Cards / Product carousel).
+2. **Tarjetas** — 1 o 2 instancias de `CardCarrusel` ya construido, en su variante `layout="horizontal"` (desktop) o `layout="vertical"` (mobile).
+
+<Story of={CardsShowcaseStories.SingleCardNoBorder} />
+
+## Comportamiento
+
+**`layout` de `CardCarrusel` es un valor discreto por breakpoint**, no fluido: horizontal en desktop, vertical en mobile. Se renderizan ambas variantes y se oculta la que no corresponde por CSS — mismo patrón ya usado en Content / Intro text para alternar el tamaño de botón.
+
+**Borde con dos tokens distintos por breakpoint**, ambos verificados en Figma: `--color-icon-neutral-3` (`#e5e5e5`, borde completo) en desktop, `--color-icon-neutral-4` (`#f0f0f0`, solo borde inferior) en mobile. Se expone como prop `bordered` — una de las 3 variantes de Figma (la de una sola tarjeta) no lo lleva, de ahí que sea configurable en vez de fijo.
+
+**Paddings del contenedor y gap mobile idénticos a Cards / Product carousel** (80/68/88px desktop, 24/40/64px mobile, gap mobile 32px) — mismo patrón de contenedor "showcase" compartido entre ambos módulos, verificado exacto en Figma. El gap desktop de la fila (93px) es literal propio de este módulo, sin match limpio de grid.
+
+## Tokens
+
+Ningún token nuevo — reutiliza los ya existentes de `Title` y `CardCarrusel`, más `--color-icon-neutral-3`/`--color-icon-neutral-4` (borde) y `--color-surface-base`.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `title` | Título de la cabecera | `'Tiendas y restaurantes'` | text |
+| `linkText` / `href` / `onClick` | Texto y destino del enlace de la cabecera | `'Ver todos'` | text |
+| `showLink` | Muestra/oculta el enlace de la cabecera | `true` | boolean |
+| `bordered` | Muestra el borde del contenedor | `true` | boolean |
+| `cards` | Array de 1 o 2 tarjetas (props de `CardCarrusel`) | 2 tarjetas de ejemplo | — |
+
+## Accesibilidad
+
+- La cabecera reutiliza `Title`, ya accesible.
+- Cada tarjeta reutiliza `CardCarrusel`, ya accesible (enlace de acción real, tags como botones no interactivos).
+
+## Componentes relacionados
+
+- **Title** — cabecera del módulo.
+- **Card Carrusel** — tarjeta reutilizada, alternando `layout` por breakpoint.
+- **Cards / Product carousel** — mismo patrón de contenedor y cabecera.
