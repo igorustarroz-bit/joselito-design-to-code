@@ -4,15 +4,14 @@
  *
  * ALCANCE: este master de Figma incrusta, dentro de su propia anatomía, una
  * barra de navegación completa ("Navigation", node 58163:33790/58163:33792)
- * y una tarjeta "Toast" (node 58182:23555/58182:23562) — ambos ya listados
- * como módulos independientes y aún `pendiente` en PLAN.md ("Navigation
- * (header principal)" y "Toast"). Para no duplicar ese trabajo ni bloquear
- * este módulo, `HeroHomepageHero` compone aquí versiones simplificadas e
- * INTERNAS (no exportadas, viven solo en este archivo) de ambas piezas —
- * suficientes para reproducir el diseño visual — documentadas explícitamente
- * como stand-ins temporales. Cuando se construyan los módulos dedicados
- * "Navigation (header principal)" y "Toast", sustituir estas piezas internas
- * por instancias de esos componentes.
+ * y una tarjeta "Toast" (node 58182:23555/58182:23562). El módulo
+ * "Navigation (header principal)" ya está construido (`src/modules/
+ * Navigation/`) y se reutiliza aquí directamente (`variant="transparent"`),
+ * sustituyendo el stand-in interno simplificado que existía antes. "Toast"
+ * sigue `pendiente` en PLAN.md — `HeroHomepageHero` mantiene para esa pieza
+ * una versión simplificada e INTERNA (no exportada, `HomepageHeroToast` más
+ * abajo en `HeroHomepageHero.jsx`), a sustituir cuando se construya el
+ * módulo dedicado "Toast".
  *
  * Altura: 800px mobile / 860px desktop — literales sin variable en Figma.
  * Ancho del bloque de contenido: 350px mobile / 664px desktop — literal (a
@@ -22,11 +21,11 @@
  * `grid-column`). Centrado con flexbox, mismo criterio que Hero / Section
  * hero.
  *
- * Márgenes de la barra de navegación (40px desktop / 24px mobile) son
- * distintos y más estrechos que `--grid-margin-default` (60px/20px) — no es
- * un descuido: la nav de Figma usa su propio margen, literal, específico de
- * esta pieza (a definir como token propio cuando se construya el módulo
- * dedicado "Navigation (header principal)").
+ * Márgenes de la barra de navegación (40px desktop / 24px mobile, más
+ * estrechos que `--grid-margin-default`): ya no son literales de este
+ * archivo — los aplica el propio módulo `Navigation` reutilizado aquí (ver
+ * `navigation.css`), documentados allí como primitivas fijas propias de esa
+ * pieza (`--spacing-fx-9`/`--spacing-fx-6`).
  *
  * Tema: el bloque de contenido central usa `data-theme="dark-black-neutral"`
  * (label #b3b3b3 = --color-content-neutral-3, título blanco =
@@ -34,10 +33,6 @@
  * de Figma, aplicado como override de tema sobre la imagen de fondo, según
  * el criterio de temas por (data-theme) del punto 16 de las instrucciones.
  *
- * El icono de menú móvil (hamburguesa) en Figma es un asset raster suelto,
- * no un icono del set — se sustituye aquí por el icono componentizado
- * `List` (mismo criterio visual, 3 líneas horizontales) para mantener todo
- * apoyado en el sistema de componentes en vez de assets sueltos.
  */
 .hero-homepage-hero {
   position: relative;
@@ -85,109 +80,16 @@
   }
 }
 
-/* --- Navigation (stand-in temporal, ver comentario superior) --- */
+/* --- Navigation ---
+ * Reutiliza el módulo real `Navigation` (`variant="transparent"`), que ya
+ * trae su propio padding/tipografía/color por tema — aquí solo se posiciona
+ * por encima del scrim/imagen de fondo (mismo z-index que el resto del
+ * contenido).
+ */
 
 .hero-homepage-hero__nav {
   position: relative;
   z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  width: 100%;
-  min-height: 56px;
-  padding: 12px 24px;
-}
-
-@media (min-width: 768px) {
-  .hero-homepage-hero__nav {
-    min-height: 0;
-    padding: 24px 40px;
-  }
-}
-
-.hero-homepage-hero__nav-logo {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  height: 22px;
-  width: auto;
-  color: var(--color-content-base, #fff);
-}
-
-.hero-homepage-hero__nav-menu {
-  display: flex;
-  color: var(--color-content-base, #fff);
-}
-
-.hero-homepage-hero__nav-links {
-  display: none;
-  align-items: center;
-  gap: 20px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.hero-homepage-hero__nav-links a {
-  font-family: var(--font-body);
-  font-size: var(--text-body-2);
-  line-height: var(--text-body-2--line-height);
-  color: inherit;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.hero-homepage-hero__nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.hero-homepage-hero__nav-actions--desktop {
-  display: none;
-}
-
-.hero-homepage-hero__nav-search-label,
-.hero-homepage-hero__nav-account,
-.hero-homepage-hero__nav-cart {
-  font-family: var(--font-body);
-  font-size: var(--text-body-2);
-  line-height: var(--text-body-2--line-height);
-  color: inherit;
-  white-space: nowrap;
-}
-
-.hero-homepage-hero__nav-search {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.hero-homepage-hero__nav-cart-group {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-@media (min-width: 768px) {
-  .hero-homepage-hero__nav-menu {
-    display: none;
-  }
-
-  .hero-homepage-hero__nav-links {
-    display: flex;
-  }
-
-  .hero-homepage-hero__nav-actions--mobile {
-    display: none;
-  }
-
-  .hero-homepage-hero__nav-actions--desktop {
-    display: flex;
-    gap: 20px;
-  }
 }
 
 /* --- Contenido central --- */

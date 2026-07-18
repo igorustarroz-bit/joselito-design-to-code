@@ -1,50 +1,7 @@
 import './hero-homepage-hero.css'
-import { Icon } from '../../components/Icon/Icon'
-import { BrandLogo } from '../../components/BrandLogo/BrandLogo'
 import { Button } from '../../components/Button/Button'
 import { AspectRatio } from '../../components/AspectRatio/AspectRatio'
-
-/**
- * Barra de navegación — stand-in interno y simplificado del futuro módulo
- * "Navigation (header principal)" (ver comentario en hero-homepage-hero.css).
- * No se exporta: vive solo dentro de HeroHomepageHero.
- */
-function HomepageHeroNav({ navLinks }) {
-  return (
-    <nav className="hero-homepage-hero__nav" aria-label="Navegación principal">
-      <div className="hero-homepage-hero__nav-menu">
-        <Icon name="List" size="m" title="Abrir menú" />
-      </div>
-
-      <ul className="hero-homepage-hero__nav-links">
-        {navLinks.map((link) => (
-          <li key={link.label}>
-            <a href={link.href}>{link.label}</a>
-          </li>
-        ))}
-      </ul>
-
-      <BrandLogo className="hero-homepage-hero__nav-logo" />
-
-      <div className="hero-homepage-hero__nav-actions hero-homepage-hero__nav-actions--mobile">
-        <Icon name="MagnifyingGlass" size="m" title="Buscar" />
-        <Icon name="Bag" size="m" title="Cesta" />
-      </div>
-
-      <div className="hero-homepage-hero__nav-actions hero-homepage-hero__nav-actions--desktop">
-        <span className="hero-homepage-hero__nav-search">
-          <Icon name="MagnifyingGlass" size="s" />
-          <span className="hero-homepage-hero__nav-search-label">Buscar</span>
-        </span>
-        <span className="hero-homepage-hero__nav-account">Cuenta</span>
-        <span className="hero-homepage-hero__nav-cart-group">
-          <span className="hero-homepage-hero__nav-cart">Cesta</span>
-          <span className="hero-homepage-hero__nav-cart">(3)</span>
-        </span>
-      </div>
-    </nav>
-  )
-}
+import { Navigation } from '../Navigation/Navigation'
 
 /**
  * Tarjeta "Toast" — stand-in interno y simplificado del futuro módulo
@@ -66,8 +23,10 @@ function HomepageHeroToast({ image, imageAlt, title, description }) {
  * Hero / Homepage hero — node 58182:4353 en Figma (COMPONENT_SET:
  * Property1=desktop/mobile). Imagen de fondo a sangre completa + nav +
  * bloque de contenido centrado (label/título/botón) + tarjeta "Toast"
- * flotante. Ver hero-homepage-hero.css para el detalle de alcance
- * (Navigation y Toast son stand-ins temporales) y de tokens/grid.
+ * flotante. Reutiliza el módulo real `Navigation` (`variant="transparent"`)
+ * — antes era un stand-in interno simplificado, sustituido ahora que ese
+ * módulo está construido. "Toast" sigue pendiente en el plan, por lo que
+ * mantiene su stand-in interno simplificado (ver hero-homepage-hero.css).
  */
 export function HeroHomepageHero({
   backgroundImage,
@@ -101,7 +60,7 @@ export function HeroHomepageHero({
       )}
       <div className="hero-homepage-hero__scrim" />
 
-      <HomepageHeroNav navLinks={navLinks} />
+      <Navigation className="hero-homepage-hero__nav" variant="transparent" items={navLinks} />
 
       <div className="hero-homepage-hero__content">
         <p className="hero-homepage-hero__label">{label}</p>

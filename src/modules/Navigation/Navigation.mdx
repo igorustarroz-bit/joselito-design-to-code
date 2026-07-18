@@ -1,0 +1,62 @@
+import { Meta, Canvas, Story } from '@storybook/addon-docs/blocks'
+import * as NavigationStories from './Navigation.stories'
+
+<Meta of={NavigationStories} />
+
+# Navigation (header principal)
+
+## Intro
+
+`Navigation` traduce el módulo **Navigation** de Figma (`node 58182:4143`, COMPONENT_SET con 4 variantes: Device=desktop/mobile × una segunda propiedad de nombre roto que en realidad codifica una prop real `variant` — `'default'`/`'transparent'`). Cabecera principal del sitio.
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport.
+
+## Demo
+
+<Canvas of={NavigationStories.Default} />
+
+### Variante transparente
+
+Pensada para ir superpuesta sobre una imagen oscura (mismo caso de uso que la navegación interna simplificada de Hero / Homepage hero).
+
+<Story of={NavigationStories.Transparent} />
+
+## Anatomía
+
+Desktop: enlaces de texto a la izquierda, logotipo (`BrandLogo`) centrado, "Buscar"/"Cuenta"/"Cesta (n)" a la derecha. Mobile: icono de menú (`List`) a la izquierda, logotipo centrado, iconos de búsqueda y bolsa a la derecha (sin texto ni contador).
+
+## Comportamiento
+
+**Device responsive real**, igual criterio que el resto del plan, con una diferencia estructural genuina verificada (no solo visual): en mobile no hay enlaces de texto ni "Cuenta"/"Cesta (n)" — solo iconos. El menú de enlaces mobile abre el módulo "Menu" (pendiente en el plan), fuera del alcance de este módulo, mismo criterio de alcance que Hero / Homepage hero.
+
+**Variante `transparent`**: aplica `data-theme="dark-black-neutral"` y `background: transparent` (sin `data-theme`, usa el tema `light-white` por defecto con fondo `--color-surface-base`). El color de "Cesta"/"(n)" (`--color-content-accent-base`) ya resuelve correctamente en ambos temas sin ajuste adicional: rojo en `light-white`, blanco en `dark-black-neutral` — exactamente lo verificado en las 4 variantes de Figma.
+
+## Tokens
+
+- `--text-body-2` (todos los textos).
+- `--color-content-base` (enlaces, "Buscar", "Cuenta", logotipo — Figma usa dos nombres de variable distintos, `Texts/Base` y `Backgrounds/Inverse`, que resuelven al mismo valor en ambos temas; se consolida en un único token).
+- `--color-content-accent-base` ("Cesta"/contador).
+- `--spacing-fx-9`/`--spacing-fx-6` (padding horizontal desktop/mobile), `--spacing-fx-5` (gap entre enlaces/acciones desktop), `--spacing-fx-2` (icono+texto "Buscar"), `--spacing-fx-1` ("Cesta"+contador), `--spacing-fx-3` (gap iconos mobile) — todas primitivas fijas verificadas exactas.
+- `BrandLogo` (`variant="horizontal"`) reutilizado tal cual, hereda el color del header vía `currentColor`.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `variant` | `'default'` / `'transparent'` | `'default'` | select |
+| `items` | Enlaces de navegación desktop (`{ label, href }`) | 5 enlaces de ejemplo | — |
+| `brandHref` | Enlace del logotipo | `'#'` | text |
+| `cartCount` | Número mostrado en "Cesta (n)" | `3` | number |
+| `onMenuClick` / `onSearchClick` / `onAccountClick` / `onCartClick` | Callbacks de cada acción | — | — |
+
+## Accesibilidad
+
+- El botón de menú mobile lleva `aria-label="Abrir menú"`.
+- El logotipo es un enlace con `aria-label="Joselito"`.
+- El botón de bolsa mobile (solo icono) lleva `aria-label="Cesta"`.
+
+## Componentes relacionados
+
+- **BrandLogo** — logotipo reutilizado tal cual.
+- **Icon** — `List`, `MagnifyingGlass`, `Bag`.
+- **Hero / Homepage hero** — mismo caso de uso de navegación transparente sobre imagen oscura (su nav interna simplificada queda pendiente de sustituir por este módulo).

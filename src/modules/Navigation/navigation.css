@@ -1,0 +1,191 @@
+/**
+ * Navigation (header principal) — node 58182:4143 en Figma (COMPONENT_SET,
+ * 4 variantes con nombre roto/genérico: Device=desktop/mobile × una
+ * segunda propiedad sin nombre descriptivo que en realidad codifica
+ * `variant`: `'default'` (fondo `--color-surface-base`, texto/iconos según
+ * tema) vs `'transparent'` (sin fondo, pensada para ir superpuesta sobre
+ * una imagen oscura — mismo caso de uso que la navegación interna
+ * simplificada de Hero / Homepage hero).
+ *
+ * **Verificado con `get_design_context`** en las 4 variantes:
+ * - Textos de enlaces/acciones (`Tienda`/`Origen`/.../`Buscar`/`Cuenta`):
+ *   Figma usa dos nombres de variable distintos según el elemento
+ *   (`Texts/Base` para los enlaces, `Backgrounds/Inverse` para
+ *   `Buscar`/`Cuenta`) pero ambos resuelven exactamente al mismo valor en
+ *   los dos temas capturados (negro en `default`/light, blanco en
+ *   `transparent`/`dark-black-neutral`) — se consolida en un único token,
+ *   `--color-content-base`, documentado como simplificación.
+ * - `Cesta`/`(3)`: `Texts/Accent-Base` → `--color-content-accent-base`, que
+ *   YA resuelve de forma distinta y correcta en cada tema sin ningún ajuste
+ *   adicional (rojo `#e23f36` en `light-white`, blanco `#ffffff` en
+ *   `dark-black-neutral` — verificado que este es precisamente el
+ *   comportamiento que muestra Figma: rojo en `default`, blanco en
+ *   `transparent`).
+ * - Fuente/tamaño: `Typography/Body 2` (14/22) → `--text-body-2` en todos
+ *   los textos.
+ * - Padding: `40px`/`24px` desktop = primitivas fijas `--spacing-fx-9`/
+ *   `--spacing-fx-6` (no `--grid-margin-default`, que sería 60px); `24px`
+ *   mobile = `--spacing-fx-6`. Altura fija 56px mobile / 70px contenido
+ *   desktop (con `py-24` ya incluido). Gaps: 20px entre enlaces/acciones
+ *   desktop (`--spacing-fx-5`), 8px icono+texto de "Buscar"
+ *   (`--spacing-fx-2`), 4px "Cesta"+contador (`--spacing-fx-1`), 12px entre
+ *   iconos mobile (`--spacing-fx-3`) — todas primitivas fijas verificadas
+ *   exactas, no responsive.
+ * - Logotipo: reutiliza `BrandLogo` (`variant="horizontal"`) tal cual, con
+ *   `color: var(--color-content-base)` heredado (el propio componente no
+ *   tiene variantes de color en Figma, pero su SVG usa `currentColor`, así
+ *   que hereda el mismo tema que el resto del header).
+ *
+ * **Comportamiento responsive real** (Device desktop/mobile, no prop, igual
+ * criterio que el resto del plan): en mobile no hay enlaces de texto ni
+ * "Cuenta"/"Cesta (n)" — solo icono de menú (`List`), buscador (icono sin
+ * texto) y bolsa (`Bag`, sin contador visible en la instancia capturada,
+ * documentado como límite de los datos de Figma: el contador de cesta solo
+ * se ve en el texto de escritorio). El menú de enlaces mobile (`List`) abre
+ * el módulo "Menu" (pendiente en el plan), fuera del alcance de este
+ * módulo — mismo criterio de alcance ya usado en Hero / Homepage hero.
+ */
+
+.navigation {
+  width: 100%;
+  color: var(--color-content-base);
+}
+
+.navigation[data-variant='default'] {
+  background: var(--color-surface-base);
+}
+
+.navigation[data-variant='transparent'] {
+  background: transparent;
+}
+
+.navigation__row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 var(--spacing-fx-6);
+}
+
+.navigation__menu-button {
+  display: inline-flex;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+}
+
+.navigation__links {
+  display: none;
+}
+
+.navigation__brand {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  color: inherit;
+}
+
+.navigation__brand-logo {
+  width: 90px;
+  height: auto;
+  color: inherit;
+}
+
+.navigation__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-fx-3);
+}
+
+.navigation__action {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-fx-2);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-2);
+  line-height: var(--text-body-2--line-height);
+}
+
+.navigation__action-label {
+  white-space: nowrap;
+}
+
+.navigation__action--account,
+.navigation__action--search .navigation__action-label {
+  display: none;
+}
+
+.navigation__action--cart {
+  color: var(--color-content-accent-base);
+  display: none;
+}
+
+.navigation__cart-label {
+  white-space: nowrap;
+}
+
+.navigation__cart-label {
+  margin-right: var(--spacing-fx-1);
+}
+
+@media (min-width: 768px) {
+  .navigation__row {
+    height: 70px;
+    padding: 0 var(--spacing-fx-9);
+  }
+
+  .navigation__menu-button {
+    display: none;
+  }
+
+  .navigation__links {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-fx-5);
+  }
+
+  .navigation__link {
+    font-family: var(--font-body);
+    font-weight: normal;
+    font-size: var(--text-body-2);
+    line-height: var(--text-body-2--line-height);
+    color: var(--color-content-base);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .navigation__brand-logo {
+    width: 126px;
+  }
+
+  .navigation__actions {
+    gap: var(--spacing-fx-5);
+  }
+
+  .navigation__action--search .navigation__action-label {
+    display: inline;
+  }
+
+  .navigation__action--account {
+    display: inline-flex;
+  }
+
+  .navigation__action--cart {
+    display: inline-flex;
+  }
+
+  .navigation__action--bag {
+    display: none;
+  }
+}

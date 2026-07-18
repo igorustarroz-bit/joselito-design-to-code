@@ -26,15 +26,13 @@ Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100%
 
 ## Comportamiento
 
-**Alcance de Navigation y Toast — importante:** el master de Figma de este módulo incrusta, dentro de su propia anatomía, una barra de navegación completa y una tarjeta "Toast". Ambas piezas están además listadas como módulos independientes y todavía `pendiente` en `PLAN.md` ("Navigation (header principal)" y "Toast"). Para no bloquear este módulo ni duplicar ese trabajo por adelantado, aquí se han construido versiones **simplificadas e internas** de ambas piezas — funciones no exportadas dentro de `HeroHomepageHero.jsx`, suficientes para reproducir el diseño visual (enlaces, buscador, cuenta, cesta con contador; tarjeta con imagen + texto). Cuando se construyan los módulos dedicados "Navigation (header principal)" y "Toast" en su turno del plan, sustituir estas piezas internas por instancias de esos componentes reales.
-
-El icono de menú móvil (hamburguesa) es en Figma un asset raster suelto — se sustituye aquí por el icono componentizado `List` del sistema de iconos, para no introducir un asset fuera del pipeline.
+**Actualización de alcance:** el master de Figma de este módulo incrusta, dentro de su propia anatomía, una barra de navegación completa y una tarjeta "Toast". El módulo "Navigation (header principal)" ya está construido (`src/modules/Navigation/`) y se reutiliza aquí directamente (`variant="transparent"`), sustituyendo el stand-in interno simplificado que existía antes de que ese módulo se completara. "Toast" sigue `pendiente` en `PLAN.md` — se mantiene para esa pieza una versión **simplificada e interna** (`HomepageHeroToast`, función no exportada dentro de `HeroHomepageHero.jsx`), a sustituir cuando le llegue su turno en el plan.
 
 La propiedad "Property1" (desktop/mobile) es responsive real (media query en `768px`), igual criterio que el resto de módulos.
 
 **Tema:** el bloque de contenido usa `data-theme="dark-black-neutral"` sobre la imagen de fondo — el label (`--color-content-neutral-3`, `#b3b3b3`) y el título (`--color-content-base`, blanco) de ese tema coinciden exactamente con los valores de Figma. La tarjeta Toast, blanca con texto oscuro, sobreescribe de vuelta a `data-theme="light-white"` en su propio contenedor — mismo patrón de temas anidados del punto 16 de las instrucciones (footer oscuro + bloque hijo claro).
 
-**Grid de 12 columnas:** los márgenes laterales del bloque de contenido usan `padding-inline: var(--grid-margin-default)`. El ancho del bloque de contenido (664px desktop) es literal — a 1440px no coincide limpiamente con ningún nº de columnas (6 columnas = 648px, 16px de diferencia, por encima del redondeo de 4px aceptado en otros módulos), así que se centra con flexbox igual que Hero / Section hero. Los márgenes propios de la barra de navegación (40px desktop / 24px mobile) son distintos y más estrechos que `--grid-margin-default` — literal específico de esa pieza, no se fuerza al token del módulo.
+**Grid de 12 columnas:** los márgenes laterales del bloque de contenido usan `padding-inline: var(--grid-margin-default)`. El ancho del bloque de contenido (664px desktop) es literal — a 1440px no coincide limpiamente con ningún nº de columnas (6 columnas = 648px, 16px de diferencia, por encima del redondeo de 4px aceptado en otros módulos), así que se centra con flexbox igual que Hero / Section hero. Los márgenes propios de la barra de navegación (40px desktop / 24px mobile, más estrechos que `--grid-margin-default`) ya no son literales de este archivo — los aplica el propio módulo `Navigation` reutilizado aquí.
 
 ## Tokens
 
@@ -55,15 +53,13 @@ La propiedad "Property1" (desktop/mobile) es responsive real (media query en `76
 
 ## Accesibilidad
 
-- La navegación usa `<nav aria-label="Navegación principal">`.
-- Los iconos de solo-icono (menú, buscar, cesta en mobile) llevan `title` para lector de pantalla vía el prop `title` de `Icon`.
+- La navegación reutiliza la accesibilidad ya documentada de `Navigation` (botón de menú con `aria-label`, logo como enlace con `aria-label`).
 - El botón usa el componente `Button` accesible ya construido (foco visible, `href` opcional como enlace real).
 
 ## Componentes relacionados
 
-- **Icon** — iconos `List`, `MagnifyingGlass`, `Bag`.
-- **Brand Logo** — logo centrado de la nav.
+- **Navigation (header principal)** — barra de navegación reutilizada tal cual (`variant="transparent"`).
 - **UI02-Button** — botón primario del contenido.
 - **Aspect Ratio** — imagen de la tarjeta Toast.
 - **Hero / Section hero** — mismo criterio de centrado por flexbox sobre fondo full-bleed.
-- **Navigation (header principal)** y **Toast** — módulos pendientes que sustituirán a las piezas internas simplificadas de aquí (ver "Comportamiento").
+- **Toast** — módulo pendiente que sustituirá a la pieza interna simplificada `HomepageHeroToast` (ver "Comportamiento").
