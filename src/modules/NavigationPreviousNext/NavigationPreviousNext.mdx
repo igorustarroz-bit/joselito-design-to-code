@@ -1,0 +1,52 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks'
+import * as NavigationPreviousNextStories from './NavigationPreviousNext.stories'
+
+<Meta of={NavigationPreviousNextStories} />
+
+# Navigation / PreviousNext
+
+## Intro
+
+`NavigationPreviousNext` traduce el módulo **Navigation / PreviousNext** de Figma (`node 58084:30111`, COMPONENT_SET: Device=desktop/mobile). Barra de paginación anterior/siguiente a todo el ancho.
+
+Es un módulo "contenedor" (`src/modules/`, no `src/components/`): ocupa el 100% del ancho del viewport.
+
+## Demo
+
+<Canvas of={NavigationPreviousNextStories.Default} />
+
+## Anatomía
+
+Dos lados simétricos: "Anterior" (icono `ArrowLeft` + texto) a la izquierda, "Siguiente" (texto + icono `ArrowRight`) a la derecha. Ambos botones son instancias reales de `ButtonIcon` (UI03, `secondary`/`l`), verificado en las dos variantes de Figma — reutilizado tal cual, sin CSS propio.
+
+## Comportamiento
+
+**Presentacional**: la app pasa `onPrevious`/`onNext` (o `previousHref`/`nextHref`) y controla `disablePrevious`/`disableNext` — mismo criterio de botones controlados por props que el resto del sistema.
+
+## Tokens
+
+- `--text-body-6` (26px/38px a 1440px, 20px/28px a 375px — coincide exactamente con la escala responsive ya existente, sin necesidad de ajuste), color `--color-content-base`.
+- `--color-icon-neutral-3` (borde superior).
+- `--spacing-r-13` (padding vertical: 40px mobile → 80px desktop, coincide exactamente en ambos extremos verificados con `get_design_context`; se descartó `--spacing-r-10`, que da 56px a 1440px y no coincide).
+- `--grid-margin-default` (padding horizontal).
+- `--spacing-fx-8`/`--spacing-fx-3` (gap icono↔texto desktop/mobile, primitivas fijas).
+- Los anchos fijos de texto de la instancia de Figma (524px/536px) se sustituyen por `flex: 1 0 0` fluido.
+
+## Propiedades
+
+| Nombre | Descripción | Por defecto | Control |
+|---|---|---|---|
+| `previousLabel` / `nextLabel` | Texto de cada lado | `'Anterior'` / `'Siguiente'` | text |
+| `previousHref` / `nextHref` | Si se pasan, cada lado renderiza un enlace | — | text |
+| `onPrevious` / `onNext` | Callback al pulsar cada botón | — | — |
+| `disablePrevious` / `disableNext` | Deshabilita cada lado | `false` | boolean |
+
+## Accesibilidad
+
+- `<nav aria-label="Paginación">` envolviendo ambos lados.
+- Cada `ButtonIcon` lleva `aria-label` con el texto visible del lado correspondiente (sin depender solo del icono).
+
+## Componentes relacionados
+
+- **UI03 · Button Icon** — reutilizado tal cual (`secondary`/`l`).
+- **Icon** — `ArrowLeft`/`ArrowRight`.

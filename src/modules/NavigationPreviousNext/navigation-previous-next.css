@@ -1,0 +1,74 @@
+/**
+ * Navigation / PreviousNext — node 58084:30111 en Figma (COMPONENT_SET,
+ * 2 variantes: Device=desktop/mobile). Barra de paginación, ambos lados con
+ * el mismo patrón (icono + texto), reutilizando la instancia real de
+ * `ButtonIcon` (`secondary`/`l`, 64px) que ya trae Figma en las dos
+ * variantes — sin CSS propio para el botón.
+ *
+ * **Tokens verificados con `get_design_context`** (ambas variantes):
+ * - Texto: `Typography/Body 6` → `--text-body-6` (26px/38px desktop 1440px,
+ *   20px/28px mobile 375px — coincide exactamente con la escala responsive
+ *   ya existente), color `Texts/Base` → `--color-content-base`.
+ * - Borde superior: `Strokes-Icons/Neutral-3` (`#e5e5e5`) →
+ *   `--color-icon-neutral-3`.
+ * - Padding vertical: `40px` mobile / `80px` desktop coincide exactamente,
+ *   en ambos extremos verificados, con un único token responsive real:
+ *   `--spacing-r-13` (40px base → 80px a ≥1440px) — no `--spacing-r-10`
+ *   (56px a ≥1440px, no coincide). Padding horizontal: `--grid-margin-default`
+ *   (20px base / 60px ≥768px), igual que el resto del plan.
+ * - Gap icono↔texto: 32px desktop / 12px mobile — coinciden con primitivas
+ *   fijas `--spacing-fx-8`/`--spacing-fx-3` (no responsive, igual criterio
+ *   que Navigation / Secondary menu).
+ * - Los anchos fijos del bloque de texto en Figma (524px/536px) se
+ *   sustituyen por `flex: 1 0 0` fluido (ya presente en el propio código
+ *   generado por Figma, `flex-[1_0_0]`), para no limitar la longitud del
+ *   texto de paginación a un valor arbitrario de la instancia de ejemplo.
+ */
+
+.navigation-previous-next {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border-top: 1px solid var(--color-icon-neutral-3);
+  background: var(--color-surface-base);
+  padding: var(--spacing-r-13) var(--grid-margin-default);
+}
+
+.navigation-previous-next__side {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-fx-3);
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+.navigation-previous-next__side--next {
+  justify-content: flex-end;
+}
+
+.navigation-previous-next__label {
+  font-family: var(--font-body);
+  font-weight: normal;
+  font-size: var(--text-body-6);
+  line-height: var(--text-body-6--line-height);
+  color: var(--color-content-base);
+}
+
+.navigation-previous-next__side--previous .navigation-previous-next__label {
+  text-align: left;
+}
+
+.navigation-previous-next__side--next .navigation-previous-next__label {
+  text-align: right;
+}
+
+@media (min-width: 1440px) {
+  .navigation-previous-next {
+    padding: var(--spacing-r-13) var(--grid-margin-default);
+  }
+
+  .navigation-previous-next__side {
+    gap: var(--spacing-fx-8);
+  }
+}
